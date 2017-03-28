@@ -1,0 +1,52 @@
+This is BibTeX, Version 0.99d (TeX Live 2016)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: main.aux
+The style file: unsrt.bst
+A level-1 auxiliary file: data/eval.aux
+A level-1 auxiliary file: data/wenxianzongshu.aux
+Database file #1: data/文献综述.bib
+Warning--empty publisher in Desrosiers2011A
+Warning--empty journal in Fern2012Cross
+Warning--empty journal in Enrich2013Cold
+You've used 20 entries,
+            1791 wiz_defined-function locations,
+            574 strings with 7128 characters,
+and the built_in function-call counts, 5371 in all, are:
+= -- 478
+> -- 197
+< -- 10
++ -- 74
+- -- 54
+* -- 309
+:= -- 774
+add.period$ -- 61
+call.type$ -- 20
+change.case$ -- 17
+chr.to.int$ -- 0
+cite$ -- 23
+duplicate$ -- 282
+empty$ -- 550
+format.name$ -- 54
+if$ -- 1283
+int.to.chr$ -- 0
+int.to.str$ -- 20
+missing$ -- 21
+newline$ -- 103
+num.names$ -- 20
+pop$ -- 86
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 171
+stack$ -- 0
+substring$ -- 359
+swap$ -- 105
+text.length$ -- 10
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 3
+while$ -- 47
+width$ -- 22
+write$ -- 217
+(There were 3 warnings)

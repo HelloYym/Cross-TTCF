@@ -1,0 +1,9 @@
+\contentsline {chapter}{\numberline {1}本科毕业设计开题报告}{1}
+\contentsline {section}{\numberline {1.1}项目背景}{1}
+\contentsline {section}{\numberline {1.2}目标和内容}{1}
+\contentsline {section}{\numberline {1.3}可行性分析}{1}
+\contentsline {section}{\numberline {1.4}初步技术方案和关键技术考虑}{1}
+\contentsline {section}{\numberline {1.5}预期工作结果}{1}
+\contentsline {section}{\numberline {1.6}进度计划}{1}
+\contentsline {chapter}{\numberline {2}本科毕业设计外文翻译}{2}
+\contentsfinish 

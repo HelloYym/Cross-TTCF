@@ -1,0 +1,23 @@
+\contentsline {chapter}{\numberline {1}背景}{1}
+\contentsline {chapter}{\numberline {2}协同过滤的研究现状}{3}
+\contentsline {section}{\numberline {2.1}基于邻域的协同过滤}{4}
+\contentsline {subsection}{\numberline {2.1.1}基于用户的协同过滤}{4}
+\contentsline {subsection}{\numberline {2.1.2}基于物品的协同过滤}{5}
+\contentsline {subsection}{\numberline {2.1.3}相似性权重计算}{5}
+\contentsline {subsection}{\numberline {2.1.4}基于用户与物品方法对比}{5}
+\contentsline {section}{\numberline {2.2}基于潜在特征的协同过滤}{6}
+\contentsline {subsection}{\numberline {2.2.1}基本的矩阵分解模型}{6}
+\contentsline {subsection}{\numberline {2.2.2}随机梯度下降}{7}
+\contentsline {subsection}{\numberline {2.2.3}交替最小二乘}{7}
+\contentsline {subsection}{\numberline {2.2.4}加入偏移量}{7}
+\contentsline {subsection}{\numberline {2.2.5}概率矩阵分解}{8}
+\contentsline {section}{\numberline {2.3}隐式反馈数据集上的协同过滤}{8}
+\contentsline {chapter}{\numberline {3}热门研究方向}{10}
+\contentsline {section}{\numberline {3.1}混合推荐模型}{10}
+\contentsline {subsection}{\numberline {3.1.1}概率主题模型}{11}
+\contentsline {subsection}{\numberline {3.1.2}协同主题回归}{11}
+\contentsline {section}{\numberline {3.2}跨域推荐系统}{12}
+\contentsline {subsection}{\numberline {3.2.1}迁移学习模型}{13}
+\contentsline {subsection}{\numberline {3.2.2}基于语义桥的跨域推荐}{13}
+\contentsline {chapter}{\numberline {4}总结及展望}{13}
+\contentsfinish 

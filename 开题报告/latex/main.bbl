@@ -1,0 +1,120 @@
+\begin{thebibliography}{10}
+
+\bibitem{项亮2012推荐系统实践}
+项亮.
+\newblock {\em 推荐系统实践}.
+\newblock 人民邮电出版社, 2012.
+
+\bibitem{王国霞2012个性化推荐系统综述}
+王国霞 and 刘贺平.
+\newblock 个性化推荐系统综述.
+\newblock {\em 计算机工程与应用}, 48(7):66--76, 2012.
+
+\bibitem{肖力涛2016基于隐式因子和隐式主题的跨域推荐算法研究}
+肖力涛.
+\newblock {\em 基于隐式因子和隐式主题的跨域推荐算法研究}.
+\newblock PhD thesis, 浙江大学, 2016.
+
+\bibitem{Goldberg1992Using}
+David Goldberg.
+\newblock Using collaborative filtering to weave an information tapestry.
+\newblock {\em Communications of the Acm}, 35(12):61--70, 1992.
+
+\bibitem{Desrosiers2011A}
+Christian Desrosiers and George Karypis.
+\newblock {\em A Comprehensive Survey of Neighborhood-based Recommendation
+  Methods}.
+\newblock 2011.
+
+\bibitem{Sarwar2001Item}
+Badrul Sarwar, George Karypis, Joseph Konstan, and John Riedl.
+\newblock Item-based collaborative filtering recommendation algorithms.
+\newblock In {\em International Conference on World Wide Web}, pages 285--295,
+  2001.
+
+\bibitem{paterek2007improving}
+Arkadiusz Paterek.
+\newblock Improving regularized singular value decomposition for collaborative
+  filtering.
+\newblock In {\em Proceedings of KDD cup and workshop}, volume 2007, pages
+  5--8, 2007.
+
+\bibitem{Koren2009Matrix}
+Y~Koren, R~Bell, and C~Volinsky.
+\newblock Matrix factorization techniques for recommender systems.
+\newblock {\em Computer}, 42(8):30--37, 2009.
+
+\bibitem{Salakhutdinov2007Probabilistic}
+R.~Salakhutdinov and A.~Mnih.
+\newblock Probabilistic matrix factorization.
+\newblock In {\em International Conference on Machine Learning}, pages
+  880--887, 2007.
+
+\bibitem{Hu2008Collaborative}
+Yifan Hu, Yehuda Koren, and Chris Volinsky.
+\newblock Collaborative filtering for implicit feedback datasets.
+\newblock In {\em Eighth IEEE International Conference on Data Mining}, pages
+  263--272, 2008.
+
+\bibitem{Wang2011Collaborative}
+Chong Wang and David~M. Blei.
+\newblock Collaborative topic modeling for recommending scientific articles.
+\newblock In {\em ACM SIGKDD International Conference on Knowledge Discovery
+  and Data Mining, San Diego, Ca, Usa, August}, pages 448--456, 2011.
+
+\bibitem{Agarwal2009Regression}
+Deepak Agarwal and Bee~Chung Chen.
+\newblock Regression-based latent factor models.
+\newblock In {\em ACM SIGKDD International Conference on Knowledge Discovery
+  and Data Mining}, pages 19--28, 2009.
+
+\bibitem{Blei2003Latent}
+David~M Blei, Andrew~Y Ng, and Michael~I Jordan.
+\newblock Latent dirichlet allocation.
+\newblock {\em Journal of Machine Learning Research}, 3:993--1022, 2003.
+
+\bibitem{Chang2009Reading}
+Jonathan Chang, Jordan~L. Boyd-Graber, Sean Gerrish, Chong Wang, and David~M.
+  Blei.
+\newblock Reading tea leaves: How humans interpret topic models.
+\newblock {\em Advances in Neural Information Processing Systems}, 32:288--296,
+  2009.
+
+\bibitem{Xin2015Cross}
+Xin Xin, Zhirun Liu, Chin~Yew Lin, Heyan Huang, Xiaochi Wei, and Ping Guo.
+\newblock Cross-domain collaborative filtering with review text.
+\newblock In {\em International Conference on Artificial Intelligence}, pages
+  1827--1833, 2015.
+
+\bibitem{Fern2012Cross}
+Ignacio Fernández-Tobías, Iván Cantador, Marius Kaminskas, and Francesco
+  Ricci.
+\newblock Cross-domain recommender systems: A survey of the state of the art.
+\newblock 2012.
+
+\bibitem{Loizou2009How}
+Antonis Loizou.
+\newblock How to recommend music to film buffs: Enabling the provision of
+  recommendations from multiple domains.
+\newblock {\em University of Southampton}, 2009.
+
+\bibitem{Enrich2013Cold}
+Manuel Enrich, Matthias Braunhofer, and Francesco Ricci.
+\newblock Cold-start management with cross-domain collaborative filtering and
+  tags.
+\newblock 152:101--112, 2013.
+
+\bibitem{chen2016capturing}
+Chaochao Chen, Xiaolin Zheng, Yan Wang, Fuxing Hong, and Deren Chen.
+\newblock Capturing semantic correlation for item recommendation in tagging
+  systems.
+\newblock In {\em AAAI}, pages 108--114, 2016.
+
+\bibitem{shi2011tags}
+Yue Shi, Martha Larson, and Alan Hanjalic.
+\newblock Tags as bridges between domains: Improving recommendation with
+  tag-induced cross-domain collaborative filtering.
+\newblock In {\em International Conference on User Modeling, Adaptation, and
+  Personalization}, pages 305--316. Springer, 2011.
+
+\end{thebibliography}
