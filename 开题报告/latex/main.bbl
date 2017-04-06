@@ -12,8 +12,8 @@
 
 \bibitem{肖力涛2016基于隐式因子和隐式主题的跨域推荐算法研究}
 肖力涛.
-\newblock {\em 基于隐式因子和隐式主题的跨域推荐算法研究}.
-\newblock PhD thesis, 浙江大学, 2016.
+\newblock 基于隐式因子和隐式主题的跨域推荐算法研究.
+\newblock Master's thesis, 浙江大学, 2016.
 
 \bibitem{Goldberg1992Using}
 David Goldberg.
@@ -86,11 +86,11 @@ Xin Xin, Zhirun Liu, Chin~Yew Lin, Heyan Huang, Xiaochi Wei, and Ping Guo.
 \newblock In {\em International Conference on Artificial Intelligence}, pages
   1827--1833, 2015.
 
-\bibitem{Fern2012Cross}
-Ignacio Fernández-Tobías, Iván Cantador, Marius Kaminskas, and Francesco
-  Ricci.
+\bibitem{fernandez2012cross}
+Ignacio Fern{\'a}ndez-Tob{\'\i}as, Iv{\'a}n Cantador, Marius Kaminskas, and
+  Francesco Ricci.
 \newblock Cross-domain recommender systems: A survey of the state of the art.
-\newblock 2012.
+\newblock In {\em Spanish Conference on Information Retrieval}, 2012.
 
 \bibitem{Loizou2009How}
 Antonis Loizou.
