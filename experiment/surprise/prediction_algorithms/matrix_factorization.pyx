@@ -108,6 +108,7 @@ class SVD(AlgoBase):
                  reg_bu=None, reg_bi=None, reg_pu=None, reg_qi=None,
                  verbose=False):
 
+
         self.n_factors = n_factors
         self.n_epochs = n_epochs
         self.biased = biased
@@ -215,6 +216,8 @@ class SVD(AlgoBase):
                     qif = qi[i, f]
                     pu[u, f] += lr_pu * (err * qif - reg_pu * puf)
                     qi[i, f] += lr_qi * (err * puf - reg_qi * qif)
+
+                print(pu[u])
 
         self.bu = bu
         self.bi = bi

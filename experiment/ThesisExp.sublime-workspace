@@ -1,0 +1,729 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"l",
+				"lr_all\tstatement"
+			],
+			[
+				"re",
+				"reg_all\tstatement"
+			],
+			[
+				"sum",
+				"sum_yt\tstatement"
+			],
+			[
+				"trai",
+				"trainset\tstatement"
+			],
+			[
+				"n",
+				"n_factors\tstatement"
+			],
+			[
+				"train",
+				"trainset\tparam"
+			],
+			[
+				"bi",
+				"biased\tstatement"
+			],
+			[
+				"n_",
+				"n_tags\tstatement"
+			],
+			[
+				"data",
+				"dataset\tstatement"
+			],
+			[
+				"for",
+				"format\tfunction"
+			],
+			[
+				"tr",
+				"trainset\tstatement"
+			],
+			[
+				"raw",
+				"raw2inner_id_tags\tstatement"
+			],
+			[
+				"user",
+				"user_item_rating_tags\tstatement"
+			],
+			[
+				"tag",
+				"tags_dict"
+			],
+			[
+				"tags_",
+				"tags_dict"
+			],
+			[
+				"item",
+				"items"
+			],
+			[
+				"ra",
+				"ratings\tforstmt"
+			],
+			[
+				"skip",
+				"skip_lines"
+			],
+			[
+				"se",
+				"self"
+			],
+			[
+				"s",
+				"sep\tparam"
+			],
+			[
+				"csv",
+				"csv_file\tstatement"
+			],
+			[
+				"rating",
+				"ratings_reader\tstatement"
+			],
+			[
+				"ta",
+				"tags_file_path\tstatement"
+			],
+			[
+				"tags",
+				"tags_file\tparam"
+			],
+			[
+				"rat",
+				"ratings_file_path\tstatement"
+			],
+			[
+				"rea",
+				"read"
+			],
+			[
+				"value",
+				"values\tstatement"
+			],
+			[
+				"cs",
+				"csv_file\tparam"
+			],
+			[
+				"T",
+				"TagsReader\tclass"
+			],
+			[
+				"file",
+				"file_name\tparam"
+			],
+			[
+				"white",
+				"whitespace_split\tstatement"
+			],
+			[
+				"las",
+				"last_iid\tstatement"
+			],
+			[
+				"Ta",
+				"TagsReader\timport"
+			],
+			[
+				"Re",
+				"RatingsReader\tclass"
+			],
+			[
+				"par",
+				"parse_line"
+			],
+			[
+				"SVD",
+				"SVDpp\tclass"
+			],
+			[
+				"K",
+				"KNNBasicTest\tclass"
+			],
+			[
+				"KNN",
+				"KNNWithMeans\tclass"
+			],
+			[
+				"gri",
+				"GridSearch\tclass"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "0329.py",
+			"settings":
+			{
+				"buffer_size": 1399,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					""
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Traditional"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"PdfLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"XeLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"LuaLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - PdfLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - XeLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Basic Builder - LuaLaTeX"
+				],
+				[
+					"Packages/LaTeXTools/LaTeX.sublime-build",
+					"Script Builder"
+				]
+			],
+			[
+				"Packages/LaTeXTools/LaTeX.sublime-build",
+				"XeLaTeX"
+			]
+		],
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 291.0,
+		"last_filter": "sftp",
+		"selected_items":
+		[
+			[
+				"sftp",
+				"SFTP: Map to Remote…"
+			],
+			[
+				"ssp",
+				"Set Syntax: Python"
+			],
+			[
+				"sspy",
+				"Set Syntax: Python"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"a na",
+				"Anaconda: Set Python interpreter"
+			],
+			[
+				"ana set",
+				"Anaconda: Set Python interpreter"
+			],
+			[
+				"",
+				"Anaconda: Set Python interpreter"
+			],
+			[
+				"ftp",
+				"SFTP: Delete Server…"
+			],
+			[
+				"latex",
+				"LaTeXTools: Jump to PDF"
+			],
+			[
+				"LaTeXTools: ",
+				"LaTeXTools: View PDF"
+			],
+			[
+				"LaTeXTools: Check System",
+				"LaTeXTools: Check system"
+			]
+		],
+		"width": 507.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'df21e130d211cfc94d9b0905775a7c0f' + '1e3d39e33b79698005270310898eea76'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/yangyuming/Thesis/experiment"
+	],
+	"file_history":
+	[
+		"/Users/yangyuming/Thesis/experiment/sftp-config.json",
+		"/Users/yangyuming/Thesis/experiment/surprise/prediction_algorithms/matrix_factorization.pyx",
+		"/Users/yangyuming/Thesis/experiment/surprise/Reader.py",
+		"/Users/yangyuming/anaconda/envs/thesis/lib/python3.6/site-packages/pandas/io/parsers.py",
+		"/Users/yangyuming/Thesis/experiment/surprise/evaluate.py",
+		"/Users/yangyuming/Thesis/experiment/surprise/__init__.py",
+		"/Users/yangyuming/Thesis/experiment/kkn_test.py",
+		"/Users/yangyuming/Thesis/experiment/surprise/prediction_algorithms/algo_base.py",
+		"/Users/yangyuming/PycharmProjects/WhatsIM/IMapp/templates/index.html",
+		"/Users/yangyuming/PycharmProjects/WhatsIM/IMapp/static/js/index.js",
+		"/Users/yangyuming/Thesis/experiment/surprise/dataset.py",
+		"/Users/yangyuming/Thesis/experiment/surprise/__main__.py",
+		"/Users/yangyuming/anaconda/envs/thesis/lib/python3.6/site-packages/surprise/accuracy.py",
+		"/Users/yangyuming/anaconda/envs/thesis/lib/python3.6/site-packages/surprise/prediction_algorithms/matrix_factorization.pyx",
+		"/Users/yangyuming/anaconda/envs/thesis/lib/python3.6/site-packages/surprise/similarities.pyx",
+		"/Users/yangyuming/anaconda/envs/thesis/lib/python3.6/site-packages/surprise/evaluate.py",
+		"/Users/yangyuming/Thesis/experiment/surprise/similarities.pyx",
+		"/Users/yangyuming/anaconda/envs/thesis/lib/python3.6/site-packages/surprise/__init__.py",
+		"/Users/yangyuming/anaconda/envs/thesis/lib/python3.6/site-packages/surprise/prediction_algorithms/algo_base.py",
+		"/Users/yangyuming/anaconda/envs/thesis/lib/python3.6/site-packages/surprise/prediction_algorithms/knns.py",
+		"/Users/yangyuming/anaconda/envs/thesis/lib/python3.6/site-packages/surprise/prediction_algorithms/__init__.py",
+		"/Users/yangyuming/anaconda/envs/thesis/lib/python3.6/site-packages/surprise/prediction_algorithms/co_clustering.pyx",
+		"/Users/yangyuming/anaconda/envs/thesis/lib/python3.6/site-packages/surprise/prediction_algorithms/predictions.py",
+		"/Users/yangyuming/anaconda/envs/thesis/lib/python3.6/site-packages/surprise/prediction_algorithms/matrix_factorization.c",
+		"/Users/yangyuming/anaconda/envs/thesis/lib/python3.6/site-packages/surprise/__main__.py",
+		"/Users/yangyuming/Thesis/experiment/surprise.sublime-project",
+		"/Users/yangyuming/Thesis/experiment/0329.py",
+		"/Users/yangyuming/Thesis/experiment/ml-latest-small/README.txt",
+		"/Users/yangyuming/Thesis/experiment/test.sublime-project",
+		"/Users/yangyuming/Library/Application Support/Sublime Text 3/Packages/Anaconda/Anaconda.sublime-settings",
+		"/Users/yangyuming/Library/Application Support/Sublime Text 3/Packages/User/Anaconda.sublime-settings",
+		"/Users/yangyuming/Thesis/开题报告/latex/data/kaiti.tex",
+		"/Users/yangyuming/Thesis/开题报告/latex/data/wenxianzongshu.tex",
+		"/Users/yangyuming/Thesis/开题报告/latex/csbachelor.cls",
+		"/Users/yangyuming/Thesis/开题报告/latex/main.tex",
+		"/Users/yangyuming/Thesis/开题报告/latex/data/文献综述.bib",
+		"/Users/yangyuming/Desktop/毕设/毕业论文开题报告模板/data/wenxianzongshu.tex",
+		"/Users/yangyuming/Desktop/毕设/毕业论文开题报告模板/data/announce.tex",
+		"/Users/yangyuming/Desktop/毕设/毕业论文开题报告模板/data/eval.tex",
+		"/Users/yangyuming/Desktop/毕设/毕业论文开题报告模板/csbachelor.cls",
+		"/Users/yangyuming/Desktop/毕设/毕业论文开题报告模板/main.tex",
+		"/usr/local/texlive/2016/texmf-dist/tex/latex/biblatex/biblatex.sty",
+		"/Users/yangyuming/Desktop/毕设/毕业论文开题报告模板/data/kaiti.tex",
+		"/Users/yangyuming/Desktop/毕设/毕业论文开题报告模板/data/waiwenfanyi.tex",
+		"/Users/yangyuming/Desktop/毕设/毕业论文开题报告模板/data/cover.tex",
+		"/Users/yangyuming/Desktop/毕设/毕业论文开题报告模板/data/文献翻译.bib",
+		"/Users/yangyuming/Desktop/毕设/毕业论文开题报告模板/csbachelor.cfg",
+		"/Users/yangyuming/百度云同步盘/Gym实验/policy_gradient.py",
+		"/Users/yangyuming/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/yangyuming/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/Users/yangyuming/Library/Application Support/Sublime Text 3/Packages/User/sftp_servers/xiaoxiao",
+		"/Users/yangyuming/Library/Application Support/Sublime Text 3/Packages/User/sftp_servers/untitled",
+		"/Users/yangyuming/Desktop/毕设/毕业论文开题报告模板/data/ttttt.tex",
+		"/Users/yangyuming/Desktop/毕设/毕业论文开题报告模板/data/文献综述.bib",
+		"/Users/yangyuming/Desktop/毕设/毕业论文开题报告模板(xelatex)/main.tex",
+		"/Users/yangyuming/Desktop/毕设/毕业论文开题报告模板(xelatex)/data/wenxianzongshu.tex",
+		"/Users/yangyuming/Desktop/毕设/毕业论文开题报告模板(xelatex)/data/waiwenfanyi.tex",
+		"/Users/yangyuming/Desktop/毕设/毕业论文开题报告模板(xelatex)/data/文献综述.bib",
+		"/Users/yangyuming/Dissertation.sublime-project",
+		"/Users/yangyuming/Desktop/毕设/毕业论文开题报告模板(xelatex)/test.tex",
+		"/Users/yangyuming/Desktop/walle.py",
+		"/Users/yangyuming/Desktop/毕设/毕业论文开题报告模板(xelatex)/data/文献翻译.bib",
+		"/Users/yangyuming/Desktop/毕设/毕业论文开题报告模板(xelatex)/data/waiwenfanyi.aux",
+		"/Users/yangyuming/Desktop/毕设/毕业论文开题报告模板(xelatex)/data/zjubib.bib",
+		"/Users/yangyuming/Library/Application Support/Sublime Text 3/Packages/User/LaTeXTools.sublime-settings",
+		"/Users/yangyuming/Desktop/毕设/毕业论文开题报告模板(xelatex)/data/walle.py",
+		"/Users/yangyuming/Desktop/walle.cpp",
+		"/Users/yangyuming/Library/Application Support/Sublime Text 3/Packages/LaTeXTools/LaTeXTools.sublime-settings",
+		"/Users/yangyuming/Desktop/毕设/毕业论文开题报告模板(xelatex)/images/figure1.jpg",
+		"/Users/yangyuming/Desktop/毕设/毕业论文开题报告模板(xelatex)/data/announce.tex",
+		"/Users/yangyuming/Desktop/毕设/毕业论文开题报告模板(xelatex)/data/eval.tex",
+		"/Users/yangyuming/Desktop/毕设/毕业论文开题报告模板(xelatex)/data/cover.tex",
+		"/Users/yangyuming/Desktop/毕设/毕业论文开题报告模板(xelatex)/data/kaiti.tex",
+		"/Users/yangyuming/Desktop/毕设/毕业论文开题报告模板(xelatex)/_region_.tex",
+		"/Users/yangyuming/Desktop/2017届毕业论文（设计）文件汇总/毕业论文（设计）模版/开题报告模板/计算机专业和软件工程专业开题报告模版/毕业论文开题报告模板(xelatex)/main.tex",
+		"/Users/yangyuming/Desktop/2017届毕业论文（设计）文件汇总/毕业论文（设计）模版/开题报告模板/计算机专业和软件工程专业开题报告模版/毕业论文开题报告模板(xelatex)/_region_.tex"
+	],
+	"find":
+	{
+		"height": 25.0
+	},
+	"find_in_files":
+	{
+		"height": 95.0,
+		"where_history":
+		[
+			"<current file>",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"dictinct",
+			"offset",
+			"estimate",
+			"evaluate",
+			"DATASETS_DIR",
+			"n_tags",
+			"print",
+			"cdef double ",
+			"predict",
+			"split",
+			"encoding",
+			"',)\n",
+			"rags_reader",
+			"DatasetAutoFolds",
+			"offset",
+			"msd",
+			"trainset",
+			"n_users",
+			"load_from_file",
+			" )",
+			"Dataset",
+			"Data",
+			"PredictionImpossible",
+			"()",
+			"yr",
+			"python_interpreter",
+			"bib",
+			"\\subsubsection{",
+			"\\subsection{",
+			"\\section{",
+			"\\subsubsection{",
+			"\\subsection{",
+			"\\section{",
+			"\\begin{enumerate}",
+			"enumer",
+			"en",
+			"fontsize",
+			"type1cm",
+			"CJKfamily",
+			"em",
+			"equ",
+			"e qu",
+			"item",
+			"baselinestretch",
+			"xiaosi",
+			"sihao",
+			"leftmark",
+			"协同",
+			"blei2003latent",
+			"bf",
+			"line",
+			"li ne",
+			"\\linestrech",
+			"textbf",
+			"cite",
+			"某种意义上",
+			"基于潜在特征的协同过滤模型尝试从偏好度矩阵中推断",
+			"[",
+			"[.]",
+			"[",
+			"enumerate",
+			"（19",
+			"（20",
+			"（",
+			"2014",
+			"（",
+			"(",
+			"（",
+			"199",
+			"（",
+			"format",
+			"figure",
+			"图",
+			"re f",
+			"图",
+			"use_biblatex",
+			"settings",
+			"folder-related",
+			"TEXroot",
+			"hostscript",
+			"图 1"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"",
+			"tags_reader",
+			"\\subsection{",
+			"\\section{",
+			"\\chapter{",
+			"\\subsection{",
+			"\\section{",
+			"\\chapter{",
+			"\\begin{enumerate}[itemindent=1em]",
+			"图 \\ref{fig:1}"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "0329.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1399,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content"
+							],
+							"incomplete_sync": null,
+							"remote_loading": false,
+							"synced": false,
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 274.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.latextools":
+	{
+		"height": 208.0
+	},
+	"output.sftp":
+	{
+		"height": 112.0
+	},
+	"pinned_build_system": "Anaconda Python Builder",
+	"project": "ThesisExp.sublime-project",
+	"replace":
+	{
+		"height": 46.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

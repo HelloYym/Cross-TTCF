@@ -99,7 +99,7 @@ class KNNBasic(SymmetricAlgo):
         x, y = self.switch(u, i)
 
         # 只选出了那些用户u关联的item
-        neighbors = [(x2, self.sim[x, x2], r) for (x2, r) in self.yr[y]]
+        neighbors = [(x2, self.sim[x, x2], r) for (x2, r, _) in self.yr[y]]
 
         # sort neighbors by similarity
         neighbors = sorted(neighbors, key=lambda tple: tple[1], reverse=True)
@@ -171,7 +171,7 @@ class KNNWithMeans(SymmetricAlgo):
 
         self.means = np.zeros(self.n_x)
         for x, ratings in iteritems(self.xr):
-            self.means[x] = np.mean([r for (_, r) in ratings])
+            self.means[x] = np.mean([r for (_, r, _) in ratings])
 
     def estimate(self, u, i):
 
@@ -180,7 +180,7 @@ class KNNWithMeans(SymmetricAlgo):
 
         x, y = self.switch(u, i)
 
-        neighbors = [(x2, self.sim[x, x2], r) for (x2, r) in self.yr[y]]
+        neighbors = [(x2, self.sim[x, x2], r) for (x2, r, _) in self.yr[y]]
 
         # sort neighbors by similarity
         neighbors = sorted(neighbors, key=lambda tple: tple[1], reverse=True)
@@ -277,7 +277,7 @@ class KNNBaseline(SymmetricAlgo):
         if not (self.trainset.knows_user(u) and self.trainset.knows_item(i)):
             return est
 
-        neighbors = [(x2, self.sim[x, x2], r) for (x2, r) in self.yr[y]]
+        neighbors = [(x2, self.sim[x, x2], r) for (x2, r, _) in self.yr[y]]
 
         # sort neighbors by similarity
         neighbors = sorted(neighbors, key=lambda tple: tple[1], reverse=True)

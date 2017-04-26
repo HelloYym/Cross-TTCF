@@ -26,16 +26,19 @@ from .knns import KNNBasic
 from .knns import KNNBaseline
 from .knns import KNNWithMeans
 from .knns import SymmetricAlgo
-from .matrix_factorization import SVD
-from .matrix_factorization import SVDpp
-from .matrix_factorization import NMF
-from .slope_one import SlopeOne
-from .co_clustering import CoClustering
+# from .matrix_factorization import SVD
+# from .matrix_factorization import SVDpp
+# from .matrix_factorization import NMF
+# from .slope_one import SlopeOne
+# from .co_clustering import CoClustering
+from .user_item_tags import UserItemTags, UserItemGenomeTags
+from .item_rel_tags import ItemRelTags
+from .svd import SVD
 
 from .predictions import PredictionImpossible
 from .predictions import Prediction
 
 __all__ = ['AlgoBase', 'NormalPredictor', 'BaselineOnly', 'KNNBasic',
            'KNNBaseline', 'KNNWithMeans', 'SVD', 'SVDpp', 'NMF', 'SlopeOne',
-           'CoClustering', 'PredictionImpossible', 'Prediction', 'SymmetricAlgo']
-           
+           'CoClustering', 'PredictionImpossible', 'Prediction',
+           'SymmetricAlgo', 'UserItemTags', 'UserItemGenomeTags', 'ItemRelTags']

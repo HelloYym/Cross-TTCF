@@ -1,23 +1,4 @@
-"""
-the :mod:`dataset` module defines some tools for managing datasets.
 
-Summary:
-
-.. autosummary::
-    :nosignatures:
-
-    Dataset.load_builtin
-    Dataset.load_from_file
-    Dataset.load_from_folds
-    Dataset.folds
-    DatasetAutoFolds.split
-    Reader
-    Trainset
-"""
-
-
-from __future__ import (absolute_import, division, print_function,
-                        unicode_literals)
 from collections import defaultdict
 from collections import namedtuple
 import sys
@@ -25,17 +6,19 @@ import os
 import zipfile
 import itertools
 import random
-import shlex
+import operator
+
 
 import numpy as np
+import matplotlib.pyplot as plt
+
 from six.moves import input
 from six.moves import range
 from six import iteritems
 
+from .Reader import RatingsReader, TagsReader
 
-# directory where builtin datasets are stored. For now it's in the home
-# directory under the .surprise_data. May be ask user to define it?
-DATASETS_DIR = os.path.expanduser('~') + '/.surprise_data/'
+from bidict import bidict
 
 
 class Dataset:
@@ -45,46 +28,72 @@ class Dataset:
     (same goes for its derived classes), but instead use one of the three
     available methods for loading datasets."""
 
-    def __init__(self, ratings_file=None, tags_file=None, ratings_reader=None, tags_reader=None):
+    def __init__(self, dataset_path, sep=',', rating_scale=(0.5, 5), skip_lines=0, tag_genome=False):
 
-        self.ratings_reader = ratings_reader
-        self.tags_reader = tags_reader
-        self.ratings_file = ratings_file
-        self.tags_file = tags_file
+        self.ratings_reader = RatingsReader(
+            dataset_path=dataset_path, sep=sep, rating_scale=rating_scale, skip_lines=skip_lines)
+        self.tags_reader = TagsReader(
+            dataset_path=dataset_path, sep=sep, skip_lines=skip_lines)
+
         self.n_folds = 5
         self.shuffle = True
-        self.raw_ratings = self.read_ratings(self.ratings_file)
-        self.raw_tags = self.read_tags(self.tags_file)
+        self.tag_genome = tag_genome
+        self.raw_tags = self.tags_reader.read()
+        self.genome_tid, self.genome_score = self.tags_reader.read_genome(
+        ) if tag_genome else (None, None)
+        self.raw_ratings = self.ratings_reader.read()
 
-    def read_ratings(self, file_name):
-        """Return a list of ratings (user, item, rating, timestamp) read from
-        file_name"""
+        # 进行数据清洗，例如只选取有标签的评分、高频的标签等
+        self.user_item_rating_tags = self.combine_rating_tag()
 
-        with open(os.path.expanduser(file_name)) as f:
-            raw_ratings = [self.ratings_reader.parse_line(line) for line in
-                           itertools.islice(f, self.ratings_reader.skip_lines, None)]
-        return raw_ratings
+        self.tag_freq = self.cal_tag_freq(threshold=1)
+        self.item_tag_freq = self.cal_item_tag_freq()
 
-    def read_tags(self, file_name):
-        """Return a list of tags (user, item, tags, timestamp) read from
-        file_name"""
+    def combine_rating_tag(self):
+        ''' we consider only the ratings in which at least one tag was used.self
 
-        # 将(user,item)的多个标签聚集在一起
-        with open(os.path.expanduser(file_name)) as f:
-            raw_tags = []
-            last_uid = last_iid = None
-            tags = []
+        '''
+        user_item_rating_tags = list()
+        for user, item, rating in self.raw_ratings:
+            if (user, item) in self.raw_tags:
+                user_item_rating_tags.append(
+                    [user, item, rating, self.raw_tags[(user, item)]])
+        print("there are {} ratings in which at least one tag was used.".format(
+            len(user_item_rating_tags)))
+        return user_item_rating_tags
 
-            for line in itertools.islice(f, self.tags_reader.skip_lines, None):
-                uid, iid, tag, timestamp = self.tags_reader.parse_line(line)
-                tag = tag.split(',')
-                if uid == last_uid and iid == last_iid or len(tags) == 0:
-                    tags.extend([t.strip() for t in tag])
-                else:
-                    raw_tags.append((uid, iid, tags))
-                    tags = [t.strip() for t in tag]
+    def cal_item_tag_freq(self):
+        ''' cal the relevant tag occurrences for item.
 
-        return raw_tags
+        '''
+        item_tag_freq = defaultdict(lambda: defaultdict(int))
+        for _, item, _, tags in self.user_item_rating_tags:
+            for tag in tags:
+                item_tag_freq[item][tag] += 1
+
+        return item_tag_freq
+
+    def raw_folds(self):
+
+        if self.shuffle:
+            random.shuffle(self.user_item_rating_tags)
+            self.shuffle = False  # set to false for future calls to raw_folds
+
+        def k_folds(seq, n_folds):
+            """Inspired from scikit learn KFold method."""
+
+            if n_folds > len(seq) or n_folds < 2:
+                raise ValueError('Incorrect value for n_folds.')
+
+            start, stop = 0, 0
+            for fold_i in range(n_folds):
+                start = stop
+                stop += len(seq) // n_folds
+                if fold_i < len(seq) % n_folds:
+                    stop += 1
+                yield seq[:start] + seq[stop:], seq[start:stop]
+
+        return k_folds(self.user_item_rating_tags, self.n_folds)
 
     def folds(self):
         """Generator function to iterate over the folds of the Dataset.
@@ -102,17 +111,21 @@ class Dataset:
 
     def construct_trainset(self, raw_trainset):
 
-        raw2inner_id_users = {}
-        raw2inner_id_items = {}
+        raw2inner_id_users = bidict()
+        raw2inner_id_items = bidict()
+        raw2inner_id_tags = bidict()
 
         current_u_index = 0
         current_i_index = 0
+        current_t_index = 0
+
+        tag_assignments = 0
 
         ur = defaultdict(list)
         ir = defaultdict(list)
 
-        # user raw id, item raw id, translated rating, time stamp
-        for urid, irid, r, timestamp in raw_trainset:
+        # user raw id, item raw id, translated rating, tags
+        for urid, irid, r, tags_list in raw_trainset:
             try:
                 uid = raw2inner_id_users[urid]
             except KeyError:
@@ -126,29 +139,43 @@ class Dataset:
                 raw2inner_id_items[irid] = current_i_index
                 current_i_index += 1
 
-            ur[uid].append((iid, r))
-            ir[iid].append((uid, r))
+            # 在trainset中保存原始的tag
+            for tag in tags_list:
+                if tag not in raw2inner_id_tags:
+                    raw2inner_id_tags[tag] = current_t_index
+                    current_t_index += 1
+
+            tag_assignments += len(tags_list)    # 统计所有的tag数目
+            ur[uid].append((iid, r, tags_list))
+            ir[iid].append((uid, r, tags_list))
 
         n_users = len(ur)  # number of users
         n_items = len(ir)  # number of items
+        n_tags = current_t_index
         n_ratings = len(raw_trainset)
 
         trainset = Trainset(ur,
                             ir,
                             n_users,
                             n_items,
+                            n_tags,
                             n_ratings,
+                            tag_assignments,
                             self.ratings_reader.rating_scale,
                             self.ratings_reader.offset,
                             raw2inner_id_users,
-                            raw2inner_id_items)
+                            raw2inner_id_items,
+                            raw2inner_id_tags,
+                            self.genome_tid,
+                            self.genome_score,
+                            self.item_tag_freq)
 
         return trainset
 
     def construct_testset(self, raw_testset):
 
-        return [(ruid, riid, r_ui_trans)
-                for (ruid, riid, r_ui_trans, _) in raw_testset]
+        return [(ruid, riid, r_ui_rating, r_ui_tags)
+                for (ruid, riid, r_ui_rating, r_ui_tags) in raw_testset]
 
     def build_full_trainset(self):
         """Do not split the dataset into folds and just return a trainset as
@@ -156,180 +183,60 @@ class Dataset:
 
         """
 
-        return self.construct_trainset(self.raw_ratings)
-
-    def raw_folds(self):
-
-        if self.shuffle:
-            random.shuffle(self.raw_ratings)
-            random.shuffle(self.raw_tags)
-            self.shuffle = False  # set to false for future calls to raw_folds
-
-        def k_folds(seq, n_folds):
-            """Inspired from scikit learn KFold method."""
-
-            if n_folds > len(seq) or n_folds < 2:
-                raise ValueError('Incorrect value for n_folds.')
-
-            start, stop = 0, 0
-            for fold_i in range(n_folds):
-                start = stop
-                stop += len(seq) // n_folds
-                if fold_i < len(seq) % n_folds:
-                    stop += 1
-                yield seq[:start] + seq[stop:], seq[start:stop]
-
-        return k_folds(self.raw_ratings, self.n_folds)
+        return self.construct_trainset(self.user_item_rating_tags)
 
     def split(self, n_folds=5, shuffle=True):
         """Split the dataset into folds for futur cross-validation.
 
-        If you forget to call :meth:`split`, the dataset will be automatically
-        shuffled and split for 5-folds cross-validation.
-
-        You can obtain repeatable splits over your all your experiments by
-        seeding the RNG: ::
-
-            import random
-            random.seed(my_seed)  # call this before you call split!
-
-        Args:
-            n_folds(:obj:`int`): The number of folds.
-            shuffle(:obj:`bool`): Whether to shuffle ratings before splitting.
-                If ``False``, folds will always be the same each time the
-                experiment is run. Default is ``True``.
         """
 
         self.n_folds = n_folds
         self.shuffle = shuffle
 
+    def cal_tag_freq(self, threshold):
+        '''计算tag的出现次数
 
-class Reader():
-    """Abstract class where is used to parse a file containing ratings or tags.
+        '''
+        tag_freq = defaultdict(int)
+        for _, tags in self.raw_tags.items():
+            for tag in tags:
+                tag_freq[tag] += 1
 
-    Such a file is assumed to specify only one value per line, and each line
-    needs to respect the following structure: ::
+        tag_freq = {k: v for k, v in tag_freq.items() if v >= threshold}
+        return tag_freq
 
-        user ; item ; value ; [timestamp]
+    def info(self, diagram=False):
+        '''计算每个tag的出现频数'''
 
-    where the order of the fields and the seperator (here ';') may be
-    arbitrarily defined (see below).  brackets indicate that the timestamp
-    field is optional.
+        dataset = self.build_full_trainset()
+        print("Total number of ratings: {}".format(dataset.n_ratings))
+        print("Unique users: {}".format(dataset.n_users))
+        print("Unique items: {}".format(dataset.n_items))
+        print("Unique tags: {}".format(dataset.n_tags))
+        print("Tag assignments: {}".format(dataset.tag_assignments))
+        print("Average ratings per user: {}".format(
+            dataset.n_ratings / dataset.n_users))
+        print("Average tags per rating: {}".format(
+            dataset.tag_assignments / dataset.n_ratings))
 
-    """
+    def tag_power_law(self):
+        ''' 统计标签的长尾分布
 
-    def __init__(self, line_format=None, sep=None, skip_lines=0):
+        '''
+        fk = defaultdict(int)
+        for key, value in self.tag_freq.items():
+            fk[value] += 1
 
-        self.sep = sep
-        self.skip_lines = skip_lines
-
-        self.entities = line_format.split()
-
-        self.with_timestamp = True if 'timestamp' in self.entities else False
-
-    def parse_line(self, line):
-        '''Parse a line.
-
-        Args:
-            line(str): The line to parse
-
-        Returns:
-            tuple: User id, item id, value and timestamp. The timestamp is set
-            to ``None`` if it does no exist.
-            '''
-
-        line = line.replace('\'', '')
-        line = shlex.shlex(line, posix=True)
-        line.whitespace = self.sep
-        line.whitespace_split = True
-        line = list(line)
-
-        try:
-            if self.with_timestamp:
-                uid, iid, value, timestamp = (k.strip() for k in line)
-            else:
-                uid, iid, value = (k.strip() for k in line)
-                timestamp = None
-
-        except IndexError:
-            raise ValueError(('Impossible to parse line.' +
-                              ' Check the line_format  and sep parameters.'))
-
-        return uid, iid, value, timestamp
-
-
-class RatingsReader(Reader):
-    """The RatingsReader class is used to parse a file containing ratings.
-
-    Args:
-        line_format(:obj:`string`): The fields names, in the order at which
-            they are encountered on a line. Example: ``'item user rating'``.
-        sep(char): the separator between fields. Example : ``';'``.
-        rating_scale(:obj:`tuple`, optional): The rating scale used for every
-            rating.  Default is ``(1, 5)``.
-        skip_lines(:obj:`int`, optional): Number of lines to skip at the
-            beginning of the file. Default is ``0``.
-
-    """
-
-    def __init__(self, line_format=None, sep=None,
-                 rating_scale=(1, 5), skip_lines=0):
-
-        Reader.__init__(self, line_format, sep, skip_lines)
-        self.rating_scale = rating_scale
-        lower_bound, higher_bound = rating_scale
-        self.offset = -lower_bound + 1 if lower_bound <= 0 else 0
-
-    def parse_line(self, line):
-        '''Parse a line.
-
-        Ratings are translated so that they are all strictly positive.
-
-        Args:
-            line(str): The line to parse
-
-        Returns:
-            tuple: User id, item id, rating and timestamp. The timestamp is set
-            to ``None`` if it does no exist.
-            '''
-
-        uid, iid, value, timestamp = super().parse_line(line)
-        rating = float(value)
-        rating += self.offset
-
-        return uid, iid, rating, timestamp
-
-
-class TagsReader(Reader):
-    """The TagsReader class is used to parse a file containing tags.
-
-    Args:
-        line_format(:obj:`string`): The fields names, in the order at which
-            they are encountered on a line. Example: ``'item user tag'``.
-        sep(char): the separator between fields. Example : ``';'``.
-        skip_lines(:obj:`int`, optional): Number of lines to skip at the
-            beginning of the file. Default is ``0``.
-
-    """
-
-    def __init__(self, line_format=None, sep=None, skip_lines=0):
-
-        Reader.__init__(self, line_format, sep, skip_lines)
-
-    def parse_line(self, line):
-        '''Parse a line.
-
-        Args:
-            line(str): The line to parse
-
-        Returns:
-            tuple: User id, item id, tag and timestamp. The timestamp is set
-            to ``None`` if it does no exist.
-            '''
-
-        uid, iid, tag, timestamp = super().parse_line(line)
-
-        return uid, iid, tag, timestamp
+        plt.scatter(list(fk.keys()), np.array(
+            list(fk.values())), c=np.random.rand(len(fk)))
+        plt.title('标签流行度的长尾分布')
+        plt.xlabel('流行度')  # 给 x 轴添加标签
+        plt.ylabel('标签频度')  # 给 y 轴添加标签
+        plt.yscale('log')
+        plt.xscale('log')
+        plt.xlim(0)
+        plt.ylim(-1)
+        plt.show()
 
 
 class Trainset:
@@ -350,25 +257,35 @@ class Trainset:
             rating)``. The keys are item inner ids.
         n_users: Total number of users :math:`|U|`.
         n_items: Total number of items :math:`|I|`.
+        n_tags: Total number of tags
         n_ratings: Total number of ratings :math:`|R_{train}|`.
         rating_scale(tuple): The minimum and maximal rating of the rating
             scale.
         global_mean: The mean of all ratings :math:`\\mu`.
     """
 
-    def __init__(self, ur, ir, n_users, n_items, n_ratings, rating_scale,
-                 offset, raw2inner_id_users, raw2inner_id_items):
+    def __init__(self, ur, ir, n_users, n_items, n_tags, n_ratings, tag_assignments, rating_scale,
+                 offset, raw2inner_id_users, raw2inner_id_items, raw2inner_id_tags, genome_tid, genome_score, item_tag_freq):
 
         self.ur = ur
         self.ir = ir
         self.n_users = n_users
         self.n_items = n_items
+        self.n_tags = n_tags
         self.n_ratings = n_ratings
+        self.tag_assignments = tag_assignments
         self.rating_scale = rating_scale
         self.offset = offset
         self._raw2inner_id_users = raw2inner_id_users
         self._raw2inner_id_items = raw2inner_id_items
+        self._raw2inner_id_tags = raw2inner_id_tags
         self._global_mean = None
+        self._genome_tid = genome_tid
+        self._genome_score = genome_score
+        if genome_tid:
+            # genome tag编号从1开始，预留一个0
+            self.n_genome_tags = len(genome_tid) + 1
+        self._item_tag_freq = item_tag_freq
 
     def knows_user(self, uid):
         """Indicate if the user is part of the trainset.
@@ -398,47 +315,80 @@ class Trainset:
 
         return iid in self.ir
 
+    def knows_tag(self, tag):
+        try:
+            tid = self.to_inner_tid(tag)
+        except ValueError:
+            tid = -1
+
+        return tid != -1
+
     def to_inner_uid(self, ruid):
-        """Convert a raw **user** id to an inner id.
-
-        See :ref:`this note<raw_inner_note>`.
-
-        Args:
-            ruid(str): The user raw id.
-
-        Returns:
-            int: The user inner id.
-
-        Raises:
-            ValueError: When user is not part of the trainset.
-        """
-
         try:
             return self._raw2inner_id_users[ruid]
         except KeyError:
-            raise ValueError(('User ' + str(ruid) +
+            raise ValueError(('raw user id ' + str(ruid) +
+                              ' is not part of the trainset.'))
+
+    def to_raw_uid(self, iuid):
+        try:
+            return self._raw2inner_id_users.inv[iuid]
+        except KeyError:
+            raise ValueError(('inner item id ' + str(iuid) +
                               ' is not part of the trainset.'))
 
     def to_inner_iid(self, riid):
-        """Convert a raw **item** id to an inner id.
-
-        See :ref:`this note<raw_inner_note>`.
-
-        Args:
-            riid(str): The item raw id.
-
-        Returns:
-            int: The item inner id.
-
-        Raises:
-            ValueError: When item is not part of the trainset.
-        """
-
         try:
             return self._raw2inner_id_items[riid]
         except KeyError:
-            raise ValueError(('Item ' + str(riid) +
+            raise ValueError(('raw item id ' + str(riid) +
                               ' is not part of the trainset.'))
+
+    def to_raw_iid(self, iiid):
+        try:
+            return self._raw2inner_id_items.inv[iiid]
+        except KeyError:
+            raise ValueError(('inner item id ' + str(iiid) +
+                              ' is not part of the trainset.'))
+
+    def to_inner_tid(self, rtag):
+        try:
+            return self._raw2inner_id_tags[rtag]
+        except KeyError:
+            raise ValueError(('raw tag id ' + str(rtag) +
+                              ' is not part of the trainset.'))
+
+    def to_raw_tag(self, itid):
+        try:
+            return self._raw2inner_id_tags.inv[itid]
+        except KeyError:
+            raise ValueError(('inner tag id ' + str(itid) +
+                              ' is not part of the trainset.'))
+
+    def to_genome_tid(self, tag):
+        try:
+            return self._genome_tid[tag]
+        except KeyError:
+            raise ValueError(('Tag ' + str(tag) + ' is not the genome tag.'))
+
+    def is_genome_tag(self, tag):
+        '''判断一个tag是否在genome列表中
+
+        '''
+        return tag in self._genome_tid
+
+    def get_genome_score(self, riid, gtid):
+        try:
+            genome_score = self._genome_score[(riid, gtid)]
+        except:
+            genome_score = 0
+        return genome_score
+
+    def get_item_tag_freq(self, riid, tag):
+        return self._item_tag_freq[riid][tag]
+
+    def get_item_tags(self, riid):
+        return self._item_tag_freq[riid]
 
     def all_ratings(self):
         """Generator function to iterate over all ratings.
@@ -448,8 +398,33 @@ class Trainset:
         """
 
         for u, u_ratings in iteritems(self.ur):
-            for i, r in u_ratings:
+            for i, r, _ in u_ratings:
                 yield u, i, r
+
+    def all_ratings_tags(self):
+        """Generator function to iterate over all ratings.
+
+        Yields:
+            A tuple ``(uid, iid, rating)`` where ids are inner ids.
+        """
+
+        for u, u_ratings in iteritems(self.ur):
+            for i, r, tags in u_ratings:
+                tags = [self.to_inner_tid(tag) for tag in tags]
+                yield u, i, r, tags
+
+    def all_ratings_genome_tags_score(self):
+        """Generator function to iterate over all ratings.
+
+        Yields:
+            A tuple ``(uid, iid, rating)`` where ids are inner ids.
+        """
+        for u, u_ratings in iteritems(self.ur):
+            for i, r, tags in u_ratings:
+                # 返回tags和genome关联度
+                tags_score = [(self.to_genome_tid(tag), self.get_genome_score(self.to_raw_iid(i), self.to_genome_tid(tag)))
+                              for tag in tags if self.is_genome_tag(tag)]
+                yield u, i, r, tags_score
 
     def all_users(self):
         """Generator function to iterate over all users.

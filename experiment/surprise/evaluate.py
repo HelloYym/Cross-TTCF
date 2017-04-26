@@ -16,7 +16,7 @@ from . import accuracy
 from .dump import dump
 
 
-def evaluate(algo, data, measures=['rmse', 'mae'], with_dump=False,
+def evaluate(algo, dataset, aux_dataset=None, measures=['rmse', 'mae'], with_dump=False,
              dump_dir=None, verbose=1):
     """Evaluate the performance of the algorithm on given data.
 
@@ -27,7 +27,7 @@ def evaluate(algo, data, measures=['rmse', 'mae'], with_dump=False,
         algo(:obj:`AlgoBase \
             <surprise.prediction_algorithms.algo_base.AlgoBase>`):
             The algorithm to evaluate.
-        data(:obj:`Dataset <surprise.dataset.Dataset>`): The dataset on which
+        dataset(:obj:`Dataset <surprise.dataset.Dataset>`): The dataset on which
             to evaluate the algorithm.
         measures(list of string): The performance measures to compute. Allowed
             names are function names as defined in the :mod:`accuracy
@@ -52,16 +52,19 @@ def evaluate(algo, data, measures=['rmse', 'mae'], with_dump=False,
     print('Evaluating {0} of algorithm {1}.'.format(
           ', '.join((m.upper() for m in measures)),
           algo.__class__.__name__))
-    print()
 
-    for fold_i, (trainset, testset) in enumerate(data.folds()):
+    for fold_i, (trainset, testset) in enumerate(dataset.folds()):
 
         if verbose:
             print('-' * 12)
             print('Fold ' + str(fold_i + 1))
 
         # train and test algorithm. Keep all rating predictions in a list
-        algo.train(trainset)
+        if aux_dataset:
+            algo.train(trainset, aux_dataset.build_full_trainset())
+        else:
+            algo.train(trainset)
+
         predictions = algo.test(testset, verbose=(verbose == 2))
 
         # compute needed performance statistics
@@ -156,13 +159,13 @@ class GridSearch:
         self.param_combinations = [dict(zip(param_grid, v)) for v in
                                    product(*param_grid.values())]
 
-    def evaluate(self, data):
+    def evaluate(self, dataset, aux_dataset=None):
         """Runs the grid search on dataset.
 
         Class instance attributes can be accessed after the evaluate is done.
 
         Args:
-            data (:obj:`Dataset <surprise.dataset.Dataset>`): The dataset on
+            dataset (:obj:`Dataset <surprise.dataset.Dataset>`): The dataset on
                 which to evaluate the algorithm.
         """
 
@@ -183,7 +186,7 @@ class GridSearch:
 
             # the algorithm to use along with the combination parameters
             algo_instance = self.algo_class(**combination)
-            evaluate_results = evaluate(algo_instance, data,
+            evaluate_results = evaluate(algo_instance, dataset, aux_dataset,
                                         measures=self.measures,
                                         verbose=(self.verbose == 2))
 
@@ -226,6 +229,12 @@ class GridSearch:
             self.best_estimator[measure] = self.algo_class(
                 **self.best_params[measure])
 
+    def print_perf(self):
+        for measure in self.measures:
+            print("Measure: {}".format(measure))
+            print("best score: {}".format(self.best_score[measure]))
+            print("best params: {}".format(self.best_params[measure]))
+
 
 class CaseInsensitiveDefaultDict(defaultdict):
     """From here:
@@ -237,6 +246,7 @@ class CaseInsensitiveDefaultDict(defaultdict):
         Used for the returned dict, so that users can use perf['RMSE'] or
         perf['rmse'] indifferently.
     """
+
     def __setitem__(self, key, value):
         super(CaseInsensitiveDefaultDict, self).__setitem__(key.lower(), value)
 
