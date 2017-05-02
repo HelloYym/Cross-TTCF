@@ -1,7 +1,7 @@
 
 import numpy as np
 from six.moves import range
-
+import copy
 from .algo_base import AlgoBase
 
 
@@ -28,7 +28,7 @@ class ItemRelTags(AlgoBase):
         self.verbose = verbose
 
         AlgoBase.__init__(self)
-        self.estimate_with_tags = False
+        self.estimate_with_tags = True
 
     def train(self, trainset):
 
@@ -66,20 +66,17 @@ class ItemRelTags(AlgoBase):
 
         global_mean = trainset.global_mean if self.biased else 0
 
-        if not self.biased:
-            global_mean = 0
-
         for current_epoch in range(self.n_epochs):
             if self.verbose:
                 print("Processing epoch {}".format(current_epoch))
             for u, i, r in trainset.all_ratings():
 
-                riid = trainset.to_raw_iid(i)
-                item_tags = trainset.get_item_tags(riid)
+                item_tags = trainset.get_item_tags(i)
 
                 n_tags = len(item_tags) if len(item_tags) > 0 else 1
-                sum_yt = sum([yt[trainset.to_inner_tid(tag)] *
-                              freq for tag, freq in item_tags.items()]) / n_tags
+                # n_tags = item_tags[-1] if item_tags[-1] > 0 else 1
+                sum_yt = sum(
+                    [yt[tid] * freq for tid, freq in item_tags.items()]) / n_tags
 
                 # compute current error
                 dot = np.dot((qi[i] + sum_yt), pu[u])
@@ -94,8 +91,7 @@ class ItemRelTags(AlgoBase):
                 pu[u] += lr_pu * (err * (qi[i] + sum_yt) - reg_pu * pu[u])
                 qi[i] += lr_qi * (err * pu[u] - reg_qi * qi[i])
 
-                for tag, freq in item_tags.items():
-                    t = trainset.to_inner_tid(tag)
+                for t, freq in item_tags.items():
                     yt[t] += lr_all * \
                         (pu[u] * freq * (err / n_tags) - reg_all * yt[t])
 
@@ -105,9 +101,7 @@ class ItemRelTags(AlgoBase):
         self.qi = qi
         self.yt = yt
 
-    def estimate(self, u, i):
-
-        # 考虑加入test时的tags
+    def estimate(self, u, i, tags):
 
         est = self.trainset.global_mean if self.biased else 0
 
@@ -118,19 +112,19 @@ class ItemRelTags(AlgoBase):
             est += self.bi[i]
 
         if self.trainset.knows_user(u) and self.trainset.knows_item(i):
-            yt_sum = np.zeros(self.n_factors, np.double)
-            yt_cnt = 0
 
-            riid = self.trainset.to_raw_iid(i)
-            item_tags = self.trainset.get_item_tags(riid)
+            item_tags = copy.deepcopy(self.trainset.get_item_tags(i))
 
-            for tag, freq in item_tags.items():
+            # 将测试集中的标签加入
+            for tag in tags:
                 if self.trainset.knows_tag(tag):
-                    tid = self.trainset.to_inner_tid(tag)
-                    yt_sum += self.yt[tid] * freq
-                    yt_cnt += 1
-            if yt_cnt != 0:
-                yt_sum /= yt_cnt
+                    itid = self.trainset.to_inner_tid(tag)
+                    item_tags[itid] += 1
+
+            yt_cnt = len(item_tags) if len(item_tags) > 0 else 1
+            yt_sum = sum([self.yt[tid] * freq for tid,
+                          freq in item_tags.items()]) / yt_cnt
+
             est += np.dot((self.qi[i] + yt_sum), self.pu[u])
 
         return est

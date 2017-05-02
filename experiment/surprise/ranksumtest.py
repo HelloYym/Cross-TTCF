@@ -4,6 +4,8 @@ setB = [36, 53, 54, 56, 69, 84, 88]
 setA = sorted(setA)
 setB = sorted(setB)
 
+print(setA)
+
 setAsize = len(setA)
 setBsize = len(setB)
 
@@ -24,6 +26,7 @@ setAranks = []
 setBranks = []
 
 for rank, data in enumerate(combinedSet):
+    print(rank)
     if data[1] == 'A':
         setAranks.append(rank + 1)
 
@@ -59,22 +62,22 @@ zDenominator = ((1.0 / 6) * halfMsum * n) ** 0.5
 
 z = zNumerator / zDenominator
 
-print "A raw data : ", setA
-print "B raw data : ", setB
+# print "A raw data : ", setA
+# print "B raw data : ", setB
 
-print "Set A ranks : ", setAranks
-print "Set B ranks : ", setBranks
+# print "Set A ranks : ", setAranks
+# print "Set B ranks : ", setBranks
 
-print "Set A size : ", setAsize
-print "Set B size : ", setBsize
+# print "Set A size : ", setAsize
+# print "Set B size : ", setBsize
 
-print "Set A rank total : ", setArankTotal
-print "Set B rank total : ", setBrankTotal
+# print "Set A rank total : ", setArankTotal
+# print "Set B rank total : ", setBrankTotal
 
-print "Rank Sum (Rm) : ", rankSum
+# print "Rank Sum (Rm) : ", rankSum
 
-print "halfMsum : ", halfMsum
-print "twelthMNsum : ", twelthMNsum
-print "Z numerator : ", zNumerator
-print "Z denominator : ", zDenominator
-print "Z : ", z
+# print "halfMsum : ", halfMsum
+# print "twelthMNsum : ", twelthMNsum
+# print "Z numerator : ", zNumerator
+# print "Z denominator : ", zDenominator
+# print "Z : ", z

@@ -10,8 +10,6 @@ from __future__ import (absolute_import, division, print_function,
 from .. import similarities as sims
 from .predictions import PredictionImpossible
 from .predictions import Prediction
-# from .optimize_baselines import baseline_als
-# from .optimize_baselines import baseline_sgd
 
 
 class AlgoBase:
@@ -31,7 +29,7 @@ class AlgoBase:
         self.sim_options = kwargs.get('sim_options', {})
         if 'user_based' not in self.sim_options:
             self.sim_options['user_based'] = True
-        self.estimate_with_tag = False
+        self.estimate_with_tags = False
 
     def train(self, trainset):
         """Train an algorithm on a given training set.
@@ -90,7 +88,7 @@ class AlgoBase:
         try:
 
             est = self.estimate(
-                iuid, iiid, tags) if self.estimate_with_tag else self.estimate(iuid, iiid)
+                iuid, iiid, tags) if self.estimate_with_tags else self.estimate(iuid, iiid)
 
             # If the details dict was also returned
             if isinstance(est, tuple):
@@ -143,37 +141,6 @@ class AlgoBase:
                                     verbose=verbose)
                        for (uid, iid, r_ui_trans, tags) in testset]
         return predictions
-
-    # def compute_baselines(self):
-    #     """Compute users and items baselines.
-
-    #     The way baselines are computed depends on the ``bsl_options`` parameter
-    #     passed at the creation of the algoritihm (see
-    #     :ref:`baseline_estimates_configuration`).
-
-    #     Returns:
-    #         A tuple ``(bu, bi)``, which are users and items baselines."""
-
-    #     # Firt of, if this method has already been called before on the same
-    #     # trainset, then just return. Indeed, compute_baselines may be called
-    #     # more than one time, for example when a similarity metric (e.g.
-    #     # pearson_baseline) uses baseline estimates.
-    #     if self.bu is not None:
-    #         return self.bu, self.bi
-
-    #     method = dict(als=baseline_als,
-    #                   sgd=baseline_sgd)
-
-    #     method_name = self.bsl_options.get('method', 'als')
-
-    #     try:
-    #         print('Estimating biases using', method_name + '...')
-    #         self.bu, self.bi = method[method_name](self)
-    #         return self.bu, self.bi
-    #     except KeyError:
-    #         raise ValueError('Invalid method ' + method_name +
-    #                          ' for baseline computation.' +
-    #                          ' Available methods are als and sgd.')
 
     def compute_similarities(self):
         """Build the simlarity matrix.

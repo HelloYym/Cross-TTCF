@@ -41,7 +41,6 @@ class UserItemTags(AlgoBase):
         bu = np.zeros(trainset.n_users, np.double)
         # item biases
         bi = np.zeros(trainset.n_items, np.double)
-
         # user factors
         pu = np.random.random((trainset.n_users, self.n_factors)
                               ) / np.sqrt(self.n_factors)
@@ -77,9 +76,6 @@ class UserItemTags(AlgoBase):
                 n_tags = len(tids) if len(tids) > 0 else 1
                 sum_yt = sum([yt[tid] for tid in tids]) / n_tags
 
-                # sum_yt = sum([yt[tid] * self.trainset.get_item_tag_freq(self.trainset.to_raw_iid(
-                #     i), self.trainset.to_raw_tag(tid)) for tid in tids]) / n_tags
-
                 # compute current error
                 dot = np.dot((qi[i] + sum_yt), pu[u])
                 err = r - (global_mean + bu[u] + bi[i] + dot)
@@ -93,12 +89,8 @@ class UserItemTags(AlgoBase):
                 pu[u] += lr_pu * (err * (qi[i] + sum_yt) - reg_pu * pu[u])
                 qi[i] += lr_qi * (err * pu[u] - reg_qi * qi[i])
 
-
                 for t in tids:
-                    # freq = self.trainset.get_item_tag_freq(
-                    #     self.trainset.to_raw_iid(i), self.trainset.to_raw_tag(t))
-                    yt[t] += lr_all * \
-                        (pu[u] * (err / n_tags) - reg_all * yt[t])
+                    yt[t] += lr_all * (pu[u] * (err / n_tags) - reg_all * yt[t])
 
         self.bu = bu
         self.bi = bi
@@ -122,9 +114,6 @@ class UserItemTags(AlgoBase):
 
             for tag in tags:
                 if self.trainset.knows_tag(tag):
-                    freq = self.trainset.get_item_tag_freq(
-                        self.trainset.to_raw_iid(i), tag)
-
                     tid = self.trainset.to_inner_tid(tag)
                     yt_sum += self.yt[tid]
                     yt_cnt += 1

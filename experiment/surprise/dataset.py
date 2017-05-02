@@ -1,24 +1,16 @@
 
 from collections import defaultdict
-from collections import namedtuple
-import sys
-import os
-import zipfile
-import itertools
 import random
-import operator
-
-
 import numpy as np
 import matplotlib.pyplot as plt
 
-from six.moves import input
 from six.moves import range
 from six import iteritems
 
 from .Reader import RatingsReader, TagsReader
 
 from bidict import bidict
+import time
 
 
 class Dataset:
@@ -28,10 +20,13 @@ class Dataset:
     (same goes for its derived classes), but instead use one of the three
     available methods for loading datasets."""
 
-    def __init__(self, dataset_path, sep=',', rating_scale=(0.5, 5), skip_lines=0, tag_genome=False):
+    def __init__(self, dataset_path, sep=',', rating_scale=(0.5, 5), skip_lines=0,
+                 tag_genome=False):
 
         self.ratings_reader = RatingsReader(
-            dataset_path=dataset_path, sep=sep, rating_scale=rating_scale, skip_lines=skip_lines)
+            dataset_path=dataset_path, sep=sep,
+            rating_scale=rating_scale, skip_lines=skip_lines)
+
         self.tags_reader = TagsReader(
             dataset_path=dataset_path, sep=sep, skip_lines=skip_lines)
 
@@ -43,11 +38,16 @@ class Dataset:
         ) if tag_genome else (None, None)
         self.raw_ratings = self.ratings_reader.read()
 
-        # 进行数据清洗，例如只选取有标签的评分、高频的标签等
+        # 只选取有标签的评分
         self.user_item_rating_tags = self.combine_rating_tag()
 
-        self.tag_freq = self.cal_tag_freq(threshold=1)
-        self.item_tag_freq = self.cal_item_tag_freq()
+        # 进行数据清洗，例如去除低频标签、ranksum等
+        self.tags_set = self.get_tags_set()
+        self.tag_freq = self.cal_tag_freq()
+
+        # self.discard_less_common_tag(threshold=10)
+        self.rank_sum_test(confidence=0.95)
+        self.user_item_rating_tags = self.tag_cleaning()
 
     def combine_rating_tag(self):
         ''' we consider only the ratings in which at least one tag was used.self
@@ -62,16 +62,61 @@ class Dataset:
             len(user_item_rating_tags)))
         return user_item_rating_tags
 
-    def cal_item_tag_freq(self):
-        ''' cal the relevant tag occurrences for item.
-
-        '''
-        item_tag_freq = defaultdict(lambda: defaultdict(int))
-        for _, item, _, tags in self.user_item_rating_tags:
+    def get_tags_set(self):
+        tags_set = set()
+        for _, _, _, tags in self.user_item_rating_tags:
             for tag in tags:
-                item_tag_freq[item][tag] += 1
+                tags_set.add(tag)
+        return tags_set
 
-        return item_tag_freq
+    def rank_sum_test(self, confidence=0.95):
+        # 具有某个tag的rating数肯定不会超过50%
+
+        # 先计算每一个分数的秩
+        ratings_num = defaultdict(int)
+        for _, _, r, tags in self.user_item_rating_tags:
+            ratings_num[r] += 1
+
+        ratings_median = defaultdict(int)
+        c = 0
+        for r in np.arange(0.5, 5.5, 0.5):
+            ratings_median[r] = c + (ratings_num[r] + 1) * 0.5
+            c += ratings_num[r]
+
+        tag_rank_sum = defaultdict(list)
+        for _, _, r, tags in self.user_item_rating_tags:
+            ratings_num[r] += 1
+            for tag in tags:
+                tag_rank_sum[tag].append(ratings_median[r])
+
+        all_size = len(self.user_item_rating_tags)
+        for tag, tag_ranks in tag_rank_sum.items():
+            m = len(tag_ranks)
+            n = all_size - m
+            rank_sum = sum(tag_ranks)
+
+            halfMsum = 0.5 * m * (m + n + 1)
+            twelthMNsum = (1.0 / 6) * halfMsum * n
+            zNumerator = rank_sum - halfMsum
+            zDenominator = twelthMNsum ** 0.5
+            z = abs(zNumerator / zDenominator)
+
+            if z < confidence:
+                self.tags_set.discard(tag)
+
+    def discard_less_common_tag(self, threshold):
+        for u, i, r, tags in self.user_item_rating_tags:
+            for tag in tags:
+                if self.tag_freq[tag] < threshold:
+                    self.tags_set.discard(tag)
+
+    def tag_cleaning(self):
+        user_item_rating_tags = list()
+        for u, i, r, tags in self.user_item_rating_tags:
+            tags_cleanned = [tag for tag in tags if tag in self.tags_set]
+            user_item_rating_tags.append((u, i, r, tags_cleanned))
+
+        return user_item_rating_tags
 
     def raw_folds(self):
 
@@ -111,64 +156,11 @@ class Dataset:
 
     def construct_trainset(self, raw_trainset):
 
-        raw2inner_id_users = bidict()
-        raw2inner_id_items = bidict()
-        raw2inner_id_tags = bidict()
-
-        current_u_index = 0
-        current_i_index = 0
-        current_t_index = 0
-
-        tag_assignments = 0
-
-        ur = defaultdict(list)
-        ir = defaultdict(list)
-
-        # user raw id, item raw id, translated rating, tags
-        for urid, irid, r, tags_list in raw_trainset:
-            try:
-                uid = raw2inner_id_users[urid]
-            except KeyError:
-                uid = current_u_index
-                raw2inner_id_users[urid] = current_u_index
-                current_u_index += 1
-            try:
-                iid = raw2inner_id_items[irid]
-            except KeyError:
-                iid = current_i_index
-                raw2inner_id_items[irid] = current_i_index
-                current_i_index += 1
-
-            # 在trainset中保存原始的tag
-            for tag in tags_list:
-                if tag not in raw2inner_id_tags:
-                    raw2inner_id_tags[tag] = current_t_index
-                    current_t_index += 1
-
-            tag_assignments += len(tags_list)    # 统计所有的tag数目
-            ur[uid].append((iid, r, tags_list))
-            ir[iid].append((uid, r, tags_list))
-
-        n_users = len(ur)  # number of users
-        n_items = len(ir)  # number of items
-        n_tags = current_t_index
-        n_ratings = len(raw_trainset)
-
-        trainset = Trainset(ur,
-                            ir,
-                            n_users,
-                            n_items,
-                            n_tags,
-                            n_ratings,
-                            tag_assignments,
+        trainset = Trainset(raw_trainset,
                             self.ratings_reader.rating_scale,
                             self.ratings_reader.offset,
-                            raw2inner_id_users,
-                            raw2inner_id_items,
-                            raw2inner_id_tags,
                             self.genome_tid,
-                            self.genome_score,
-                            self.item_tag_freq)
+                            self.genome_score)
 
         return trainset
 
@@ -193,7 +185,7 @@ class Dataset:
         self.n_folds = n_folds
         self.shuffle = shuffle
 
-    def cal_tag_freq(self, threshold):
+    def cal_tag_freq(self):
         '''计算tag的出现次数
 
         '''
@@ -201,8 +193,6 @@ class Dataset:
         for _, tags in self.raw_tags.items():
             for tag in tags:
                 tag_freq[tag] += 1
-
-        tag_freq = {k: v for k, v in tag_freq.items() if v >= threshold}
         return tag_freq
 
     def info(self, diagram=False):
@@ -264,28 +254,92 @@ class Trainset:
         global_mean: The mean of all ratings :math:`\\mu`.
     """
 
-    def __init__(self, ur, ir, n_users, n_items, n_tags, n_ratings, tag_assignments, rating_scale,
-                 offset, raw2inner_id_users, raw2inner_id_items, raw2inner_id_tags, genome_tid, genome_score, item_tag_freq):
+    def __init__(self, raw_trainset, rating_scale, offset, genome_tid, genome_score):
 
-        self.ur = ur
-        self.ir = ir
-        self.n_users = n_users
-        self.n_items = n_items
-        self.n_tags = n_tags
-        self.n_ratings = n_ratings
-        self.tag_assignments = tag_assignments
+        self.construct_trainset(raw_trainset)
         self.rating_scale = rating_scale
         self.offset = offset
-        self._raw2inner_id_users = raw2inner_id_users
-        self._raw2inner_id_items = raw2inner_id_items
-        self._raw2inner_id_tags = raw2inner_id_tags
         self._global_mean = None
         self._genome_tid = genome_tid
         self._genome_score = genome_score
         if genome_tid:
             # genome tag编号从1开始，预留一个0
             self.n_genome_tags = len(genome_tid) + 1
-        self._item_tag_freq = item_tag_freq
+        self._item_tag_freq = self.cal_item_tag_freq()
+
+    def construct_trainset(self, raw_trainset):
+
+        raw2inner_id_users = bidict()
+        raw2inner_id_items = bidict()
+        raw2inner_id_tags = bidict()
+
+        current_u_index = 0
+        current_i_index = 0
+        current_t_index = 0
+
+        tag_assignments = 0
+
+        ur = defaultdict(list)
+        ir = defaultdict(list)
+        uirts = list()
+
+        # user raw id, item raw id, translated rating, tags
+        for urid, irid, r, tags_list in raw_trainset:
+            try:
+                uid = raw2inner_id_users[urid]
+            except KeyError:
+                uid = current_u_index
+                raw2inner_id_users[urid] = current_u_index
+                current_u_index += 1
+            try:
+                iid = raw2inner_id_items[irid]
+            except KeyError:
+                iid = current_i_index
+                raw2inner_id_items[irid] = current_i_index
+                current_i_index += 1
+
+            # 在trainset中保存inner_tid
+            tids = list()
+            for tag in tags_list:
+                try:
+                    tid = raw2inner_id_tags[tag]
+                except KeyError:
+                    tid = current_t_index
+                    raw2inner_id_tags[tag] = current_t_index
+                    current_t_index += 1
+                tids.append(tid)
+
+            tag_assignments += len(tids)    # 统计所有的tag数目
+            ur[uid].append((iid, r, tids))
+            ir[iid].append((uid, r, tids))
+            uirts.append((uid, iid, r, tids))
+
+        self._raw2inner_id_users = raw2inner_id_users
+        self._raw2inner_id_items = raw2inner_id_items
+        self._raw2inner_id_tags = raw2inner_id_tags
+        self.tag_assignments = tag_assignments
+        self.uirts = uirts
+        self.ur = ur
+        self.ir = ir
+        self.n_users = len(ur)  # number of users
+        self.n_items = len(ir)  # number of items
+        self.n_tags = current_t_index
+        self.n_ratings = len(raw_trainset)
+
+    def cal_item_tag_freq(self):
+        ''' cal the relevant tag occurrences for item.
+
+        '''
+        item_tag_freq = defaultdict(lambda: defaultdict(int))
+
+        for _, iid, _, tids in self.uirts:
+            for tid in tids:
+                item_tag_freq[iid][tid] += 1
+
+        # for iid, tags_freq in item_tag_freq.items():
+        #     item_tag_freq[iid][-1] = sum([freq for tid, freq in tags_freq.items()])
+
+        return item_tag_freq
 
     def knows_user(self, uid):
         """Indicate if the user is part of the trainset.
@@ -316,12 +370,7 @@ class Trainset:
         return iid in self.ir
 
     def knows_tag(self, tag):
-        try:
-            tid = self.to_inner_tid(tag)
-        except ValueError:
-            tid = -1
-
-        return tid != -1
+        return tag in self._raw2inner_id_tags
 
     def to_inner_uid(self, ruid):
         try:
@@ -384,11 +433,11 @@ class Trainset:
             genome_score = 0
         return genome_score
 
-    def get_item_tag_freq(self, riid, tag):
-        return self._item_tag_freq[riid][tag]
+    def get_item_tag_freq(self, iiid, tid):
+        return self._item_tag_freq[iiid][tid]
 
-    def get_item_tags(self, riid):
-        return self._item_tag_freq[riid]
+    def get_item_tags(self, iiid):
+        return self._item_tag_freq[iiid]
 
     def all_ratings(self):
         """Generator function to iterate over all ratings.
@@ -397,9 +446,8 @@ class Trainset:
             A tuple ``(uid, iid, rating)`` where ids are inner ids.
         """
 
-        for u, u_ratings in iteritems(self.ur):
-            for i, r, _ in u_ratings:
-                yield u, i, r
+        for u, i, r, _ in self.uirts:
+            yield u, i, r
 
     def all_ratings_tags(self):
         """Generator function to iterate over all ratings.
@@ -408,10 +456,8 @@ class Trainset:
             A tuple ``(uid, iid, rating)`` where ids are inner ids.
         """
 
-        for u, u_ratings in iteritems(self.ur):
-            for i, r, tags in u_ratings:
-                tags = [self.to_inner_tid(tag) for tag in tags]
-                yield u, i, r, tags
+        for u, i, r, tids in self.uirts:
+            yield u, i, r, tids
 
     def all_ratings_genome_tags_score(self):
         """Generator function to iterate over all ratings.
@@ -419,12 +465,11 @@ class Trainset:
         Yields:
             A tuple ``(uid, iid, rating)`` where ids are inner ids.
         """
-        for u, u_ratings in iteritems(self.ur):
-            for i, r, tags in u_ratings:
+        for u, i, r, tids in self.uirts:
                 # 返回tags和genome关联度
-                tags_score = [(self.to_genome_tid(tag), self.get_genome_score(self.to_raw_iid(i), self.to_genome_tid(tag)))
-                              for tag in tags if self.is_genome_tag(tag)]
-                yield u, i, r, tags_score
+            tags_score = [(self.to_genome_tid(self.to_raw_tag(tid)), self.get_genome_score(self.to_raw_iid(i), self.to_genome_tid(self.to_raw_tag(tid))))
+                          for tid in tids if self.is_genome_tag(self.to_raw_tag(tid))]
+            yield u, i, r, tags_score
 
     def all_users(self):
         """Generator function to iterate over all users.

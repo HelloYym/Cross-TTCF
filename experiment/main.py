@@ -14,12 +14,12 @@ dataset.split(n_folds=5)
 dataset.info()
 
 
-# # algo1 = SVD(biased=True, n_factors=15, n_epochs=20, lr_all=0.01)
-algo2 = ItemRelTags(biased=True, n_factors=15, n_epochs=20, lr_all=0.01)
-# algo3 = UserItemGenomeTags(biased=True, n_factors=15, n_epochs=20, lr_all=0.01)
-# # algo3 = KNNWithMeans(sim_options={'user_based': True})
+# algo1 = SVD(biased=True, n_factors=15, n_epochs=20, lr_all=0.01)
+# algo2 = ItemRelTags(biased=True, n_factors=15, n_epochs=20, lr_all=0.01)
+# algo3 = UserItemTags(biased=True, n_factors=15, n_epochs=20, lr_all=0.01)
 
-# # # # Evaluate performances of our algorithm on the dataset.
+
+# # Evaluate performances of our algorithm on the dataset.
 # # print_perf(evaluate(algo1, dataset, measures=['RMSE', 'MAE']))
-print_perf(evaluate(algo2, dataset, measures=['RMSE', 'MAE']))
+# # print_perf(evaluate(algo2, dataset, measures=['RMSE', 'MAE']))
 # print_perf(evaluate(algo3, dataset, measures=['RMSE', 'MAE']))
