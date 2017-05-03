@@ -1,6 +1,5 @@
-
-
 import numpy as np
+import lda
 
-a = [0]*10
-print(a)
+X = lda.datasets.load_reuters()
+print(X)

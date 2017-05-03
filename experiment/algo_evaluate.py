@@ -3,7 +3,7 @@ from surprise import Dataset
 from surprise import evaluate, print_perf
 
 import os
-from surprise import SVD, UserItemTags, UserItemGenomeTags, ItemRelTags
+from surprise import SVD, UserItemTags, UserItemGenomeTags, ItemRelTags, UserItemRelTags
 from surprise import GridSearch
 
 
@@ -15,7 +15,7 @@ dataset.info()
 
 
 
-algo = UserItemTags(biased=True, n_factors=100, n_epochs=40, lr_all=0.005, reg_all=0.02)
+algo = UserItemGenomeTags(biased=True, n_factors=100, n_epochs=40, lr_all=0.005, reg_all=0.02)
 
 # Evaluate performances of our algorithm on the dataset.
 print_perf(evaluate(algo, dataset, measures=['RMSE', 'MAE']))

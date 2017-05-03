@@ -73,8 +73,7 @@ class ItemRelTags(AlgoBase):
 
                 item_tags = trainset.get_item_tags(i)
 
-                n_tags = len(item_tags) if len(item_tags) > 0 else 1
-                # n_tags = item_tags[-1] if item_tags[-1] > 0 else 1
+                n_tags = max(1, item_tags[-1])
                 sum_yt = sum(
                     [yt[tid] * freq for tid, freq in item_tags.items()]) / n_tags
 
@@ -121,7 +120,7 @@ class ItemRelTags(AlgoBase):
                     itid = self.trainset.to_inner_tid(tag)
                     item_tags[itid] += 1
 
-            yt_cnt = len(item_tags) if len(item_tags) > 0 else 1
+            yt_cnt = max(sum([freq for freq in item_tags.values()]), 1)
             yt_sum = sum([self.yt[tid] * freq for tid,
                           freq in item_tags.items()]) / yt_cnt
 

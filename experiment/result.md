@@ -45,3 +45,34 @@ best params: {'n_factors': 100, 'lr_all': 0.005, 'reg_all': 0.02, 'n_epochs': 40
 Measure: MAE
 best score: 0.5931925649124088
 best params: {'n_factors': 100, 'lr_all': 0.005, 'reg_all': 0.02, 'n_epochs': 40}
+
+
+
+----ItemRelTags----
+Measure: RMSE
+best score: 0.8494833728248923
+best params: {'lr_all': 0.005, 'reg_all': 0.02, 'n_epochs': 50, 'n_factors': 150}
+Measure: MAE
+best score: 0.6249363512586916
+best params: {'lr_all': 0.005, 'reg_all': 0.02, 'n_epochs': 50, 'n_factors': 150}
+----SVD----
+Measure: RMSE
+best score: 0.8496642035673773
+best params: {'lr_all': 0.005, 'reg_all': 0.02, 'n_epochs': 50, 'n_factors': 150}
+Measure: MAE
+best score: 0.6302406460918147
+best params: {'lr_all': 0.005, 'reg_all': 0.02, 'n_epochs': 50, 'n_factors': 150}
+----UserItemTags----
+Measure: RMSE
+best score: 0.7945911427843136
+best params: {'lr_all': 0.005, 'reg_all': 0.02, 'n_epochs': 50, 'n_factors': 150}
+Measure: MAE
+best score: 0.5877273417487091
+best params: {'lr_all': 0.005, 'reg_all': 0.02, 'n_epochs': 50, 'n_factors': 150}
+----UserItemGenomeTags----
+Measure: RMSE
+best score: 0.8153951071052388
+best params: {'lr_all': 0.005, 'reg_all': 0.02, 'n_epochs': 50, 'n_factors': 150}
+Measure: MAE
+best score: 0.6038992568310984
+best params: {'lr_all': 0.005, 'reg_all': 0.02, 'n_epochs': 50, 'n_factors': 150}

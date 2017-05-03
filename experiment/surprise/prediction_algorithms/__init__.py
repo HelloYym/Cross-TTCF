@@ -31,7 +31,7 @@ from .knns import SymmetricAlgo
 # from .matrix_factorization import NMF
 # from .slope_one import SlopeOne
 # from .co_clustering import CoClustering
-from .user_item_tags import UserItemTags, UserItemGenomeTags
+from .user_item_tags import UserItemTags, UserItemGenomeTags, UserItemRelTags
 from .item_rel_tags import ItemRelTags
 from .svd import SVD
 
@@ -41,4 +41,4 @@ from .predictions import Prediction
 __all__ = ['AlgoBase', 'NormalPredictor', 'BaselineOnly', 'KNNBasic',
            'KNNBaseline', 'KNNWithMeans', 'SVD', 'SVDpp', 'NMF', 'SlopeOne',
            'CoClustering', 'PredictionImpossible', 'Prediction',
-           'SymmetricAlgo', 'UserItemTags', 'UserItemGenomeTags', 'ItemRelTags']
+           'SymmetricAlgo', 'UserItemTags', 'UserItemGenomeTags', 'ItemRelTags', 'UserItemRelTags']
