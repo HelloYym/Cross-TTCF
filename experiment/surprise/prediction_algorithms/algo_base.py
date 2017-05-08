@@ -31,7 +31,7 @@ class AlgoBase:
             self.sim_options['user_based'] = True
         self.estimate_with_tags = False
 
-    def train(self, trainset):
+    def train(self, trainset, aux_trainset=None):
         """Train an algorithm on a given training set.
 
         This method is called by every derived class as the first basic step
@@ -45,6 +45,7 @@ class AlgoBase:
         """
 
         self.trainset = trainset
+        self.aux_trainset = aux_trainset
 
         # (re) Initialise baselines
         self.bu = self.bi = None

@@ -22,7 +22,7 @@ tag_set2 = d2.tags_set
 
 all_tag_set = tag_set1.intersection(tag_set2)
 
-print(len(all_tag_set))
+print('tags overlapping: {}'.format(len(all_tag_set)))
 
 # algo1 = SVD(biased=True, n_factors=15, n_epochs=20, lr_all=0.01)
 # algo2 = UserItemTopics(biased=True, n_factors=15, n_epochs=20, lr_all=0.01, n_topics=5, n_lda_iter=500, verbose=True)
