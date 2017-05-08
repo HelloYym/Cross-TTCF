@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 from six.moves import range
 
-from .Reader import RatingsReader, TagsReader
+from .Reader import RatingsReader, TagsReader, LTReader
 from .trainset import Trainset
 
 
@@ -18,33 +18,41 @@ class Dataset:
     available methods for loading datasets."""
 
     def __init__(self, dataset_path, sep=',', rating_scale=(0.5, 5), skip_lines=0,
-                 tag_genome=False):
+                 tag_genome=False, limits=None, LT=False):
 
-        self.ratings_reader = RatingsReader(
-            dataset_path=dataset_path, sep=sep,
-            rating_scale=rating_scale, skip_lines=skip_lines)
+        if LT:
+            self.reader = LTReader(txt_file=dataset_path +
+                                   'UI2.txt', skip_lines=skip_lines, limits=limits)
 
-        self.tags_reader = TagsReader(
-            dataset_path=dataset_path, sep=sep, skip_lines=skip_lines)
+            self.raw_ratings, self.raw_tags = self.reader.read()
+        else:
+            self.ratings_reader = RatingsReader(
+                dataset_path=dataset_path, sep=sep,
+                rating_scale=rating_scale, skip_lines=skip_lines)
+            self.tags_reader = TagsReader(
+                dataset_path=dataset_path, sep=sep, skip_lines=skip_lines)
+
+            self.raw_tags = self.tags_reader.read()
+            self.raw_ratings = self.ratings_reader.read()
+
+        self.tag_genome = tag_genome
+        self.genome_tid, self.genome_score = self.tags_reader.read_genome(
+        ) if tag_genome else (None, None)
 
         self.n_folds = 5
         self.shuffle = True
-        self.tag_genome = tag_genome
-        self.raw_tags = self.tags_reader.read()
-        self.genome_tid, self.genome_score = self.tags_reader.read_genome(
-        ) if tag_genome else (None, None)
-        self.raw_ratings = self.ratings_reader.read()
+        self.rating_scale = rating_scale
 
         # 只选取有标签的评分
         self.user_item_rating_tags = self.combine_rating_tag()
 
-        # 进行数据清洗，例如去除低频标签、ranksum等
-        self.tags_set = self.get_tags_set()
-        self.tag_freq = self.cal_tag_freq()
 
-        # self.discard_less_common_tag(threshold=10)
-        # self.rank_sum_test(confidence=1.0)
-        self.user_item_rating_tags = self.tag_cleaning()
+        if self.shuffle:
+            random.shuffle(self.user_item_rating_tags)
+            self.shuffle = False  # set to false for future calls to raw_folds
+        if limits:
+            self.user_item_rating_tags = self.user_item_rating_tags[:limits]
+
 
     def combine_rating_tag(self):
         ''' we consider only the ratings in which at least one tag was used.self
@@ -59,70 +67,7 @@ class Dataset:
             len(user_item_rating_tags)))
         return user_item_rating_tags
 
-    def get_tags_set(self):
-        tags_set = set()
-        for _, _, _, tags in self.user_item_rating_tags:
-            for tag in tags:
-                tags_set.add(tag)
-        return tags_set
-
-    # def rank_sum_test(self, confidence=0.95):
-    #     # 具有某个tag的rating数肯定不会超过50%
-
-    #     # 先计算每一个分数的秩
-    #     # 每个rating的个数
-    #     ratings_num = defaultdict(int)
-    #     for _, _, r, tags in self.user_item_rating_tags:
-    #         ratings_num[r] += 1
-    #     # 按中位数作为秩
-    #     ratings_median = defaultdict(int)
-    #     c = 0
-    #     for r in np.arange(0.5, 5.5, 0.5):
-    #         ratings_median[r] = c + (ratings_num[r] + 1) * 0.5
-    #         c += ratings_num[r]
-
-    #     # 每个tag的秩list
-    #     tag_ranks_dict = defaultdict(list)
-    #     for _, _, r, tags in self.user_item_rating_tags:
-    #         ratings_num[r] += 1
-    #         for tag in tags:
-    #             tag_ranks_dict[tag].append(ratings_median[r])
-
-    #     all_size = len(self.user_item_rating_tags)
-    #     for tag, tag_ranks in tag_ranks_dict.items():
-    #         m = len(tag_ranks)
-    #         n = all_size - m
-    #         # tag的秩和
-    #         rank_sum = sum(tag_ranks)
-    #         # 进行rank-sum test
-    #         halfMsum = 0.5 * m * (m + n + 1)
-    #         twelthMNsum = (1.0 / 6) * halfMsum * n
-    #         zNumerator = rank_sum - halfMsum
-    #         zDenominator = twelthMNsum ** 0.5
-    #         z = abs(zNumerator / zDenominator)
-    #         # 如果结果小于置信度，说明该tag对评分影响不大，删除该评分
-    #         if z < confidence:
-    #             self.tags_set.discard(tag)
-
-    def discard_less_common_tag(self, threshold):
-        for u, i, r, tags in self.user_item_rating_tags:
-            for tag in tags:
-                if self.tag_freq[tag] < threshold:
-                    self.tags_set.discard(tag)
-
-    def tag_cleaning(self):
-        user_item_rating_tags = list()
-        for u, i, r, tags in self.user_item_rating_tags:
-            tags_cleanned = [tag for tag in tags if tag in self.tags_set]
-            user_item_rating_tags.append((u, i, r, tags_cleanned))
-
-        return user_item_rating_tags
-
     def raw_folds(self):
-
-        if self.shuffle:
-            random.shuffle(self.user_item_rating_tags)
-            self.shuffle = False  # set to false for future calls to raw_folds
 
         def k_folds(seq, n_folds):
             """Inspired from scikit learn KFold method."""
@@ -157,8 +102,8 @@ class Dataset:
     def construct_trainset(self, raw_trainset):
 
         trainset = Trainset(raw_trainset,
-                            self.ratings_reader.rating_scale,
-                            self.ratings_reader.offset,
+                            self.rating_scale,
+                            0,
                             self.genome_tid,
                             self.genome_score)
 
@@ -185,21 +130,12 @@ class Dataset:
         self.n_folds = n_folds
         self.shuffle = shuffle
 
-    def cal_tag_freq(self):
-        '''计算tag的出现次数
-
-        '''
-        tag_freq = defaultdict(int)
-        for _, tags in self.raw_tags.items():
-            for tag in tags:
-                tag_freq[tag] += 1
-        return tag_freq
-
     def info(self, diagram=False):
         '''计算每个tag的出现频数'''
 
         dataset = self.build_full_trainset()
         dataset.info()
+        return dataset
 
     def tag_power_law(self):
         ''' 统计标签的长尾分布

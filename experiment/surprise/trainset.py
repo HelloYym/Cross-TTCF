@@ -10,6 +10,8 @@ from .Reader import RatingsReader, TagsReader
 
 from bidict import bidict
 import time
+import lda
+from scipy import sparse
 
 
 class Trainset:
@@ -35,7 +37,11 @@ class Trainset:
     def __init__(self, raw_trainset, rating_scale, offset, genome_tid, genome_score):
 
         self.raw_trainset = raw_trainset
-        self.construct_trainset(raw_trainset)
+
+        self.tags_set = self.get_tags_set(self.raw_trainset)
+        # self.rank_sum_test(uirts=self.raw_trainset, confidence=0.95)
+
+        self.construct()
         self.rating_scale = rating_scale
         self.offset = offset
         self._global_mean = None
@@ -44,9 +50,15 @@ class Trainset:
         if genome_tid:
             # genome tag编号从1开始，预留一个0
             self.n_genome_tags = len(genome_tid) + 1
-        self._item_tag_freq = self.cal_item_tag_freq()
 
-    def construct_trainset(self, raw_trainset):
+    def get_tags_set(self, uirts):
+        tags_set = set()
+        for _, _, _, tags in uirts:
+            for tag in tags:
+                tags_set.add(tag)
+        return tags_set
+
+    def construct(self):
 
         raw2inner_id_users = bidict()
         raw2inner_id_items = bidict()
@@ -63,7 +75,7 @@ class Trainset:
         uirts = list()
 
         # user raw id, item raw id, translated rating, tags
-        for urid, irid, r, tags_list in raw_trainset:
+        for urid, irid, r, tags_list in self.raw_trainset:
             try:
                 uid = raw2inner_id_users[urid]
             except KeyError:
@@ -80,13 +92,14 @@ class Trainset:
             # 在trainset中保存inner_tid
             tids = list()
             for tag in tags_list:
-                try:
-                    tid = raw2inner_id_tags[tag]
-                except KeyError:
-                    tid = current_t_index
-                    raw2inner_id_tags[tag] = current_t_index
-                    current_t_index += 1
-                tids.append(tid)
+                if tag in self.tags_set:
+                    try:
+                        tid = raw2inner_id_tags[tag]
+                    except KeyError:
+                        tid = current_t_index
+                        raw2inner_id_tags[tag] = current_t_index
+                        current_t_index += 1
+                    tids.append(tid)
 
             tag_assignments += len(tids)    # 统计所有的tag数目
             ur[uid].append((iid, r, tids))
@@ -100,10 +113,49 @@ class Trainset:
         self.uirts = uirts
         self.ur = ur
         self.ir = ir
-        self.n_users = len(ur)  # number of users
-        self.n_items = len(ir)  # number of items
+        self.n_users = current_u_index  # number of users
+        self.n_items = current_i_index  # number of items
         self.n_tags = current_t_index
-        self.n_ratings = len(raw_trainset)
+        self.n_ratings = len(self.raw_trainset)
+        self.item_tag_freq = self.cal_item_tag_freq()
+
+    def rank_sum_test(self, confidence=0.95):
+        # 具有某个tag的rating数肯定不会超过50%
+
+        # 先计算每一个分数的秩
+        # 每个rating的个数
+        ratings_num = defaultdict(int)
+        for _, _, r, tags in self.uirts:
+            ratings_num[r] += 1
+        # 按中位数作为秩
+        ratings_median = defaultdict(int)
+        c = 0
+        for r in np.arange(0.5, 5.5, 0.5):
+            ratings_median[r] = c + (ratings_num[r] + 1) * 0.5
+            c += ratings_num[r]
+
+        # 每个tag的秩list
+        tag_ranks_dict = defaultdict(list)
+        for _, _, r, tags in self.uirts:
+            ratings_num[r] += 1
+            for tag in tags:
+                tag_ranks_dict[tag].append(ratings_median[r])
+
+        all_size = len(self.uirts)
+        for tag, tag_ranks in tag_ranks_dict.items():
+            m = len(tag_ranks)
+            n = all_size - m
+            # tag的秩和
+            rank_sum = sum(tag_ranks)
+            # 进行rank-sum test
+            halfMsum = 0.5 * m * (m + n + 1)
+            twelthMNsum = (1.0 / 6) * halfMsum * n
+            zNumerator = rank_sum - halfMsum
+            zDenominator = twelthMNsum ** 0.5
+            z = abs(zNumerator / zDenominator)
+            # 如果结果小于置信度，说明该tag对评分影响不大，删除该评分
+            if z < confidence:
+                self.tags_set.discard(tag)
 
     def info(self, diagram=False):
         '''训练集统计信息'''
@@ -123,42 +175,15 @@ class Trainset:
 
         '''
         item_tag_freq = defaultdict(lambda: defaultdict(int))
-
         for _, iid, _, tids in self.uirts:
             for tid in tids:
                 item_tag_freq[iid][tid] += 1
-
-        # -1表示item的所有标签总个数
-        for iid, tags_freq in item_tag_freq.items():
-            item_tag_freq[iid][-1] = sum([freq for tid, freq in tags_freq.items()])
-
         return item_tag_freq
 
     def knows_user(self, uid):
-        """Indicate if the user is part of the trainset.
-
-        A user is part of the trainset if the user has at least one rating.
-
-        Args:
-            uid(int): The (inner) user id. See :ref:`this
-                note<raw_inner_note>`.
-        Returns:
-            ``True`` if user is part of the trainset, else ``False``.
-        """
-
         return uid in self.ur
 
     def knows_item(self, iid):
-        """Indicate if the item is part of the trainset.
-
-        An item is part of the trainset if the item was rated at least once.
-
-        Args:
-            iid(int): The (inner) item id. See :ref:`this
-                note<raw_inner_note>`.
-        Returns:
-            ``True`` if item is part of the trainset, else ``False``.
-        """
 
         return iid in self.ir
 
@@ -227,10 +252,10 @@ class Trainset:
         return genome_score
 
     def get_item_tag_freq(self, iiid, tid):
-        return self._item_tag_freq[iiid][tid]
+        return self.item_tag_freq[iiid][tid]
 
     def get_item_tags(self, iiid):
-        return self._item_tag_freq[iiid]
+        return self.item_tag_freq[iiid]
 
     def all_ratings(self):
         """Generator function to iterate over all ratings.
@@ -290,3 +315,17 @@ class Trainset:
                                          self.all_ratings()])
 
         return self._global_mean
+
+    # def discard_less_common_tag(self, threshold):
+    #     for u, i, r, tags in self.user_item_rating_tags:
+    #         for tag in tags:
+    #             if self.tag_freq[tag] < threshold:
+    #                 self.tags_set.discard(tag)
+
+    # def tag_cleaning(self):
+    #     user_item_rating_tags = list()
+    #     for u, i, r, tags in self.user_item_rating_tags:
+    #         tags_cleanned = [tag for tag in tags if tag in self.tags_set]
+    #         user_item_rating_tags.append((u, i, r, tags_cleanned))
+
+    #     return user_item_rating_tags

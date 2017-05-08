@@ -11,8 +11,8 @@ from .prediction_algorithms import KNNBaseline
 # from .prediction_algorithms import CoClustering
 # from .prediction_algorithms import SymmetricAlgo
 
-from .prediction_algorithms import SVD, UserItemTags, UserItemGenomeTags, ItemRelTags, UserItemRelTags
-
+from .prediction_algorithms import SVD, UserItemTags, UserItemGenomeTags, ItemRelTags, UserItemRelTags, ItemTopics, UserItemTopics
+from .prediction_algorithms import CrossUserItemTags
 from .prediction_algorithms import PredictionImpossible
 from .prediction_algorithms import Prediction
 
@@ -30,4 +30,5 @@ __all__ = ['AlgoBase', 'NormalPredictor', 'BaselineOnly', 'KNNBasic',
            'CoClustering', 'PredictionImpossible', 'Prediction', 'Dataset',
            'Reader', 'Trainset', 'evaluate', 'print_perf', 'GridSearch',
            'dump', 'SymmetricAlgo', 'RatingsReader', 'TagsReader', 'UserItemTags',
-           'UserItemGenomeTags', 'ItemRelTags', 'UserItemRelTags']
+           'UserItemGenomeTags', 'ItemRelTags', 'UserItemRelTags', 'ItemTopics', 'UserItemTopics',
+           'CrossUserItemTags']

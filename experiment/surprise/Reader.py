@@ -2,6 +2,53 @@ import pandas as pd
 from collections import defaultdict
 
 
+class LTReader():
+    """Abstract class where is used to parse a file containing ratings or tags.
+
+    Such a file is assumed to specify only one value per line, and each line
+    needs to respect the following structure: ::
+
+        user ; item ; value ; [timestamp]
+
+    where the order of the fields and the seperator (here ';') may be
+    arbitrarily defined (see below).  brackets indicate that the timestamp
+    field is optional.
+
+    """
+
+    def __init__(self, txt_file=None, sep=None, skip_lines=0, limits=float('inf')):
+
+        # self.reader = csv.reader(open(csv_file))
+        # df = pd.read_csv('ml-100k/u.data', sep='\t',)
+        self.txt_file = txt_file
+        self.sep = sep
+        self.skip_lines = skip_lines
+        self.limits = limits
+
+    def read(self):
+        """Return a dict of user,item,value"""
+
+        raw_ratings = list()
+        tag_dict = defaultdict(list)
+        last_rating = None
+        with open(self.txt_file, 'r') as f:
+            for line in f.readlines():
+                split_line = line.split(' ')
+                uid = split_line[0]
+                iid = split_line[1]
+                rating = float(split_line[2]) * 0.5
+                tag = ' '.join([t.strip().lower() for t in split_line[3:]])
+                if (uid, iid, rating) != last_rating:
+                    raw_ratings.append((uid, iid, rating))
+                    last_rating = (uid, iid, rating)
+                tag_dict[(uid, iid)].append(tag)
+                # if len(raw_ratings) > self.limits:
+                #     break
+
+        print("read {} lines from {}.".format(len(raw_ratings), self.txt_file))
+        return raw_ratings, tag_dict
+
+
 class Reader():
     """Abstract class where is used to parse a file containing ratings or tags.
 
@@ -62,7 +109,6 @@ class RatingsReader(Reader):
         raw_ratings = list()
         for i, uid, iid, rating, _ in super().read():
             raw_ratings.append((uid, iid, float(rating)))
-
         return raw_ratings
 
 

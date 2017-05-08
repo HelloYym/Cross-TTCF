@@ -33,6 +33,9 @@ from .knns import SymmetricAlgo
 # from .co_clustering import CoClustering
 from .user_item_tags import UserItemTags, UserItemGenomeTags, UserItemRelTags
 from .item_rel_tags import ItemRelTags
+from .item_topics import ItemTopics
+from .user_item_topics import UserItemTopics
+from .cross_user_item_tags import CrossUserItemTags
 from .svd import SVD
 
 from .predictions import PredictionImpossible
@@ -40,5 +43,6 @@ from .predictions import Prediction
 
 __all__ = ['AlgoBase', 'NormalPredictor', 'BaselineOnly', 'KNNBasic',
            'KNNBaseline', 'KNNWithMeans', 'SVD', 'SVDpp', 'NMF', 'SlopeOne',
-           'CoClustering', 'PredictionImpossible', 'Prediction',
-           'SymmetricAlgo', 'UserItemTags', 'UserItemGenomeTags', 'ItemRelTags', 'UserItemRelTags']
+           'CoClustering', 'PredictionImpossible', 'Prediction','SymmetricAlgo', 
+           'UserItemTags', 'UserItemGenomeTags', 'ItemRelTags', 'UserItemRelTags', 'ItemTopics', 'UserItemTopics',
+           'CrossUserItemTags']

@@ -53,6 +53,8 @@ def evaluate(algo, dataset, aux_dataset=None, measures=['rmse', 'mae'], with_dum
           ', '.join((m.upper() for m in measures)),
           algo.__class__.__name__))
 
+    aux_trainset = aux_dataset.build_full_trainset() if aux_dataset else None
+
     for fold_i, (trainset, testset) in enumerate(dataset.folds()):
 
         if verbose:
@@ -60,8 +62,8 @@ def evaluate(algo, dataset, aux_dataset=None, measures=['rmse', 'mae'], with_dum
             print('Fold ' + str(fold_i + 1))
 
         # train and test algorithm. Keep all rating predictions in a list
-        if aux_dataset:
-            algo.train(trainset, aux_dataset.build_full_trainset())
+        if aux_trainset:
+            algo.train(trainset, aux_trainset)
         else:
             algo.train(trainset)
 

@@ -11,7 +11,7 @@ data.split(n_folds=5)
 data.info()
 
 
-param_grid = {'n_factors': [150, ], 'lr_all': [
+param_grid = {'n_factors': [100, ], 'lr_all': [
     0.005, ], 'reg_all': [0.02, ], 'n_epochs': [50, ]}
 
 grid_search0 = GridSearch(ItemRelTags, param_grid, measures=['RMSE', 'MAE'])
