@@ -4,7 +4,7 @@ from surprise import evaluate, print_perf
 
 import os
 from surprise import SVD, UserItemTags, UserItemGenomeTags, ItemRelTags, UserItemRelTags, ItemTopics, UserItemTopics
-from surprise import CrossUserItemTags
+from surprise import CrossUserItemTags, CrossUserItemRelTags
 from surprise import GridSearch
 
 

@@ -159,7 +159,7 @@ class Trainset:
 
     def info(self, diagram=False):
         '''训练集统计信息'''
-
+        print('-' * 12)
         print("Total number of ratings: {}".format(self.n_ratings))
         print("Unique users: {}".format(self.n_users))
         print("Unique items: {}".format(self.n_items))
