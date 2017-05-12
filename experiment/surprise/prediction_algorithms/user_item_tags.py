@@ -152,7 +152,7 @@ class UserItemRelTags(AlgoBase):
 
     def train(self, trainset):
 
-        trainset.rank_sum_test(confidence=0.6)
+        trainset.rank_sum_test(confidence=0.95)
         trainset.construct()
         AlgoBase.train(self, trainset)
         self.sgd(trainset)

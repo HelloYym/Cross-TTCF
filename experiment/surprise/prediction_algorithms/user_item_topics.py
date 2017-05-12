@@ -91,7 +91,7 @@ class UserItemTopics(AlgoBase):
         n_top_words = 10
         for i, topic_dist in enumerate(topic_word):
             topic_words = np.array(vocab)[np.argsort(topic_dist)][:-n_top_words:-1]
-            print('Topic {}: {}'.format(i, ';'.join(topic_words)))
+            print('Topic {}: {}'.format(i, '; '.join(topic_words)))
 
         topic_prop = list()
         for u, i, r, tids in trainset.all_ratings_tags():
@@ -100,18 +100,19 @@ class UserItemTopics(AlgoBase):
                 X[0, tid] += 1
 
             # 最大的主题
-            topic_prop.append(self.lda_model.transform(X)[0].argmax())
+            # topic_prop.append(self.lda_model.transform(X)[0].argmax())
+            topic_prop.append(self.lda_model.transform(X)[0])
 
         for current_epoch in range(self.n_epochs):
             if self.verbose:
                 print("Processing epoch {}".format(current_epoch))
 
-            for t, (u, i, r, tids) in zip(topic_prop, trainset.all_ratings_tags()):
+            for tp, (u, i, r, tids) in zip(topic_prop, trainset.all_ratings_tags()):
 
                 # compute current error
-                # sum_yt = np.dot(topic_prop[k], yt)
-
-                dot = np.dot((qi[i] + yt[t]), pu[u])
+                sum_yt = np.dot(tp, yt)
+                dot = np.dot((qi[i] + sum_yt), pu[u])
+                # dot = np.dot((qi[i] + yt[t]), pu[u])
                 err = r - (global_mean + bu[u] + bi[i] + dot)
 
                 # update biases
@@ -120,15 +121,13 @@ class UserItemTopics(AlgoBase):
                     bi[i] += lr_bi * (err - reg_bi * bi[i])
 
                 # update factors
-                pu[u] += lr_pu * (err * (qi[i] + yt[t]) - reg_pu * pu[u])
+                pu[u] += lr_pu * (err * (qi[i] + sum_yt) - reg_pu * pu[u])
                 qi[i] += lr_qi * (err * pu[u] - reg_qi * qi[i])
 
-                yt[t] += lr_all * (pu[u] * err - reg_all * yt[t])
-                # for t in range(n_topics):
-                #     prop = topic_prop[k][t]
-                #     yt[t] += lr_all * (pu[u] * prop * err - reg_all * yt[t])
-                # yt += lr_all * (err * np.dot(topic_prop[k].reshape(n_topics, 1),
-                # pu[u].reshape(1, self.n_factors)) - reg_all * yt)
+                # yt[t] += lr_all * (pu[u] * err - reg_all * yt[t])
+
+                yt += lr_all * (err * np.dot(tp.reshape(n_topics, 1),
+                                             pu[u].reshape(1, self.n_factors)) - reg_all * yt)
 
         self.bu = bu
         self.bi = bi
@@ -156,9 +155,9 @@ class UserItemTopics(AlgoBase):
                     X[0, tid] += 1
             if np.sum(X) > 0:
                 topic_prop = self.lda_model.transform(X)[0]
-                t = topic_prop.argmax()
-                # sum_yt = np.dot(topic_prop, self.yt)
-                sum_yt = self.yt[t]
+                # t = topic_prop.argmax()
+                sum_yt = np.dot(topic_prop, self.yt)
+                # sum_yt = self.yt[t]
             else:
                 sum_yt = 0
 

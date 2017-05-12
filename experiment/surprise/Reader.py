@@ -18,12 +18,10 @@ class LTReader():
 
     def __init__(self, txt_file=None, sep=None, skip_lines=0, limits=float('inf')):
 
-        # self.reader = csv.reader(open(csv_file))
-        # df = pd.read_csv('ml-100k/u.data', sep='\t',)
         self.txt_file = txt_file
         self.sep = sep
         self.skip_lines = skip_lines
-        self.limits = 20000
+        # self.limits = 20000
 
     def read(self):
         """Return a dict of user,item,value"""
@@ -42,8 +40,8 @@ class LTReader():
                     raw_ratings.append((uid, iid, rating))
                     last_rating = (uid, iid, rating)
                 tag_dict[(uid, iid)].append(tag)
-                if len(raw_ratings) >= self.limits:
-                    break
+                # if len(raw_ratings) >= self.limits:
+                #     break
 
         print("read {} lines from {}.".format(len(raw_ratings), self.txt_file))
         return raw_ratings, tag_dict

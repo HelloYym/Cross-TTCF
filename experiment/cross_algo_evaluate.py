@@ -37,5 +37,5 @@ algo = CrossUserItemTags(biased=True, n_factors=100,
                          n_epochs=50, lr_all=0.005, reg_all=0.02)
 
 # Evaluate performances of our algorithm on the dataset.
-print_perf(evaluate(algo, dataset=dataset1,
-                    aux_dataset=dataset2, measures=['RMSE', 'MAE']))
+print_perf(evaluate(algo, dataset=dataset2,
+                    aux_dataset=dataset1, measures=['RMSE', 'MAE']))

@@ -17,7 +17,7 @@ from .dump import dump
 
 
 def evaluate(algo, dataset, aux_dataset=None, measures=['rmse', 'mae'], with_dump=False,
-             dump_dir=None, verbose=1):
+             dump_dir=None, verbose=0, n_parts=10):
     """Evaluate the performance of the algorithm on given data.
 
     Depending on the nature of the ``data`` parameter, it may or may not
@@ -55,7 +55,7 @@ def evaluate(algo, dataset, aux_dataset=None, measures=['rmse', 'mae'], with_dum
 
     aux_trainset = aux_dataset.build_full_trainset() if aux_dataset else None
 
-    for fold_i, (trainset, testset) in enumerate(dataset.folds()):
+    for fold_i, (trainset, testset) in enumerate(dataset.folds(n_parts=n_parts)):
 
         if verbose:
             print('-' * 12)
@@ -77,7 +77,7 @@ def evaluate(algo, dataset, aux_dataset=None, measures=['rmse', 'mae'], with_dum
         if with_dump:
 
             if dump_dir is None:
-                dump_dir = os.path.expanduser('~') + '/.surprise_data/dumps/'
+                dump_dir = os.path.expanduser('~') + '/Thesis/experiment/dumps/'
 
             if not os.path.exists(dump_dir):
                 os.makedirs(dump_dir)
@@ -99,6 +99,46 @@ def evaluate(algo, dataset, aux_dataset=None, measures=['rmse', 'mae'], with_dum
         print('-' * 12)
 
     return performances
+
+
+def evaluate_parts(algo, dataset, aux_dataset=None, measures=['rmse', 'mae'], with_dump=False,
+                   dump_dir=None, verbose=0, trainset_parts=10):
+    """Evaluate the performance of the algorithm on given data.
+
+    """
+
+    print('Evaluating {0} of algorithm {1}.'.format(
+          ', '.join((m.upper() for m in measures)),
+          algo.__class__.__name__))
+
+    aux_trainset = aux_dataset.build_full_trainset() if aux_dataset else None
+
+    for n_parts in range(trainset_parts):
+
+        performances = CaseInsensitiveDefaultDict(list)
+        for fold_i, (trainset, testset) in enumerate(dataset.folds(n_parts=n_parts + 1)):
+
+            # train and test algorithm. Keep all rating predictions in a list
+            if aux_trainset:
+                algo.train(trainset, aux_trainset)
+            else:
+                algo.train(trainset)
+
+            predictions = algo.test(testset, verbose=(verbose == 2))
+
+            # compute needed performance statistics
+            for measure in measures:
+                f = getattr(accuracy, measure.lower())
+                performances[measure].append(f(predictions, verbose=verbose))
+
+        print('-' * 12)
+        print('-' * 12)
+        for measure in measures:
+            print('Mean {0:4s}: {1:1.4f}'.format(
+                  measure.upper(), np.mean(performances[measure])))
+        print('-' * 12)
+        print('-' * 12)
+
 
 
 class GridSearch:

@@ -85,3 +85,42 @@ best params: {'n_epochs': 50, 'lr_all': 0.005, 'reg_all': 0.02, 'n_factors': 100
 Measure: MAE
 best score: 0.6075257668345609
 best params: {'n_epochs': 50, 'lr_all': 0.005, 'reg_all': 0.02, 'n_factors': 100}
+
+
+
+
+
+
+
+
+
+##### LT dataset
+
+----ItemRelTags----
+Measure: RMSE
+best score: 0.41913538546550877
+best params: {'lr_all': 0.005, 'n_factors': 100, 'reg_all': 0.02, 'n_epochs': 50}
+Measure: MAE
+best score: 0.23894877606750145
+best params: {'lr_all': 0.005, 'n_factors': 100, 'reg_all': 0.02, 'n_epochs': 50}
+----SVD----
+Measure: RMSE
+best score: 0.43329584807426097
+best params: {'lr_all': 0.005, 'n_factors': 100, 'reg_all': 0.02, 'n_epochs': 50}
+Measure: MAE
+best score: 0.25424801870785724
+best params: {'lr_all': 0.005, 'n_factors': 100, 'reg_all': 0.02, 'n_epochs': 50}
+----UserItemTags----
+Measure: RMSE
+best score: 0.4137268189643383
+best params: {'lr_all': 0.005, 'n_factors': 100, 'reg_all': 0.02, 'n_epochs': 50}
+Measure: MAE
+best score: 0.235051750439784
+best params: {'lr_all': 0.005, 'n_factors': 100, 'reg_all': 0.02, 'n_epochs': 50}
+----UserItemRelTags----
+Measure: RMSE
+best score: 0.4140440655291792
+best params: {'lr_all': 0.005, 'n_factors': 100, 'reg_all': 0.02, 'n_epochs': 50}
+Measure: MAE
+best score: 0.23537316369033073
+best params: {'lr_all': 0.005, 'n_factors': 100, 'reg_all': 0.02, 'n_epochs': 50}

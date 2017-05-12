@@ -45,14 +45,14 @@ class Dataset:
 
         # 只选取有标签的评分
         self.user_item_rating_tags = self.combine_rating_tag()
-
+        del self.raw_ratings
+        del self.raw_tags
 
         if self.shuffle:
             random.shuffle(self.user_item_rating_tags)
             self.shuffle = False  # set to false for future calls to raw_folds
         if limits:
             self.user_item_rating_tags = self.user_item_rating_tags[:limits]
-
 
     def combine_rating_tag(self):
         ''' we consider only the ratings in which at least one tag was used.self
@@ -85,7 +85,7 @@ class Dataset:
 
         return k_folds(self.user_item_rating_tags, self.n_folds)
 
-    def folds(self):
+    def folds(self, n_parts=10):
         """Generator function to iterate over the folds of the Dataset.
 
         See :ref:`User Guide <iterate_over_folds>` for usage.
@@ -95,7 +95,8 @@ class Dataset:
         """
 
         for raw_trainset, raw_testset in self.raw_folds():
-            trainset = self.construct_trainset(raw_trainset)
+            partial_raw_trainset = raw_trainset[:int(len(raw_trainset) * n_parts / 10.0)]
+            trainset = self.construct_trainset(partial_raw_trainset)
             testset = self.construct_testset(raw_testset)
             yield trainset, testset
 
