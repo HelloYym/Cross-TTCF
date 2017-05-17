@@ -17,7 +17,7 @@ from .dump import dump
 
 
 def evaluate(algo, dataset, aux_dataset=None, measures=['rmse', 'mae'], with_dump=False,
-             dump_dir=None, verbose=0, n_parts=10):
+             dump_dir=None, verbose=0):
     """Evaluate the performance of the algorithm on given data.
 
     Depending on the nature of the ``data`` parameter, it may or may not
@@ -55,7 +55,7 @@ def evaluate(algo, dataset, aux_dataset=None, measures=['rmse', 'mae'], with_dum
 
     aux_trainset = aux_dataset.build_full_trainset() if aux_dataset else None
 
-    for fold_i, (trainset, testset) in enumerate(dataset.folds(n_parts=n_parts)):
+    for fold_i, (trainset, testset) in enumerate(dataset.folds()):
 
         if verbose:
             print('-' * 12)
@@ -101,7 +101,7 @@ def evaluate(algo, dataset, aux_dataset=None, measures=['rmse', 'mae'], with_dum
     return performances
 
 
-def evaluate_parts(algo, dataset, aux_dataset=None, measures=['rmse', 'mae'], with_dump=False,
+def evaluate_parts(algo, dataset, aux_dataset=None, measures=['rmse', 'mae'], with_dump=False, dump_info=None,
                    dump_dir=None, verbose=0, trainset_parts=10):
     """Evaluate the performance of the algorithm on given data.
 
@@ -113,10 +113,12 @@ def evaluate_parts(algo, dataset, aux_dataset=None, measures=['rmse', 'mae'], wi
 
     aux_trainset = aux_dataset.build_full_trainset() if aux_dataset else None
 
+    parts_performances = CaseInsensitiveDefaultDict(list)
+
     for n_parts in range(trainset_parts):
 
         performances = CaseInsensitiveDefaultDict(list)
-        for fold_i, (trainset, testset) in enumerate(dataset.folds(n_parts=n_parts + 1)):
+        for fold_i, (trainset, testset) in enumerate(dataset.folds(n_parts=n_parts + 1, total_parts=trainset_parts)):
 
             # train and test algorithm. Keep all rating predictions in a list
             if aux_trainset:
@@ -131,14 +133,19 @@ def evaluate_parts(algo, dataset, aux_dataset=None, measures=['rmse', 'mae'], wi
                 f = getattr(accuracy, measure.lower())
                 performances[measure].append(f(predictions, verbose=verbose))
 
-        print('-' * 12)
-        print('-' * 12)
         for measure in measures:
+            parts_performances[measure].append(np.mean(performances[measure]))
             print('Mean {0:4s}: {1:1.4f}'.format(
                   measure.upper(), np.mean(performances[measure])))
-        print('-' * 12)
-        print('-' * 12)
 
+    if with_dump:
+        dump_dir = os.path.expanduser('~') + '/Thesis/experiment/dumps/usage_parts'
+        date = time.strftime('%m%d%H%M', time.localtime())
+        file_name = algo.__class__.__name__ + '-' + dump_info
+        file_name = os.path.join(dump_dir, file_name)
+        dump(file_name, parts_performances)
+
+    return parts_performances
 
 
 class GridSearch:
@@ -187,8 +194,10 @@ class GridSearch:
             measure.
         """
 
-    def __init__(self, algo_class, param_grid, measures=['rmse', 'mae'],
+    def __init__(self, algo_class, param_grid, measures=['rmse', 'mae'], with_dump=False, dump_info=None,
                  verbose=1):
+        self.with_dump = with_dump
+        self.dump_info = dump_info
         self.best_params = CaseInsensitiveDefaultDict(list)
         self.best_index = CaseInsensitiveDefaultDict(list)
         self.best_score = CaseInsensitiveDefaultDict(list)
@@ -270,6 +279,16 @@ class GridSearch:
                 self.best_index[measure]]
             self.best_estimator[measure] = self.algo_class(
                 **self.best_params[measure])
+
+        if self.with_dump:
+            dump_dir = os.path.expanduser(
+                '~') + '/Thesis/experiment/dumps/grid_search_result'
+
+            date = time.strftime('%m%d%H%M', time.localtime())
+            file_name = self.algo_class.__name__ + '-' + self.dump_info
+            file_name = os.path.join(dump_dir, file_name)
+
+            dump(file_name, self.cv_results)
 
     def print_perf(self):
         for measure in self.measures:

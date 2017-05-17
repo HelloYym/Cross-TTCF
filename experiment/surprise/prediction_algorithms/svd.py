@@ -55,10 +55,7 @@ class SVD(AlgoBase):
         reg_pu = self.reg_pu
         reg_qi = self.reg_qi
 
-        global_mean = self.trainset.global_mean if self.biased else 0
-
-        if not self.biased:
-            global_mean = 0
+        global_mean = self.trainset.global_mean
 
         for current_epoch in range(self.n_epochs):
             if self.verbose:
@@ -86,7 +83,7 @@ class SVD(AlgoBase):
     def estimate(self, u, i):
         # Should we cythonize this as well?
 
-        est = self.trainset.global_mean if self.biased else 0
+        est = self.trainset.global_mean
 
         if self.trainset.knows_user(u):
             est += self.bu[u]

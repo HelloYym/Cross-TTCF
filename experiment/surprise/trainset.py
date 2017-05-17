@@ -1,3 +1,6 @@
+
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 from collections import defaultdict
 import random
 import numpy as np
@@ -159,7 +162,7 @@ class Trainset:
 
     def info(self, diagram=False):
         '''训练集统计信息'''
-        print('-' * 12)
+        print('#' * 12)
         print("Total number of ratings: {}".format(self.n_ratings))
         print("Unique users: {}".format(self.n_users))
         print("Unique items: {}".format(self.n_items))
@@ -169,6 +172,9 @@ class Trainset:
             self.n_ratings / self.n_users))
         print("Average tags per rating: {}".format(
             self.tag_assignments / self.n_ratings))
+        print("Data sparse: {}".format(format(1 - self.n_ratings /
+                                       (self.n_users * self.n_items), '.2%')))
+        print('#' * 12)
 
     def cal_item_tag_freq(self):
         ''' cal the relevant tag occurrences for item.

@@ -1,3 +1,5 @@
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
 import numpy as np
 from six.moves import range
@@ -63,10 +65,7 @@ class UserItemTags(AlgoBase):
         reg_pu = self.reg_pu
         reg_qi = self.reg_qi
 
-        global_mean = trainset.global_mean if self.biased else 0
-
-        if not self.biased:
-            global_mean = 0
+        global_mean = trainset.global_mean
 
         for current_epoch in range(self.n_epochs):
             if self.verbose:
@@ -100,7 +99,7 @@ class UserItemTags(AlgoBase):
 
     def estimate(self, u, i, tags):
 
-        est = self.trainset.global_mean if self.biased else 0
+        est = self.trainset.global_mean
 
         if self.trainset.knows_user(u):
             est += self.bu[u]
@@ -130,6 +129,7 @@ class UserItemRelTags(AlgoBase):
     def __init__(self, n_factors=100, n_epochs=20, biased=True, lr_all=.005,
                  reg_all=.02, lr_bu=None, lr_bi=None, lr_pu=None, lr_qi=None,
                  reg_bu=None, reg_bi=None, reg_pu=None, reg_qi=None,
+                 confidence=0.95,
                  verbose=False):
 
         self.n_factors = n_factors
@@ -145,6 +145,7 @@ class UserItemRelTags(AlgoBase):
         self.reg_bi = reg_bi if reg_bi is not None else reg_all
         self.reg_pu = reg_pu if reg_pu is not None else reg_all
         self.reg_qi = reg_qi if reg_qi is not None else reg_all
+        self.confidence = confidence
         self.verbose = verbose
 
         AlgoBase.__init__(self)
@@ -152,7 +153,7 @@ class UserItemRelTags(AlgoBase):
 
     def train(self, trainset):
 
-        trainset.rank_sum_test(confidence=0.95)
+        trainset.rank_sum_test(confidence=self.confidence)
         trainset.construct()
         AlgoBase.train(self, trainset)
         self.sgd(trainset)
@@ -185,10 +186,7 @@ class UserItemRelTags(AlgoBase):
         reg_pu = self.reg_pu
         reg_qi = self.reg_qi
 
-        global_mean = trainset.global_mean if self.biased else 0
-
-        if not self.biased:
-            global_mean = 0
+        global_mean = trainset.global_mean
 
         for current_epoch in range(self.n_epochs):
             if self.verbose:
@@ -222,7 +220,7 @@ class UserItemRelTags(AlgoBase):
 
     def estimate(self, u, i, tags):
 
-        est = self.trainset.global_mean if self.biased else 0
+        est = self.trainset.global_mean
 
         if self.trainset.knows_user(u):
             est += self.bu[u]
@@ -306,10 +304,7 @@ class UserItemGenomeTags(AlgoBase):
         reg_pu = self.reg_pu
         reg_qi = self.reg_qi
 
-        global_mean = trainset.global_mean if self.biased else 0
-
-        if not self.biased:
-            global_mean = 0
+        global_mean = trainset.global_mean
 
         for current_epoch in range(self.n_epochs):
             if self.verbose:
@@ -345,7 +340,7 @@ class UserItemGenomeTags(AlgoBase):
 
     def estimate(self, u, i, tags):
 
-        est = self.trainset.global_mean if self.biased else 0
+        est = self.trainset.global_mean
 
         if self.trainset.knows_user(u):
             est += self.bu[u]

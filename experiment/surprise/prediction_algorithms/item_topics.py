@@ -1,4 +1,5 @@
-
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 import numpy as np
 from six.moves import range
 import copy
@@ -11,7 +12,8 @@ class ItemTopics(AlgoBase):
     def __init__(self, n_factors=100, n_epochs=20, biased=True, lr_all=.005,
                  reg_all=.02, lr_bu=None, lr_bi=None, lr_pu=None, lr_qi=None,
                  reg_bu=None, reg_bi=None, reg_pu=None, reg_qi=None,
-                 n_topics=20, n_lda_iter=2000, alpha=0.1, eta=0.01,
+                 confidence=0.95,
+                 n_topics=10, n_lda_iter=1000, alpha=0.01, eta=0.01,
                  verbose=False):
 
         self.n_factors = n_factors
@@ -27,6 +29,7 @@ class ItemTopics(AlgoBase):
         self.reg_bi = reg_bi if reg_bi is not None else reg_all
         self.reg_pu = reg_pu if reg_pu is not None else reg_all
         self.reg_qi = reg_qi if reg_qi is not None else reg_all
+        self.confidence = confidence
         self.n_topics = n_topics
         self.n_lda_iter = n_lda_iter
         self.alpha = alpha
@@ -38,8 +41,8 @@ class ItemTopics(AlgoBase):
 
     def train(self, trainset):
 
-        # trainset.rank_sum_test(confidence=0.95)
-        # trainset.construct()
+        trainset.rank_sum_test(confidence=self.confidence)
+        trainset.construct()
         AlgoBase.train(self, trainset)
         self.sgd(trainset)
 
@@ -67,21 +70,21 @@ class ItemTopics(AlgoBase):
 
         # 考虑改为稀疏矩阵
         X = np.zeros((n_items, n_tags), dtype=int)
-        for iid, tids in trainset.item_tag_freq.items():
-            for tid, freq in tids.items():
-                X[iid, tid] = freq
+        for _, iid, _, tids in trainset.uirts:
+            for tid in tids:
+                X[iid, tid] += 1
 
-        vocab = [trainset.to_raw_tag(tid) for tid in range(n_tags)]
+        # vocab = [trainset.to_raw_tag(tid) for tid in range(n_tags)]
         self.lda_model = lda.LDA(n_topics=n_topics, n_iter=self.n_lda_iter,
-                                 alpha=self.alpha, eta=self.eta, refresh=2000)
+                                 alpha=self.alpha, eta=self.eta, refresh=1000)
         self.lda_model.fit(X)
 
         # topic info
-        topic_word = self.lda_model.topic_word_
-        n_top_words = 10
-        for i, topic_dist in enumerate(topic_word):
-            topic_words = np.array(vocab)[np.argsort(topic_dist)][:-n_top_words:-1]
-            print('Topic {}: {}'.format(i, ' '.join(topic_words)))
+        # topic_word = self.lda_model.topic_word_
+        # n_top_words = 10
+        # for i, topic_dist in enumerate(topic_word):
+        #     topic_words = np.array(vocab)[np.argsort(topic_dist)][:-n_top_words:-1]
+        #     print('Topic {}: {}'.format(i, ' '.join(topic_words)))
 
         # self.item_topic = np.argmax(self.lda_model.doc_topic_, axis=1)
 
@@ -97,7 +100,7 @@ class ItemTopics(AlgoBase):
         reg_pu = self.reg_pu
         reg_qi = self.reg_qi
 
-        global_mean = trainset.global_mean if self.biased else 0
+        global_mean = trainset.global_mean
 
         for current_epoch in range(self.n_epochs):
             if self.verbose:
@@ -121,10 +124,6 @@ class ItemTopics(AlgoBase):
                 pu[u] += lr_pu * (err * (qi[i] + sum_yt) - reg_pu * pu[u])
                 qi[i] += lr_qi * (err * pu[u] - reg_qi * qi[i])
 
-                # for t in range(n_topics):
-                #     prop = item_topic_prop[t]
-                #     yt[t] += lr_all * (err * pu[u] * prop - reg_all * yt[t])
-
                 yt += lr_all * (err * np.dot(topic_prop.reshape(n_topics, 1),
                                              pu[u].reshape(1, self.n_factors)) - reg_all * yt)
 
@@ -136,7 +135,7 @@ class ItemTopics(AlgoBase):
 
     def estimate(self, u, i, tags):
 
-        est = self.trainset.global_mean if self.biased else 0
+        est = self.trainset.global_mean
 
         if self.trainset.knows_user(u):
             est += self.bu[u]
@@ -146,18 +145,7 @@ class ItemTopics(AlgoBase):
 
         if self.trainset.knows_user(u) and self.trainset.knows_item(i):
 
-            X = np.zeros((1, self.trainset.n_tags), dtype=int)
-
-            for tid, freq in self.trainset.get_item_tags(i).items():
-                X[0, tid] = freq
-
-            # 将测试集中的标签加入
-            for tag in tags:
-                if self.trainset.knows_tag(tag):
-                    tid = self.trainset.to_inner_tid(tag)
-                    X[0, tid] += 1
-
-            item_topic_prop = self.lda_model.transform(X)[0]
+            item_topic_prop = self.lda_model.doc_topic_[i]
             sum_yt = np.dot(item_topic_prop, self.yt)
             est += np.dot((self.qi[i] + sum_yt), self.pu[u])
 

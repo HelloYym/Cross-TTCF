@@ -13,19 +13,18 @@ from surprise import GridSearch
 
 
 # path to dataset file
-dataset_path1 = os.path.expanduser('./Dataset/ml-latest-small/')
-# dataset_path2 = os.path.expanduser('./Dataset/LT/')
+# dataset_path1 = os.path.expanduser('./Dataset/LT/')
+dataset_path2 = os.path.expanduser('./Dataset/lt/')
 
-ml_dataset = Dataset(dataset_path=dataset_path1, tag_genome=False)
-# lt_dataset = Dataset(dataset_path=dataset_path2,
-#                      tag_genome=False, LT=True, limits=126083)
-
+# ml_dataset = Dataset(dataset_path=dataset_path1, tag_genome=False, sep=',', first_n_ratings=10000)
+lt_dataset = Dataset(dataset_path=dataset_path2, tag_genome=False, LT=True, first_n_ratings=160000)
+lt_dataset.cut(10000)
+lt_dataset.info()
 
 dump_dir = os.path.expanduser('~') + '/Thesis/experiment/dumps/Dataset'
 
-
-pickle.dump(ml_dataset, open(os.path.join(dump_dir, 'ml-small'), 'wb'))
-# pickle.dump(lt_dataset, open(os.path.join(dump_dir, 'LT-limit-ml'), 'wb'))
+pickle.dump(lt_dataset, open(os.path.join(dump_dir, 'lt-first-10000'), 'wb'))
+# pickle.dump(lt_dataset, open(os.path.join(dump_dir, 'lt-first-10000'), 'wb'))
 
 
 # ml_dataset = pickle.load(open(file_name, 'rb'))

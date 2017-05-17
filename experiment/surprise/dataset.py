@@ -1,4 +1,5 @@
-
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 from collections import defaultdict
 import random
 import numpy as np
@@ -18,11 +19,11 @@ class Dataset:
     available methods for loading datasets."""
 
     def __init__(self, dataset_path, sep=',', rating_scale=(0.5, 5), skip_lines=0,
-                 tag_genome=False, limits=None, LT=False):
+                 tag_genome=False, limits=None, LT=False, first_n_ratings=None):
 
         if LT:
             self.reader = LTReader(txt_file=dataset_path +
-                                   'UI2.txt', skip_lines=skip_lines, limits=limits)
+                                   'UI2.txt', skip_lines=skip_lines)
 
             self.raw_ratings, self.raw_tags = self.reader.read()
         else:
@@ -44,7 +45,7 @@ class Dataset:
         self.rating_scale = rating_scale
 
         # 只选取有标签的评分
-        self.user_item_rating_tags = self.combine_rating_tag()
+        self.user_item_rating_tags = self.combine_rating_tag(first_n_ratings)
         del self.raw_ratings
         del self.raw_tags
 
@@ -54,7 +55,11 @@ class Dataset:
         if limits:
             self.user_item_rating_tags = self.user_item_rating_tags[:limits]
 
-    def combine_rating_tag(self):
+    def cut(self, limits):
+        self.user_item_rating_tags = self.user_item_rating_tags[
+            :min(limits, len(self.user_item_rating_tags))]
+
+    def combine_rating_tag(self, first_n_ratings):
         ''' we consider only the ratings in which at least one tag was used.self
 
         '''
@@ -63,6 +68,8 @@ class Dataset:
             if (user, item) in self.raw_tags:
                 user_item_rating_tags.append(
                     [user, item, rating, self.raw_tags[(user, item)]])
+                if first_n_ratings and len(user_item_rating_tags) >= first_n_ratings:
+                    break
         print("there are {} ratings in which at least one tag was used.".format(
             len(user_item_rating_tags)))
         return user_item_rating_tags
@@ -85,7 +92,7 @@ class Dataset:
 
         return k_folds(self.user_item_rating_tags, self.n_folds)
 
-    def folds(self, n_parts=10):
+    def folds(self, n_parts=10, total_parts=10):
         """Generator function to iterate over the folds of the Dataset.
 
         See :ref:`User Guide <iterate_over_folds>` for usage.
@@ -95,7 +102,8 @@ class Dataset:
         """
 
         for raw_trainset, raw_testset in self.raw_folds():
-            partial_raw_trainset = raw_trainset[:int(len(raw_trainset) * n_parts / 10.0)]
+            partial_raw_trainset = raw_trainset[
+                :int(len(raw_trainset) * n_parts / total_parts)]
             trainset = self.construct_trainset(partial_raw_trainset)
             testset = self.construct_testset(raw_testset)
             yield trainset, testset

@@ -124,3 +124,60 @@ best params: {'lr_all': 0.005, 'n_factors': 100, 'reg_all': 0.02, 'n_epochs': 50
 Measure: MAE
 best score: 0.23537316369033073
 best params: {'lr_all': 0.005, 'n_factors': 100, 'reg_all': 0.02, 'n_epochs': 50}
+
+
+
+
+
+
+
+
+
+----ItemTopics----
+Measure: RMSE
+best score: 0.9091078595776286
+best params: {'reg_all': 0.02, 'n_factors': 80, 'eta': 0.01, 'lr_all': 0.005, 'alpha': 0.1, 'n_epochs': 50, 'n_lda_iter': 4000, 'n_topics': 10}
+Measure: MAE
+best score: 0.689006351997984
+best params: {'reg_all': 0.02, 'n_factors': 80, 'eta': 0.1, 'lr_all': 0.005, 'alpha': 0.1, 'n_epochs': 50, 'n_lda_iter': 4000, 'n_topics': 10}
+
+
+
+----ItemTopics----
+Measure: RMSE
+best score: 0.9086773188778523
+best params: {'n_factors': 100, 'lr_all': 0.005, 'alpha': 0.04, 'n_epochs': 50, 'eta': 0.01, 'n_lda_iter': 3000, 'reg_all': 0.02, 'n_topics': 10}
+Measure: MAE
+best score: 0.688893161514731
+best params: {'n_factors': 100, 'lr_all': 0.005, 'alpha': 0.04, 'n_epochs': 50, 'eta': 0.01, 'n_lda_iter': 3000, 'reg_all': 0.02, 'n_topics': 10}
+
+
+
+0.9086
+
+
+
+----ItemTopics----
+Measure: RMSE
+best score: 0.9081258928733746
+best params: {'lr_all': 0.005, 'n_factors': 100, 'eta': 0.01, 'n_topics': 10, 'reg_all': 0.02, 'alpha': 0.01, 'n_epochs': 50, 'n_lda_iter': 1000}
+Measure: MAE
+best score: 0.6882837148769867
+best params: {'lr_all': 0.005, 'n_factors': 100, 'eta': 0.01, 'n_topics': 10, 'reg_all': 0.02, 'alpha': 0.01, 'n_epochs': 50, 'n_lda_iter': 1000}
+
+
+
+----ItemTopics-ml----
+Measure: RMSE
+best score: 0.8957640777637288
+best params: {'n_topics': 10, 'reg_all': 0.01, 'lr_all': 0.002, 'eta': 0.01, 'n_epochs': 50, 'n_factors': 100, 'alpha': 0.02}
+Measure: MAE
+best score: 0.6773970122284323
+best params: {'n_topics': 10, 'reg_all': 0.01, 'lr_all': 0.002, 'eta': 0.01, 'n_epochs': 50, 'n_factors': 100, 'alpha': 0.02}
+----ItemTopics-lt----
+Measure: RMSE
+best score: 0.8353645727379817
+best params: {'n_topics': 10, 'reg_all': 0.01, 'lr_all': 0.01, 'eta': 0.01, 'n_epochs': 50, 'n_factors': 100, 'alpha': 0.01}
+Measure: MAE
+best score: 0.6297652128271838
+best params: {'n_topics': 10, 'reg_all': 0.01, 'lr_all': 0.01, 'eta': 0.01, 'n_epochs': 100, 'n_factors': 100, 'alpha': 0.01}
