@@ -67,7 +67,6 @@ class CrossItemRelTags(AlgoBase):
             raise ValueError(('inner tag id ' + str(itid) +
                               ' is not part of the trainset.'))
 
-
     def sgd(self, trainset, aux_trainset):
 
         # 目标域的潜在向量
@@ -98,8 +97,8 @@ class CrossItemRelTags(AlgoBase):
         yt = np.zeros((self.n_tags,
                        self.n_factors), np.double)
 
-        global_mean = trainset.global_mean if self.biased else 0
-        aux_global_mean = aux_trainset.global_mean if self.biased else 0
+        global_mean = trainset.global_mean
+        aux_global_mean = aux_trainset.global_mean
 
         lr_all = self.lr_all
         reg_all = self.reg_all
@@ -157,7 +156,7 @@ class CrossItemRelTags(AlgoBase):
 
     def estimate(self, u, i, tags):
 
-        est = self.trainset.global_mean if self.biased else 0
+        est = self.trainset.global_mean
 
         if self.trainset.knows_user(u):
             est += self.bu[u]
@@ -168,12 +167,6 @@ class CrossItemRelTags(AlgoBase):
         if self.trainset.knows_user(u) and self.trainset.knows_item(i):
 
             item_tags = copy.deepcopy(self.trainset.get_item_tags(i))
-
-            # 将测试集中的标签加入
-            # for tag in tags:
-            #     if self.trainset.knows_tag(tag):
-            #         itid = self.trainset.to_inner_tid(tag)
-            #         item_tags[itid] += 1
 
             yt_cnt = max(sum(item_tags.values()), 1)
             yt_sum = np.sum([self.yt[tid] * freq for tid,

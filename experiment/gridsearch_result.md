@@ -12,20 +12,21 @@ best params: {'biased': False, 'n_factors': 100, 'lr_all': 0.002, 'reg_all': 0.0
 Measure: MAE
 best score: 0.7055429599715881
 best params: {'biased': False, 'n_factors': 100, 'lr_all': 0.002, 'reg_all': 0.01, 'n_epochs': 50, 'n_topics': 10, 'alpha': 0.01, 'eta': 0.02, 'n_lda_iter': 2000}
+
 ----CrossItemTopics-ml----
 Measure: RMSE
-best score: 0.9431345825583837
-best params: {'biased': False, 'n_factors': 100, 'lr_all': 0.002, 'reg_all': 0.01, 'n_epochs': 50, 'n_topics': 10, 'alpha': 0.01, 'eta': 0.02, 'n_lda_iter': 2000}
+best score: 0.9405977051450283
+best params: {'n_epochs': 50, 'n_factors': 100, 'reg_all': 0.01, 'biased': False, 'n_lda_iter': 2000, 'lr_all': 0.005}
 Measure: MAE
-best score: 0.707332087394768
-best params: {'biased': False, 'n_factors': 100, 'lr_all': 0.002, 'reg_all': 0.01, 'n_epochs': 50, 'n_topics': 10, 'alpha': 0.01, 'eta': 0.02, 'n_lda_iter': 2000}
+best score: 0.7040028319759839
+best params: {'n_epochs': 50, 'n_factors': 100, 'reg_all': 0.01, 'biased': False, 'n_lda_iter': 2000, 'lr_all': 0.005}
 ----CrossItemTopics-lt----
 Measure: RMSE
-best score: 0.9028080089181536
-best params: {'biased': False, 'n_factors': 100, 'lr_all': 0.002, 'reg_all': 0.01, 'n_epochs': 50, 'n_topics': 10, 'alpha': 0.02, 'eta': 0.02, 'n_lda_iter': 1000}
+best score: 0.8653368052001953
+best params: {'n_epochs': 50, 'n_factors': 100, 'reg_all': 0.01, 'biased': False, 'n_lda_iter': 1000, 'lr_all': 0.01}
 Measure: MAE
-best score: 0.7059549119977432
-best params: {'biased': False, 'n_factors': 100, 'lr_all': 0.002, 'reg_all': 0.01, 'n_epochs': 50, 'n_topics': 10, 'alpha': 0.02, 'eta': 0.02, 'n_lda_iter': 1000}
+best score: 0.6506655646274029
+best params: {'n_epochs': 50, 'n_factors': 100, 'reg_all': 0.01, 'biased': False, 'n_lda_iter': 1000, 'lr_all': 0.01}
 
 
 

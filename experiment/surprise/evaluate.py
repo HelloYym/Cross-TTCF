@@ -77,7 +77,8 @@ def evaluate(algo, dataset, aux_dataset=None, measures=['rmse', 'mae'], with_dum
         if with_dump:
 
             if dump_dir is None:
-                dump_dir = os.path.expanduser('~') + '/Thesis/experiment/dumps/'
+                dump_dir = os.path.expanduser(
+                    '~') + '/Thesis/experiment/dumps/'
 
             if not os.path.exists(dump_dir):
                 os.makedirs(dump_dir)
@@ -139,7 +140,8 @@ def evaluate_parts(algo, dataset, aux_dataset=None, measures=['rmse', 'mae'], wi
                   measure.upper(), np.mean(performances[measure])))
 
     if with_dump:
-        dump_dir = os.path.expanduser('~') + '/Thesis/experiment/dumps/usage_parts'
+        dump_dir = os.path.expanduser(
+            '~') + '/Thesis/experiment/dumps/usage_parts'
         date = time.strftime('%m%d%H%M', time.localtime())
         file_name = algo.__class__.__name__ + '-' + dump_info
         file_name = os.path.join(dump_dir, file_name)
@@ -281,10 +283,9 @@ class GridSearch:
                 **self.best_params[measure])
 
         if self.with_dump:
-            dump_dir = os.path.expanduser(
-                '~') + '/Thesis/experiment/dumps/grid_search_result'
+            dump_dir = os.path.expanduser('dumps/grid_search_result')
 
-            date = time.strftime('%m%d%H%M', time.localtime())
+            # date = time.strftime('%m%d%H%M', time.localtime())
             file_name = self.algo_class.__name__ + '-' + self.dump_info
             file_name = os.path.join(dump_dir, file_name)
 

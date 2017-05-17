@@ -18,36 +18,35 @@ def part_usage_perf(parts_performances):
     plt.show()
 
 
-def compare_part_usage_perf(n_parts_perf):
+def compare_part_usage_perf(n_parts_perf, measure='rmse'):
     ''' 采用不同比例训练集的性能
 
     '''
 
     # usage = [format(f, '.0%') for f in np.arange(0.1, 1.1, 0.1)]
-    usage = np.arange(0.2, 1.1, 0.2)
+    usage = np.arange(0.1, 1.1, 0.1)
 
-    marker_list = ['.', 'o', 'x', '+', '*']
+    marker_list = ['.', 'o', 'x', 'v', '*', 'p', 's']
 
     for i, perf in enumerate(n_parts_perf):
-        plt.plot(usage, perf['predictions']['rmse'], label=i, marker=marker_list[i])
+        plt.plot(usage, perf['predictions'][measure], label=i, marker=marker_list[i])
 
     plt.title('compare')
     plt.legend()
     plt.show()
 
 
-def compare_factor_perf(n_parts_perf):
+def compare_factor_perf(n_parts_perf, measure='rmse'):
     ''' 采用不同比例训练集的性能
 
     '''
 
     # usage = [format(f, '.0%') for f in np.arange(0.1, 1.1, 0.1)]
-    usage = np.arange(0.2, 1.1, 0.2)
-
+    usage = np.arange(0.1, 1.1, 0.1)
+    measure = measure.upper()
     marker_list = ['.', 'o', 'x', '+', '*']
-
-    for i, perf in enumerate(n_parts_perf):
-        plt.plot(usage, perf['rmse'], label=i, marker=marker_list[i])
+    for i, pred in enumerate(n_parts_perf):
+        plt.plot(usage, [perf[measure] for perf in pred['predictions']['scores']], label=i, marker=marker_list[i])
 
     plt.title('compare')
     plt.legend()

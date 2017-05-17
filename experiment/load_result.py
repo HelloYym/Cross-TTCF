@@ -19,31 +19,41 @@ import matplotlib.pyplot as plt
 
 import pickle
 
-dump_dir = os.path.expanduser('~') + '/Thesis/experiment/dumps/usage_parts'
 
-# grid_search_result1 = pickle.load(
-#     open(os.path.join(dump_dir, 'grid_search_result/ItemRelTags-factors_10_200'), 'rb'))
-# grid_search_result2 = pickle.load(
-#     open(os.path.join(dump_dir, 'grid_search_result/ItemTopics-factors_10_200'), 'rb'))
-
-
-# plt.plot([param['n_factors'] for param in grid_search_result1['predictions']['params']], grid_search_result1['predictions']['RMSE'], label='ItemRelTags')
-# plt.plot([param['n_factors'] for param in grid_search_result2['predictions']['params']], grid_search_result2['predictions']['RMSE'], label='ItemTopics')
-# # plt.title('compare')
-# plt.legend()
-# plt.show()
-
-
-SVD = pickle.load(open(os.path.join(dump_dir, 'SVD-ml-unb-glo-5parts'), 'rb'))
-ItemTopics = pickle.load(open(os.path.join(dump_dir, 'ItemTopics-ml-unb-glo-5parts'), 'rb'))
-ItemRelTags = pickle.load(open(os.path.join(dump_dir, 'ItemRelTags-ml-unb-glo-5parts'), 'rb'))
-CrossItemTopics = pickle.load(open(os.path.join(dump_dir, 'CrossItemTopics-ml-unb-glo-5parts'), 'rb'))
+def load_perf_n_factors(dump_info):
+    dump_dir = os.path.expanduser('dumps/n_factors/')
+    SVD = pickle.load(open(os.path.join(dump_dir, 'SVD-' + dump_info), 'rb'))
+    # ItemTopics = pickle.load(
+    #     open(os.path.join(dump_dir, 'ItemTopics-' + dump_info), 'rb'))
+    # ItemRelTags = pickle.load(
+    #     open(os.path.join(dump_dir, 'ItemRelTags-' + dump_info), 'rb'))
+    UserItemTags = pickle.load(
+        open(os.path.join(dump_dir, 'UserItemTags-' + dump_info), 'rb'))
+    # CrossItemTopics = pickle.load(
+    #     open(os.path.join(dump_dir, 'CrossItemTopics-' + dump_info), 'rb'))
+    # CrossItemRelTags = pickle.load(open(os.path.join(dump_dir, 'CrossItemRelTags-'+dump_info), 'rb'))
+    # compare_factor_perf([SVD, ItemTopics, ItemRelTags,
+    #                      UserItemTags, CrossItemTopics], 'rmse')
+    compare_factor_perf([SVD, UserItemTags], 'rmse')
 
 
-compare_part_usage_perf([SVD, ItemTopics, ItemRelTags, CrossItemTopics])
+def load_perf_n_parts(dump_info):
+    dump_dir = os.path.expanduser('dumps/usage_parts/')
+    SVD = pickle.load(open(os.path.join(dump_dir, 'SVD-' + dump_info), 'rb'))
+    ItemTopics = pickle.load(
+        open(os.path.join(dump_dir, 'ItemTopics-' + dump_info), 'rb'))
+    ItemRelTags = pickle.load(
+        open(os.path.join(dump_dir, 'ItemRelTags-' + dump_info), 'rb'))
+    UserItemTags = pickle.load(
+        open(os.path.join(dump_dir, 'UserItemTags-' + dump_info), 'rb'))
+    CrossItemTopics = pickle.load(
+        open(os.path.join(dump_dir, 'CrossItemTopics-' + dump_info), 'rb'))
+    # CrossItemRelTags = pickle.load(open(os.path.join(dump_dir, 'CrossItemRelTags-'+dump_info), 'rb'))
+    compare_part_usage_perf(
+        [SVD, ItemTopics, ItemRelTags, CrossItemTopics, CrossItemRelTags], 'rmse')
 
 
 
 
 
-
+load_perf_n_factors('ml_grid_search_n_factors')

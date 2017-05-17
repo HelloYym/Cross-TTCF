@@ -36,76 +36,77 @@ print('tags overlapping: {}'.format(len(all_tag_set)))
 #     50, ], 'n_topics': [10, 20], 'alpha': [0.01, 0.02], 'eta': [0.01, 0.02]}
 
 param_grid = {'biased': [False, ], 'n_factors': [100], 'lr_all': [
-    0.001, 0.002, 0.005, ], 'reg_all': [0.01, 0.02, 0.04], 'n_epochs': [50]}
+    0.002, 0.005, 0.01], 'reg_all': [0.01, ], 'n_epochs': [50], 'n_lda_iter': [1000, 2000]}
 
-grid_search0 = GridSearch(SVD, param_grid, measures=[
-                          'RMSE', 'MAE'], with_dump=True, dump_info='search_best_perf-ml')
-grid_search1 = GridSearch(UserItemTags, param_grid, measures=[
-                          'RMSE', 'MAE'], with_dump=True, dump_info='search_best_perf-ml')
-grid_search2 = GridSearch(UserItemRelTags, param_grid, measures=[
-                          'RMSE', 'MAE'], with_dump=True, dump_info='search_best_perf-ml')
-grid_search3 = GridSearch(ItemRelTags, param_grid, measures=[
-                          'RMSE', 'MAE'], with_dump=True, dump_info='search_best_perf-ml')
+# grid_search0 = GridSearch(SVD, param_grid, measures=[
+#                           'RMSE', 'MAE'], with_dump=True, dump_info='search_best_perf-ml')
+# grid_search1 = GridSearch(UserItemTags, param_grid, measures=[
+#                           'RMSE', 'MAE'], with_dump=True, dump_info='search_best_perf-ml')
+# grid_search2 = GridSearch(UserItemRelTags, param_grid, measures=[
+#                           'RMSE', 'MAE'], with_dump=True, dump_info='search_best_perf-ml')
+# grid_search3 = GridSearch(ItemRelTags, param_grid, measures=[
+#                           'RMSE', 'MAE'], with_dump=True, dump_info='search_best_perf-ml')
 
-grid_search01 = GridSearch(SVD, param_grid, measures=[
-                          'RMSE', 'MAE'], with_dump=True, dump_info='search_best_perf-lt')
-grid_search11 = GridSearch(UserItemTags, param_grid, measures=[
-                          'RMSE', 'MAE'], with_dump=True, dump_info='search_best_perf-lt')
-grid_search21 = GridSearch(UserItemRelTags, param_grid, measures=[
-                          'RMSE', 'MAE'], with_dump=True, dump_info='search_best_perf-lt')
-grid_search31 = GridSearch(ItemRelTags, param_grid, measures=[
-                          'RMSE', 'MAE'], with_dump=True, dump_info='search_best_perf-lt')
+# grid_search01 = GridSearch(SVD, param_grid, measures=[
+#                           'RMSE', 'MAE'], with_dump=True, dump_info='search_best_perf-lt')
+# grid_search11 = GridSearch(UserItemTags, param_grid, measures=[
+#                           'RMSE', 'MAE'], with_dump=True, dump_info='search_best_perf-lt')
+# grid_search21 = GridSearch(UserItemRelTags, param_grid, measures=[
+#                           'RMSE', 'MAE'], with_dump=True, dump_info='search_best_perf-lt')
+# grid_search31 = GridSearch(ItemRelTags, param_grid, measures=[
+#                           'RMSE', 'MAE'], with_dump=True, dump_info='search_best_perf-lt')
 
 # grid_search4 = GridSearch(ItemTopics, param_grid, measures=[
-#                           'RMSE', 'MAE'], with_dump=True, dump_info='search_best_perf-ml')
+#                           'RMSE', 'MAE'], with_dump=True, dump_info='search_best_perf-ml-1')
 # grid_search5 = GridSearch(ItemTopics, param_grid, measures=[
-#                           'RMSE', 'MAE'], with_dump=True, dump_info='search_best_perf-lt')
+#                           'RMSE', 'MAE'], with_dump=True, dump_info='search_best_perf-lt-1')
 
-# grid_search6 = GridSearch(CrossItemTopics, param_grid, measures=[
-#                           'RMSE', 'MAE'], with_dump=True, dump_info='search_best_perf-ml')
-# grid_search7 = GridSearch(CrossItemTopics, param_grid, measures=[
-#                           'RMSE', 'MAE'], with_dump=True, dump_info='search_best_perf-lt')
+grid_search6 = GridSearch(CrossItemTopics, param_grid, measures=[
+                          'RMSE', 'MAE'], with_dump=True, dump_info='search_best_perf-ml-1')
+grid_search7 = GridSearch(CrossItemTopics, param_grid, measures=[
+                          'RMSE', 'MAE'], with_dump=True, dump_info='search_best_perf-lt-1')
 
-grid_search0.evaluate(ml_dataset)
-grid_search1.evaluate(ml_dataset)
-grid_search2.evaluate(ml_dataset)
-grid_search3.evaluate(ml_dataset)
+# grid_search0.evaluate(ml_dataset)
+# grid_search1.evaluate(ml_dataset)
+# grid_search2.evaluate(ml_dataset)
+# grid_search3.evaluate(ml_dataset)
 
-grid_search01.evaluate(lt_dataset)
-grid_search11.evaluate(lt_dataset)
-grid_search21.evaluate(lt_dataset)
-grid_search31.evaluate(lt_dataset)
+# grid_search01.evaluate(lt_dataset)
+# grid_search11.evaluate(lt_dataset)
+# grid_search21.evaluate(lt_dataset)
+# grid_search31.evaluate(lt_dataset)
+
 # grid_search4.evaluate(ml_dataset)
 # grid_search5.evaluate(lt_dataset)
-# grid_search6.evaluate(ml_dataset, aux_dataset=lt_dataset)
-# grid_search7.evaluate(lt_dataset, aux_dataset=ml_dataset)
+grid_search6.evaluate(ml_dataset, aux_dataset=lt_dataset)
+grid_search7.evaluate(lt_dataset, aux_dataset=ml_dataset)
 
-print("----SVD----")
-grid_search0.print_perf()
-print("----UserItemTags----")
-grid_search1.print_perf()
-print('----UserItemRelTags----')
-grid_search2.print_perf()
-print('----ItemRelTags----')
-grid_search3.print_perf()
+# print("----SVD----")
+# grid_search0.print_perf()
+# print("----UserItemTags----")
+# grid_search1.print_perf()
+# print('----UserItemRelTags----')
+# grid_search2.print_perf()
+# print('----ItemRelTags----')
+# grid_search3.print_perf()
 
-print("----SVD-lt----")
-grid_search01.print_perf()
-print("----UserItemTags-lt----")
-grid_search11.print_perf()
-print('----UserItemRelTags-lt----')
-grid_search21.print_perf()
-print('----ItemRelTags-lt----')
-grid_search31.print_perf()
+# print("----SVD-lt----")
+# grid_search01.print_perf()
+# print("----UserItemTags-lt----")
+# grid_search11.print_perf()
+# print('----UserItemRelTags-lt----')
+# grid_search21.print_perf()
+# print('----ItemRelTags-lt----')
+# grid_search31.print_perf()
 
 # print("----ItemTopics-ml----")
 # grid_search4.print_perf()
 # print("----ItemTopics-lt----")
 # grid_search5.print_perf()
-# print("----CrossItemTopics-ml----")
-# grid_search6.print_perf()
-# print("----CrossItemTopics-lt----")
-# grid_search7.print_perf()
+print("----CrossItemTopics-ml----")
+grid_search6.print_perf()
+print("----CrossItemTopics-lt----")
+grid_search7.print_perf()
 
 
 # results_df_3 = pd.DataFrame.from_dict(grid_search3.cv_results)
