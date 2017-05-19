@@ -33,11 +33,11 @@ from .knns import SymmetricAlgo
 # from .co_clustering import CoClustering
 from .user_item_tags import UserItemTags, UserItemGenomeTags, UserItemRelTags
 from .item_rel_tags import ItemRelTags
-from .item_topics import ItemTopics
+from .item_topics import ItemTopics, ItemTopicsTest
 from .user_item_topics import UserItemTopics
 from .cross_user_item_tags import CrossUserItemTags, CrossUserItemRelTags
 from .cross_item_rel_tags import CrossItemRelTags
-from .cross_item_topics import CrossItemTopics
+from .cross_item_topics import CrossItemTopics, CrossItemTopicsTest
 from .svd import SVD
 
 
@@ -48,4 +48,5 @@ __all__ = ['AlgoBase', 'NormalPredictor', 'BaselineOnly', 'KNNBasic',
            'KNNBaseline', 'KNNWithMeans', 'SVD', 'SVDpp', 'NMF', 'SlopeOne',
            'CoClustering', 'PredictionImpossible', 'Prediction', 'SymmetricAlgo',
            'UserItemTags', 'UserItemGenomeTags', 'ItemRelTags', 'UserItemRelTags', 'ItemTopics', 'UserItemTopics',
-           'CrossUserItemTags', 'CrossUserItemRelTags', 'CrossItemRelTags', 'CrossItemTopics']
+           'CrossUserItemTags', 'CrossUserItemRelTags', 'CrossItemRelTags', 'CrossItemTopics',
+           'ItemTopicsTest', 'CrossItemTopicsTest']

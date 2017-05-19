@@ -17,8 +17,8 @@ ml_dataset = pickle.load(
 lt_dataset = pickle.load(
     open(os.path.join(dump_dir, 'Dataset/lt-first-10000'), 'rb'))
 
-ml_dataset.cut(limits=100)
-lt_dataset.cut(limits=100)
+# ml_dataset.cut(limits=100)
+# lt_dataset.cut(limits=100)
 
 d1 = ml_dataset.info()
 d2 = lt_dataset.info()
@@ -35,32 +35,32 @@ param_grid_with_topic = {'biased': [False], 'n_factors': np.arange(10, 110, 10),
     50], 'n_lda_iter': [2000], 'n_topics': [10], 'alpha': [0.02], 'eta': [0.01]}
 
 
-grid_search0 = GridSearch(SVD, param_grid, measures=[
-                          'RMSE', 'MAE'], with_dump=True, dump_info=dump_info)
-grid_search1 = GridSearch(UserItemTags, param_grid, measures=[
-                          'RMSE', 'MAE'], with_dump=True, dump_info=dump_info)
-grid_search2 = GridSearch(ItemRelTags, param_grid, measures=[
-                          'RMSE', 'MAE'], with_dump=True, dump_info=dump_info)
-grid_search3 = GridSearch(ItemTopics, param_grid_with_topic, measures=[
-                          'RMSE', 'MAE'], with_dump=True, dump_info=dump_info)
+# grid_search0 = GridSearch(SVD, param_grid, measures=[
+#                           'RMSE', 'MAE'], with_dump=True, dump_info=dump_info)
+# grid_search1 = GridSearch(UserItemTags, param_grid, measures=[
+#                           'RMSE', 'MAE'], with_dump=True, dump_info=dump_info)
+# grid_search2 = GridSearch(ItemRelTags, param_grid, measures=[
+#                           'RMSE', 'MAE'], with_dump=True, dump_info=dump_info)
+# grid_search3 = GridSearch(ItemTopics, param_grid_with_topic, measures=[
+#                           'RMSE', 'MAE'], with_dump=True, dump_info=dump_info)
 grid_search4 = GridSearch(CrossItemTopics, param_grid_with_topic, measures=[
                           'RMSE', 'MAE'], with_dump=True, dump_info=dump_info)
 
 
-grid_search0.evaluate(ml_dataset)
-grid_search1.evaluate(ml_dataset)
-grid_search2.evaluate(ml_dataset)
-grid_search3.evaluate(ml_dataset)
+# grid_search0.evaluate(ml_dataset)
+# grid_search1.evaluate(ml_dataset)
+# grid_search2.evaluate(ml_dataset)
+# grid_search3.evaluate(ml_dataset)
 grid_search4.evaluate(ml_dataset, aux_dataset=lt_dataset)
 
 
-print("----SVD----")
-grid_search0.print_perf()
-print("----UserItemTags----")
-grid_search1.print_perf()
-print('----ItemRelTags----')
-grid_search2.print_perf()
-print("----ItemTopics----")
-grid_search3.print_perf()
+# print("----SVD----")
+# grid_search0.print_perf()
+# print("----UserItemTags----")
+# grid_search1.print_perf()
+# print('----ItemRelTags----')
+# grid_search2.print_perf()
+# print("----ItemTopics----")
+# grid_search3.print_perf()
 print("----CrossItemTopics----")
 grid_search4.print_perf()

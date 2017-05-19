@@ -13,6 +13,7 @@ from .prediction_algorithms import KNNBaseline
 
 from .prediction_algorithms import SVD, UserItemTags, UserItemGenomeTags, ItemRelTags, UserItemRelTags, ItemTopics, UserItemTopics
 from .prediction_algorithms import CrossUserItemTags, CrossUserItemRelTags, CrossItemRelTags, CrossItemTopics
+from .prediction_algorithms import ItemTopicsTest, CrossItemTopicsTest
 from .prediction_algorithms import PredictionImpossible
 from .prediction_algorithms import Prediction
 
@@ -32,4 +33,5 @@ __all__ = ['AlgoBase', 'NormalPredictor', 'BaselineOnly', 'KNNBasic',
            'Reader', 'Trainset', 'evaluate', 'print_perf', 'GridSearch', 'evaluate_parts',
            'dump', 'SymmetricAlgo', 'RatingsReader', 'TagsReader', 'UserItemTags',
            'UserItemGenomeTags', 'ItemRelTags', 'UserItemRelTags', 'ItemTopics', 'UserItemTopics',
-           'CrossUserItemTags', 'CrossUserItemRelTags', 'CrossItemRelTags', 'CrossItemTopics']
+           'CrossUserItemTags', 'CrossUserItemRelTags', 'CrossItemRelTags', 'CrossItemTopics',
+           'ItemTopicsTest', 'CrossItemTopicsTest']
