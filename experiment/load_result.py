@@ -32,6 +32,7 @@ def load_perf_n_factors(dump_info):
     CrossItemTopics = pickle.load(
         open(os.path.join(dump_dir, 'CrossItemTopics-' + dump_info), 'rb'))
     compare_factor_perf([SVD, ItemTopics, ItemRelTags, UserItemTags, CrossItemTopics], 'rmse')
+    # compare_factor_perf([SVD, UserItemTags], 'mae')
 
 
 def load_perf_n_parts(dump_info):
@@ -43,14 +44,16 @@ def load_perf_n_parts(dump_info):
         open(os.path.join(dump_dir, 'ItemRelTags-' + dump_info), 'rb'))
     UserItemTags = pickle.load(
         open(os.path.join(dump_dir, 'UserItemTags-' + dump_info), 'rb'))
-    CrossItemTopics = pickle.load(
-        open(os.path.join(dump_dir, 'CrossItemTopics-' + dump_info), 'rb'))
-    ItemTopicsTest = pickle.load(open(os.path.join(dump_dir, 'ItemTopicsTest-'+dump_info), 'rb'))
-    CrossItemTopicsTest = pickle.load(open(os.path.join(dump_dir, 'CrossItemTopicsTest-'+dump_info), 'rb'))
+    CrossItemTopics = pickle.load(open(os.path.join(dump_dir, 'CrossItemTopics-' + dump_info), 'rb'))
+    # ItemTopicsTest = pickle.load(open(os.path.join(dump_dir, 'ItemTopicsTest-'+ 'lt-unb-glo-05lr100k-10parts'), 'rb'))
+    # CrossItemTopicsTest = pickle.load(open(os.path.join(dump_dir, 'CrossItemTopicsTest-'+ 'lt-unb-glo-05lr100k-10parts'), 'rb'))
     compare_part_usage_perf(
-        [SVD, ItemRelTags, CrossItemTopics, ItemTopicsTest, CrossItemTopicsTest], 'mae')
+        [SVD, ItemTopics, ItemRelTags, UserItemTags, CrossItemTopics], 'rmse')
+
+# load_perf_n_factors('lt_n_factors_0522')
+# load_perf_n_factors('lt_shuffle_n_factors_0521')
 
 
-# load_perf_n_factors('ml_grid_search_n_factors')
 
-load_perf_n_parts('ml-unb-glo-005lr-10parts')
+load_perf_n_parts('ml-best-params-10parts-0522')
+# load_perf_n_parts('ml-unb-glo-005lr-10parts')

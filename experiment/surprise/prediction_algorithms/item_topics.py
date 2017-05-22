@@ -221,7 +221,7 @@ class ItemTopicsTest(AlgoBase):
 
         # vocab = [trainset.to_raw_tag(tid) for tid in range(n_tags)]
         self.lda_model = lda.LDA(n_topics=n_topics, n_iter=self.n_lda_iter,
-                                 alpha=self.alpha, eta=self.eta, refresh=1000)
+                                 alpha=self.alpha, eta=self.eta, refresh=2000)
         self.lda_model.fit(X)
 
         lr_all = self.lr_all

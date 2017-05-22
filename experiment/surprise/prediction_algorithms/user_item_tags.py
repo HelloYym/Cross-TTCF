@@ -33,7 +33,8 @@ class UserItemTags(AlgoBase):
         self.estimate_with_tags = True
 
     def train(self, trainset):
-
+        trainset.rank_sum_test(confidence=self.confidence)
+        trainset.construct()
         AlgoBase.train(self, trainset)
         self.sgd(trainset)
 

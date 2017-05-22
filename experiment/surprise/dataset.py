@@ -9,6 +9,7 @@ from six.moves import range
 
 from .Reader import RatingsReader, TagsReader, LTReader
 from .trainset import Trainset
+import lda
 
 
 class Dataset:
@@ -75,6 +76,8 @@ class Dataset:
         return user_item_rating_tags
 
     def raw_folds(self):
+
+        # random.shuffle(self.user_item_rating_tags)
 
         def k_folds(seq, n_folds):
             """Inspired from scikit learn KFold method."""
@@ -143,24 +146,24 @@ class Dataset:
         '''计算每个tag的出现频数'''
 
         dataset = self.build_full_trainset()
+        # dataset.rank_sum_test(0.95)
+        # dataset.construct()
         dataset.info()
+        # X = np.zeros((dataset.n_items, dataset.n_tags), dtype=int)
+        # for _, iid, _, tids in dataset.uirts:
+        #     for tid in tids:
+        #         X[iid, tid] += 1
+
+        # vocab = [dataset.to_raw_tag(tid) for tid in range(dataset.n_tags)]
+        # lda_model = lda.LDA(n_topics=10, n_iter=4000,
+        #                     alpha=0.1, eta=0.01, refresh=1000)
+        # lda_model.fit(X)
+
+        # topic_word = lda_model.topic_word_
+        # n_top_words = 15
+        # for i, topic_dist in enumerate(topic_word):
+        #     topic_words = np.array(vocab)[np.argsort(topic_dist)][
+        #         :-n_top_words:-1]
+        #     print('Topic {}: {}'.format(i, '; '.join(topic_words)))
+
         return dataset
-
-    def tag_power_law(self):
-        ''' 统计标签的长尾分布
-
-        '''
-        fk = defaultdict(int)
-        for key, value in self.tag_freq.items():
-            fk[value] += 1
-
-        plt.scatter(list(fk.keys()), np.array(
-            list(fk.values())), c=np.random.rand(len(fk)))
-        plt.title('标签流行度的长尾分布')
-        plt.xlabel('流行度')  # 给 x 轴添加标签
-        plt.ylabel('标签频度')  # 给 y 轴添加标签
-        plt.yscale('log')
-        plt.xscale('log')
-        plt.xlim(0)
-        plt.ylim(-1)
-        plt.show()

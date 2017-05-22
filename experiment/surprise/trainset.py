@@ -42,8 +42,6 @@ class Trainset:
         self.raw_trainset = raw_trainset
 
         self.tags_set = self.get_tags_set(self.raw_trainset)
-        # self.rank_sum_test(uirts=self.raw_trainset, confidence=0.95)
-
         self.construct()
         self.rating_scale = rating_scale
         self.offset = offset
@@ -158,7 +156,7 @@ class Trainset:
             z = abs(zNumerator / zDenominator)
             # 如果结果小于置信度，说明该tag对评分影响不大，删除该评分
             if z < confidence:
-                self.tags_set.discard(tag)
+                self.tags_set.discard(self.to_raw_tag(tag))
 
     def info(self, diagram=False):
         '''训练集统计信息'''

@@ -140,8 +140,7 @@ def evaluate_parts(algo, dataset, aux_dataset=None, measures=['rmse', 'mae'], wi
                   measure.upper(), np.mean(performances[measure])))
 
     if with_dump:
-        dump_dir = os.path.expanduser(
-            '~') + '/Thesis/experiment/dumps/usage_parts'
+        os.path.expanduser('dumps/')
         date = time.strftime('%m%d%H%M', time.localtime())
         file_name = algo.__class__.__name__ + '-' + dump_info
         file_name = os.path.join(dump_dir, file_name)
