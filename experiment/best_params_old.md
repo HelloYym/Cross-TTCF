@@ -116,3 +116,23 @@ best params: {'reg_all': 0.02, 'lr_all': 0.02, 'eta': 0.02, 'alpha': 0.02, 'n_ld
 Measure: MAE
 best score: 0.6255696459702811
 best params: {'reg_all': 0.01, 'lr_all': 0.1, 'eta': 0.01, 'alpha': 0.02, 'n_lda_iter': 2000, 'n_factors': 100, 'biased': False, 'n_epochs': 50}
+
+
+
+
+
+----ItemTopics-lt----
+Measure: RMSE
+best score: 0.8622574402188553
+best params: {'biased': False, 'n_factors': 100, 'lr_all': 0.08, 'reg_all': 0.01, 'n_epochs': 50, 'n_lda_iter': 6000, 'alpha': 0.04, 'eta': 0.04, 'n_topics': 10}
+Measure: MAE
+best score: 0.6253993802569037
+best params: {'biased': False, 'n_factors': 100, 'lr_all': 0.08, 'reg_all': 0.005, 'n_epochs': 50, 'n_lda_iter': 6000, 'alpha': 0.02, 'eta': 0.01, 'n_topics': 10}
+
+----CrossItemTopics-lt----
+Measure: RMSE
+best score: 0.8637137425350329
+best params: {'biased': False, 'n_factors': 100, 'lr_all': 0.1, 'reg_all': 0.01, 'n_epochs': 50, 'n_lda_iter': 6000, 'alpha': 0.04, 'eta': 0.02, 'n_topics': 20}
+Measure: MAE
+best score: 0.6270999486611736
+best params: {'biased': False, 'n_factors': 100, 'lr_all': 0.1, 'reg_all': 0.01, 'n_epochs': 50, 'n_lda_iter': 6000, 'alpha': 0.04, 'eta': 0.02, 'n_topics': 20}

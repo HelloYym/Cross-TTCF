@@ -17,7 +17,7 @@ lt_dataset = pickle.load(
     open(os.path.join(dump_dir, 'Dataset/lt-limit-ml20m'), 'rb'))
 
 
-uirts = lt_dataset.info().uirts
+uirts = ml_dataset.info().uirts
 tag_freq = defaultdict(int)
 for _, _, _, tids in uirts:
     for tid in tids:

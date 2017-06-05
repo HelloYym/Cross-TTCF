@@ -8,7 +8,6 @@ import os
 
 from surprise import SVD, UserItemTags, UserItemGenomeTags, ItemRelTags, UserItemRelTags, ItemTopics, UserItemTopics
 from surprise import CrossUserItemTags, CrossUserItemRelTags, CrossItemRelTags, CrossItemTopics
-from surprise import ItemTopicsTest,CrossItemTopicsTest
 
 from surprise import GridSearch
 
@@ -42,7 +41,7 @@ n_topics = 10
 n_lda_iter = 2000
 alpha = 0.02
 eta = 0.01
-dump_info = 'lt-rel-10parts-0523'
+dump_info = 'lt-best-params-10parts-0525'
 
 # algo1 = SVD(biased=biased, n_factors=n_factors,
 #             n_epochs=n_epochs, lr_all=lr_all, reg_all=reg_all)
@@ -63,24 +62,24 @@ dump_info = 'lt-rel-10parts-0523'
 # algo1 = SVD(biased=biased, n_factors=n_factors,
 #             n_epochs=n_epochs, lr_all=0.01, reg_all=0.04)
 # algo2 = ItemTopics(biased=biased, n_factors=n_factors,
-#                    n_epochs=n_epochs, lr_all=0.005, reg_all=0.01, n_topics=10, n_lda_iter=2000, eta=0.02, alpha=0.04)
+#                    n_epochs=n_epochs, lr_all=0.005, reg_all=0.002, n_topics=10, n_lda_iter=6000, eta=0.02, alpha=0.1)
 # algo3 = ItemRelTags(biased=biased, n_factors=n_factors,
 #                     n_epochs=n_epochs, lr_all=0.01, reg_all=0.02)
 # algo4 = CrossItemTopics(biased=biased, n_factors=n_factors, n_epochs=n_epochs, lr_all=0.005,
-#                         reg_all=0.01, n_topics=10, n_lda_iter=2000, eta=0.02, alpha=0.02)
+#                         reg_all=0.002, n_topics=20, n_lda_iter=4000, eta=0.04, alpha=0.04)
 # algo5 = UserItemTags(biased=biased, n_factors=n_factors,
 #                      n_epochs=n_epochs, lr_all=0.01, reg_all=0.04)
 
-algo1 = SVD(biased=biased, n_factors=n_factors,
-            n_epochs=n_epochs, lr_all=0.01, reg_all=0.02)
-algo2 = ItemTopics(biased=biased, n_factors=n_factors,
-                   n_epochs=n_epochs, lr_all=0.01, reg_all=0.01, n_topics=10, n_lda_iter=2000, eta=0.02, alpha=0.02)
-algo3 = ItemRelTags(biased=biased, n_factors=n_factors,
-                    n_epochs=n_epochs, lr_all=0.01, reg_all=0.02)
-algo4 = CrossItemTopics(biased=biased, n_factors=n_factors, n_epochs=n_epochs, lr_all=0.02,
-                        reg_all=0.02, n_topics=10, n_lda_iter=2000, eta=0.01, alpha=0.01)
-algo5 = UserItemTags(biased=biased, n_factors=n_factors,
-                     n_epochs=n_epochs, lr_all=0.01, reg_all=0.01)
+# algo1 = SVD(biased=biased, n_factors=n_factors,
+#             n_epochs=n_epochs, lr_all=0.01, reg_all=0.02)
+# algo2 = ItemTopics(biased=biased, n_factors=n_factors,
+#                    n_epochs=n_epochs, lr_all=0.1, reg_all=0.01, n_topics=10, n_lda_iter=6000, eta=0.04, alpha=0.04)
+# algo3 = ItemRelTags(biased=biased, n_factors=n_factors,
+#                     n_epochs=n_epochs, lr_all=0.01, reg_all=0.02)
+algo4 = CrossItemTopics(biased=biased, n_factors=n_factors, n_epochs=n_epochs, lr_all=0.1,
+                        reg_all=0.01, n_topics=20, n_lda_iter=6000, eta=0.02, alpha=0.04)
+# algo5 = UserItemTags(biased=biased, n_factors=n_factors,
+#                      n_epochs=n_epochs, lr_all=0.01, reg_all=0.01)
 
 # Evaluate performances of our algorithm on the dataset.
 # print_perf(evaluate(algo1, dataset=ml_dataset, measures=['RMSE', 'MAE']))
