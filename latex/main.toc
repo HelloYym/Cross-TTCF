@@ -1,0 +1,45 @@
+\contentsline {chapter}{摘要}{I}{chapter*.1}
+\contentsline {chapter}{Abstract}{II}{chapter*.2}
+\contentsline {chapter}{\numberline {第 1 章}绪论}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}课题背景}{1}{section.1.1}
+\contentsline {section}{\numberline {1.2}本文的主要工作}{2}{section.1.2}
+\contentsline {section}{\numberline {1.3}本文结构安排}{3}{section.1.3}
+\contentsline {chapter}{\numberline {第 2 章}相关工作综述}{5}{chapter.2}
+\contentsline {section}{\numberline {2.1}推荐系统的研究现状}{5}{section.2.1}
+\contentsline {section}{\numberline {2.2}基于协同过滤的推荐系统}{6}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}基于近邻的协同过滤}{7}{subsection.2.2.1}
+\contentsline {subsubsection}{\numberline {2.2.1.1}基于用户的近邻推荐}{7}{subsubsection.2.2.1.1}
+\contentsline {subsubsection}{\numberline {2.2.1.2}基于物品的协同过滤}{8}{subsubsection.2.2.1.2}
+\contentsline {subsubsection}{\numberline {2.2.1.3}相似性权重计算}{8}{subsubsection.2.2.1.3}
+\contentsline {subsubsection}{\numberline {2.2.1.4}基于用户与物品方法对比}{8}{subsubsection.2.2.1.4}
+\contentsline {subsection}{\numberline {2.2.2}基于潜在特征的协同过滤}{9}{subsection.2.2.2}
+\contentsline {section}{\numberline {2.3}概率主题模型}{10}{section.2.3}
+\contentsline {section}{\numberline {2.4}跨域推荐系统}{11}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}基于迁移学习的模型}{12}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}基于语义桥的跨域推荐}{12}{subsection.2.4.2}
+\contentsline {section}{\numberline {2.5}本章小结}{13}{section.2.5}
+\contentsline {chapter}{\numberline {第 3 章}结合标签主题的跨域推荐算法}{15}{chapter.3}
+\contentsline {section}{\numberline {3.1}初步定义}{15}{section.3.1}
+\contentsline {section}{\numberline {3.2}单一域建模}{15}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}低相关标签过滤}{15}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}结合物品标签的协同过滤}{16}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}标签主题聚类}{17}{subsection.3.2.3}
+\contentsline {section}{\numberline {3.3}跨域推荐模型}{18}{section.3.3}
+\contentsline {section}{\numberline {3.4}本章小结}{19}{section.3.4}
+\contentsline {chapter}{\numberline {第 4 章}实验与分析}{21}{chapter.4}
+\contentsline {section}{\numberline {4.1}数据集及预处理}{21}{section.4.1}
+\contentsline {section}{\numberline {4.2}实验设计}{22}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}数据集划分}{22}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}评价标准}{23}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}参数设置}{23}{subsection.4.2.3}
+\contentsline {subsection}{\numberline {4.2.4}LDA 主题建模}{24}{subsection.4.2.4}
+\contentsline {section}{\numberline {4.3}实验结果分析}{25}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}单个域推荐}{26}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}跨域推荐}{28}{subsection.4.3.2}
+\contentsline {section}{\numberline {4.4}本章小结}{28}{section.4.4}
+\contentsline {chapter}{\numberline {第 5 章}总结和展望}{31}{chapter.5}
+\contentsline {section}{\numberline {5.1}本文工作总结}{31}{section.5.1}
+\contentsline {section}{\numberline {5.2}未来工作展望}{31}{section.5.2}
+\contentsline {chapter}{参考文献}{36}{chapter*.4}
+\contentsline {chapter}{致谢}{37}{chapter*.5}
+\contentsfinish 

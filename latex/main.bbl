@@ -1,0 +1,282 @@
+\begin{thebibliography}{10}
+\providecommand{\bibauthor}[1]{#1}
+\providecommand{\bibeditor}[1]{#1}
+\providecommand{\bibtranslator}[1]{#1}
+\providecommand{\bibtitle}[1]{#1}
+\providecommand{\bibbooktitle}[1]{#1}
+\providecommand{\bibjournal}[1]{#1}
+\providecommand{\bibmark}[1]{#1}
+\providecommand{\bibcountry}[1]{#1}
+\providecommand{\bibpatentid}[1]{#1}
+\providecommand{\bibedition}[1]{#1}
+\providecommand{\biborganization}[1]{#1}
+\providecommand{\bibaddress}[1]{#1}
+\providecommand{\bibpublisher}[1]{#1}
+\providecommand{\bibinstitution}[1]{#1}
+\providecommand{\bibschool}[1]{#1}
+\providecommand{\bibvolume}[1]{#1}
+\providecommand{\bibnumber}[1]{#1}
+\providecommand{\bibversion}[1]{#1}
+\providecommand{\bibpages}[1]{#1}
+\providecommand{\bibmodifydate}[1]{#1}
+\providecommand{\bibcitedate}[1]{#1}
+\providecommand{\bibyear}[1]{#1}
+\providecommand{\bibdate}[1]{#1}
+\providecommand{\biburl}[1]{\url{#1}}
+
+\bibitem{项亮2012推荐系统实践}
+\bibauthor{项亮}\@. \bibbooktitle{推荐系统实践}\bibmark{[M]}\@.
+  \bibaddress{[S.l.]}\thinspace{}\textnormal{:
+  }\bibpublisher{人民邮电出版社}\@, \bibyear{2012}\@.
+
+\bibitem{fernandez2012cross}
+\bibauthor{Fern{\'a}ndez-Tob{\'\i}as I\@, Cantador I\@, Kaminskas M, et~al}\@.
+  \bibtitle{Cross-domain recommender systems: A survey of the state of the
+  art}\bibmark{[C]} //\thinspace{}\bibbooktitle{Spanish Conference on
+  Information Retrieval}\@. \bibyear{2012}\@.
+
+\bibitem{肖力涛2016基于隐式因子和隐式主题的跨域推荐算法研究}
+\bibauthor{肖力涛}\@.
+  \bibtitle{基于隐式因子和隐式主题的跨域推荐算法研究}\bibmark{[D]}\@.
+  \bibaddress{[S.l.]}\thinspace{}\textnormal{: }\bibschool{浙江大学}\@,
+  \bibyear{2016}\@.
+
+\bibitem{Wang2011Collaborative}
+\bibauthor{Wang C\@, Blei D~M}\@. \bibtitle{Collaborative topic modeling for
+  recommending scientific articles}\bibmark{[C]}
+  //\thinspace{}\bibbooktitle{ACM SIGKDD International Conference on Knowledge
+  Discovery and Data Mining, San Diego, Ca, Usa, August}\@.
+  \bibyear{2011}\thinspace{}\textnormal{:
+  }\bibpages{448\thinspace{}\textnormal{--}\thinspace{}456}\@.
+
+\bibitem{Koren2009Matrix}
+\bibauthor{Koren Y\@, Bell R\@, Volinsky C}\@. \bibtitle{Matrix Factorization
+  Techniques for Recommender Systems}\bibmark{[J]}\@. \bibjournal{Computer}\@,
+  \bibyear{2009}\@, \bibvolume{42}\bibnumber{(8)}\thinspace{}\textnormal{:
+  }\bibpages{30\thinspace{}\textnormal{--}\thinspace{}37}\@.
+
+\bibitem{Goldberg1992Using}
+\bibauthor{Goldberg D}\@. \bibtitle{Using collaborative filtering to weave an
+  information tapestry}\bibmark{[J]}\@. \bibjournal{Communications of the
+  Acm}\@, \bibyear{1992}\@,
+  \bibvolume{35}\bibnumber{(12)}\thinspace{}\textnormal{:
+  }\bibpages{61\thinspace{}\textnormal{--}\thinspace{}70}\@.
+
+\bibitem{shi2014collaborative}
+\bibauthor{Shi Y\@, Larson M\@, Hanjalic A}\@. \bibtitle{Collaborative
+  filtering beyond the user-item matrix: A survey of the state of the art and
+  future challenges}\bibmark{[J]}\@. \bibjournal{ACM Computing Surveys
+  (CSUR)}\@, \bibyear{2014}\@,
+  \bibvolume{47}\bibnumber{(1)}\thinspace{}\textnormal{: }\bibpages{3}\@.
+
+\bibitem{Desrosiers2011A}
+\bibauthor{Desrosiers C\@, Karypis G}\@. \bibbooktitle{A Comprehensive Survey
+  of Neighborhood-based Recommendation Methods}\bibmark{[M]}\@.
+  \bibyear{2011}\thinspace{}\textnormal{:
+  }\bibpages{107\thinspace{}\textnormal{--}\thinspace{}144}\@.
+
+\bibitem{Sarwar2001Item}
+\bibauthor{Sarwar B\@, Karypis G\@, Konstan J, et~al}\@. \bibtitle{Item-based
+  collaborative filtering recommendation algorithms}\bibmark{[C]}
+  //\thinspace{}\bibbooktitle{International Conference on World Wide Web}\@.
+  \bibyear{2001}\thinspace{}\textnormal{:
+  }\bibpages{285\thinspace{}\textnormal{--}\thinspace{}295}\@.
+
+\bibitem{Deshpande2004Item}
+\bibauthor{Deshpande M\@, Karypis G}\@. \bibtitle{Item-based top- N
+  recommendation algorithms}\bibmark{[J]}\@. \bibjournal{Acm Transactions on
+  Information Systems}\@, \bibyear{2004}\@,
+  \bibvolume{22}\bibnumber{(1)}\thinspace{}\textnormal{:
+  }\bibpages{143\thinspace{}\textnormal{--}\thinspace{}177}\@.
+
+\bibitem{xu2015ice}
+\bibauthor{Xu J\@, Yao Y\@, Tong H, et~al}\@. \bibtitle{Ice-Breaking:
+  Mitigating Cold-Start Recommendation Problem by Rating
+  Comparison.}\bibmark{[C]} //\thinspace{}\bibbooktitle{IJCAI}\@.
+  \bibyear{2015}\thinspace{}\textnormal{:
+  }\bibpages{3981\thinspace{}\textnormal{--}\thinspace{}3987}\@.
+
+\bibitem{blei2009topic}
+\bibauthor{Blei D~M\@, Lafferty J~D}\@. \bibtitle{Topic models}\bibmark{[J]}\@.
+  \bibjournal{Text mining: classification, clustering, and applications}\@,
+  \bibyear{2009}\@, \bibvolume{10}\bibnumber{(71)}\thinspace{}\textnormal{:
+  }\bibpages{34}\@.
+
+\bibitem{Chang2009Reading}
+\bibauthor{Chang J\@, Boyd-Graber J~L\@, Gerrish S, et~al}\@. \bibtitle{Reading
+  Tea Leaves: How Humans Interpret Topic Models}\bibmark{[J]}\@.
+  \bibjournal{Advances in Neural Information Processing Systems}\@,
+  \bibyear{2009}\@, \bibvolume{32}\thinspace{}\textnormal{:
+  }\bibpages{288\thinspace{}\textnormal{--}\thinspace{}296}\@.
+
+\bibitem{Blei2003Latent}
+\bibauthor{Blei D~M\@, Ng A~Y\@, Jordan M~I}\@. \bibtitle{Latent dirichlet
+  allocation}\bibmark{[J]}\@. \bibjournal{Journal of Machine Learning
+  Research}\@, \bibyear{2003}\@, \bibvolume{3}\thinspace{}\textnormal{:
+  }\bibpages{993\thinspace{}\textnormal{--}\thinspace{}1022}\@.
+
+\bibitem{Agarwal2009Regression}
+\bibauthor{Agarwal D\@, Chen B~C}\@. \bibtitle{Regression-based latent factor
+  models}\bibmark{[C]} //\thinspace{}\bibbooktitle{ACM SIGKDD International
+  Conference on Knowledge Discovery and Data Mining}\@.
+  \bibyear{2009}\thinspace{}\textnormal{:
+  }\bibpages{19\thinspace{}\textnormal{--}\thinspace{}28}\@.
+
+\bibitem{Salakhutdinov2007Probabilistic}
+\bibauthor{Salakhutdinov R\@, Mnih A}\@. \bibtitle{Probabilistic matrix
+  factorization}\bibmark{[C]} //\thinspace{}\bibbooktitle{International
+  Conference on Machine Learning}\@. \bibyear{2007}\thinspace{}\textnormal{:
+  }\bibpages{880\thinspace{}\textnormal{--}\thinspace{}887}\@.
+
+\bibitem{Agarwal2010fLDA}
+\bibauthor{Agarwal D\@, Chen B~C}\@. \bibtitle{fLDA:matrix factorization
+  through latent dirichlet allocation}\bibmark{[C]}
+  //\thinspace{}\bibbooktitle{International Conference on Web Search and Web
+  Data Mining, WSDM 2010, New York, Ny, Usa, February}\@.
+  \bibyear{2010}\thinspace{}\textnormal{:
+  }\bibpages{91\thinspace{}\textnormal{--}\thinspace{}100}\@.
+
+\bibitem{purushotham2012collaborative}
+\bibauthor{Purushotham S\@, Liu Y\@, Kuo C-C~J}\@. \bibtitle{Collaborative
+  topic regression with social matrix factorization for recommendation
+  systems}\bibmark{[J]}\@. \bibjournal{arXiv preprint arXiv:1206.4684}\@,
+  \bibyear{2012}\@.
+
+\bibitem{chen2014context}
+\bibauthor{Chen C\@, Zheng X\@, Wang Y, et~al}\@. \bibtitle{Context-Aware
+  Collaborative Topic Regression with Social Matrix Factorization for
+  Recommender Systems.}\bibmark{[C]}
+  //\thinspace{}\bibbooktitle{AAAI\thinspace{}\textnormal{: }Vol~14}\@.
+  \bibyear{2014}\thinspace{}\textnormal{:
+  }\bibpages{9\thinspace{}\textnormal{--}\thinspace{}15}\@.
+
+\bibitem{hu2013personalized}
+\bibauthor{Hu L\@, Cao J\@, Xu G, et~al}\@. \bibtitle{Personalized
+  recommendation via cross-domain triadic factorization}\bibmark{[C]}
+  //\thinspace{}\bibbooktitle{Proceedings of the 22nd international conference
+  on World Wide Web}\@. \bibyear{2013}\thinspace{}\textnormal{:
+  }\bibpages{595\thinspace{}\textnormal{--}\thinspace{}606}\@.
+
+\bibitem{shi2011tags}
+\bibauthor{Shi Y\@, Larson M\@, Hanjalic A}\@. \bibtitle{Tags as bridges
+  between domains: Improving recommendation with tag-induced cross-domain
+  collaborative filtering}\bibmark{[C]}
+  //\thinspace{}\bibbooktitle{International Conference on User Modeling,
+  Adaptation, and Personalization}\@. \bibyear{2011}\thinspace{}\textnormal{:
+  }\bibpages{305\thinspace{}\textnormal{--}\thinspace{}316}\@.
+
+\bibitem{li2009can}
+\bibauthor{Li B\@, Yang Q\@, Xue X}\@. \bibtitle{Can Movies and Books
+  Collaborate? Cross-Domain Collaborative Filtering for Sparsity
+  Reduction.}\bibmark{[C]}
+  //\thinspace{}\bibbooktitle{IJCAI\thinspace{}\textnormal{: }Vol~9}\@.
+  \bibyear{2009}\thinspace{}\textnormal{:
+  }\bibpages{2052\thinspace{}\textnormal{--}\thinspace{}2057}\@.
+
+\bibitem{li2009transfer}
+\bibauthor{Li B\@, Yang Q\@, Xue X}\@. \bibtitle{Transfer learning for
+  collaborative filtering via a rating-matrix generative model}\bibmark{[C]}
+  //\thinspace{}\bibbooktitle{Proceedings of the 26th annual international
+  conference on machine learning}\@. \bibyear{2009}\thinspace{}\textnormal{:
+  }\bibpages{617\thinspace{}\textnormal{--}\thinspace{}624}\@.
+
+\bibitem{kaminskas2011location}
+\bibauthor{Kaminskas M\@, Ricci F}\@. \bibtitle{Location-adapted music
+  recommendation using tags}\bibmark{[C]}
+  //\thinspace{}\bibbooktitle{International Conference on User Modeling,
+  Adaptation, and Personalization}\@. \bibyear{2011}\thinspace{}\textnormal{:
+  }\bibpages{183\thinspace{}\textnormal{--}\thinspace{}194}\@.
+
+\bibitem{Enrich2013Cold}
+\bibauthor{Enrich M\@, Braunhofer M\@, Ricci F}\@. \bibtitle{Cold-Start
+  Management with Cross-Domain Collaborative Filtering and
+  Tags}\bibmark{[J]}\@, \bibyear{2013}\@,
+  \bibvolume{152}\thinspace{}\textnormal{:
+  }\bibpages{101\thinspace{}\textnormal{--}\thinspace{}112}\@.
+
+\bibitem{Xin2015Cross}
+\bibauthor{Xin X\@, Liu Z\@, Lin C~Y, et~al}\@. \bibtitle{Cross-domain
+  collaborative filtering with review text}\bibmark{[C]}
+  //\thinspace{}\bibbooktitle{International Conference on Artificial
+  Intelligence}\@. \bibyear{2015}\thinspace{}\textnormal{:
+  }\bibpages{1827\thinspace{}\textnormal{--}\thinspace{}1833}\@.
+
+\bibitem{zhuang2010cross}
+\bibauthor{Zhuang F\@, Luo P\@, Xiong H, et~al}\@. \bibtitle{Cross-domain
+  learning from multiple sources: A consensus regularization
+  perspective}\bibmark{[J]}\@. \bibjournal{IEEE Transactions on Knowledge and
+  Data Engineering}\@, \bibyear{2010}\@,
+  \bibvolume{22}\bibnumber{(12)}\thinspace{}\textnormal{:
+  }\bibpages{1664\thinspace{}\textnormal{--}\thinspace{}1678}\@.
+
+\bibitem{cao2010transfer}
+\bibauthor{Cao B\@, Liu N~N\@, Yang Q}\@. \bibtitle{Transfer learning for
+  collective link prediction in multiple heterogenous domains}\bibmark{[C]}
+  //\thinspace{}\bibbooktitle{Proceedings of the 27th international conference
+  on machine learning (ICML-10)}\@. \bibyear{2010}\thinspace{}\textnormal{:
+  }\bibpages{159\thinspace{}\textnormal{--}\thinspace{}166}\@.
+
+\bibitem{chen2016capturing}
+\bibauthor{Chen C\@, Zheng X\@, Wang Y, et~al}\@. \bibtitle{Capturing Semantic
+  Correlation for Item Recommendation in Tagging Systems.}\bibmark{[C]}
+  //\thinspace{}\bibbooktitle{AAAI}\@. \bibyear{2016}\thinspace{}\textnormal{:
+  }\bibpages{108\thinspace{}\textnormal{--}\thinspace{}114}\@.
+
+\bibitem{wang2013collaborative}
+\bibauthor{Wang H\@, Chen B\@, Li W-J}\@. \bibtitle{Collaborative Topic
+  Regression with Social Regularization for Tag Recommendation.}\bibmark{[C]}
+  //\thinspace{}\bibbooktitle{IJCAI}\@. \bibyear{2013}\@.
+
+\bibitem{fang2015personalized}
+\bibauthor{Fang X\@, Pan R\@, Cao G, et~al}\@. \bibtitle{Personalized Tag
+  Recommendation through Nonlinear Tensor Factorization Using Gaussian
+  Kernel.}\bibmark{[C]} //\thinspace{}\bibbooktitle{AAAI}\@.
+  \bibyear{2015}\thinspace{}\textnormal{:
+  }\bibpages{439\thinspace{}\textnormal{--}\thinspace{}445}\@.
+
+\bibitem{zhou2010userrec}
+\bibauthor{Zhou T~C\@, Ma H\@, Lyu M~R, et~al}\@. \bibtitle{UserRec: A User
+  Recommendation Framework in Social Tagging Systems.}\bibmark{[C]}
+  //\thinspace{}\bibbooktitle{AAAI}\@. \bibyear{2010}\@.
+
+\bibitem{xu2011semrec}
+\bibauthor{Xu G\@, Gu Y\@, Dolog P, et~al}\@. \bibtitle{SemRec: A Semantic
+  Enhancement Framework for Tag Based Recommendation.}\bibmark{[C]}
+  //\thinspace{}\bibbooktitle{AAAI\thinspace{}\textnormal{: }Vol~11}\@.
+  \bibyear{2011}\thinspace{}\textnormal{:
+  }\bibpages{1267\thinspace{}\textnormal{--}\thinspace{}1272}\@.
+
+\bibitem{linden2003amazon}
+\bibauthor{Linden G\@, Smith B\@, York J}\@. \bibtitle{Amazon. com
+  recommendations: Item-to-item collaborative filtering}\bibmark{[J]}\@.
+  \bibjournal{IEEE Internet computing}\@, \bibyear{2003}\@,
+  \bibvolume{7}\bibnumber{(1)}\thinspace{}\textnormal{:
+  }\bibpages{76\thinspace{}\textnormal{--}\thinspace{}80}\@.
+
+\bibitem{Jannach2010Recommender}
+\bibauthor{Jannach D\@, Zanker M\@, Felfernig A, et~al}\@.
+  \bibtitle{Recommender Systems: An Introduction}\bibmark{[C]}
+  //\thinspace{}\@. \bibyear{2010}\@.
+
+\bibitem{paterek2007improving}
+\bibauthor{Paterek A}\@. \bibtitle{Improving regularized singular value
+  decomposition for collaborative filtering}\bibmark{[C]}
+  //\thinspace{}\bibbooktitle{Proceedings of KDD cup and
+  workshop\thinspace{}\textnormal{: }Vol~2007}\@.
+  \bibyear{2007}\thinspace{}\textnormal{:
+  }\bibpages{5\thinspace{}\textnormal{--}\thinspace{}8}\@.
+
+\bibitem{Loizou2009How}
+\bibauthor{Loizou A}\@. \bibtitle{How to recommend music to film buffs:
+  Enabling the provision of recommendations from multiple
+  domains}\bibmark{[J]}\@. \bibjournal{University of Southampton}\@,
+  \bibyear{2009}\@.
+
+\bibitem{王娅丹2015标签共现的标签聚类算法研究}
+\bibauthor{王娅丹\@, 李鹏\@, 金瑜, et~al}\@.
+  \bibtitle{标签共现的标签聚类算法研究}\bibmark{[J]}\@.
+  \bibjournal{计算机工程与应用}\@, \bibyear{2015}\@,
+  \bibvolume{51}\bibnumber{(2)}\thinspace{}\textnormal{:
+  }\bibpages{146\thinspace{}\textnormal{--}\thinspace{}150}\@.
+
+\end{thebibliography}

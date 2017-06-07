@@ -1,0 +1,530 @@
+This is XeTeX, Version 3.14159265-2.6-0.99996 (TeX Live 2016) (preloaded format=xelatex 2017.3.8)  27 MAY 2017 13:58
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**assignment.tex
+(./assignment.tex
+LaTeX2e <2016/03/31>
+Babel <3.9r> and hyphenation patterns for 83 language(s) loaded.
+! Undefined control sequence.
+l.9     \songti
+               \erhao\bfseries
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.9     \songti\erhao
+                     \bfseries
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.10     本
+            科生毕业论文（设计）任务书 \par
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no 本 in font cmbx10!
+Missing character: There is no 科 in font cmbx10!
+Missing character: There is no 生 in font cmbx10!
+Missing character: There is no 毕 in font cmbx10!
+Missing character: There is no 业 in font cmbx10!
+Missing character: There is no 论 in font cmbx10!
+Missing character: There is no 文 in font cmbx10!
+Missing character: There is no （ in font cmbx10!
+Missing character: There is no 设 in font cmbx10!
+Missing character: There is no 计 in font cmbx10!
+Missing character: There is no ） in font cmbx10!
+Missing character: There is no 任 in font cmbx10!
+Missing character: There is no 务 in font cmbx10!
+Missing character: There is no 书 in font cmbx10!
+! Undefined control sequence.
+l.16     \songti
+                \xiaosi\bfseries
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+l.16     \songti\xiaosi
+                       \bfseries
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.17     一
+            、 \; 题目 \; \underline{\makebox{\zjutitlec}}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no 一 in font cmbx10!
+Missing character: There is no 、 in font cmbx10!
+! Missing $ inserted.
+<inserted text> 
+                $
+l.17     一、 \;
+                   题目 \; \underline{\makebox{\zjutitlec}}
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 17.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 17.
+! Undefined control sequence.
+<argument> \zjutitlec 
+                      
+l.17 ...题目 \; \underline{\makebox{\zjutitlec}}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.18 
+     
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+Missing character: There is no 题 in font cmr10!
+Missing character: There is no 目 in font cmr10!
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.21     二
+            、 \; 指导教师对毕业论文（设计）的进度安排及...
+
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no 二 in font cmbx10!
+Missing character: There is no 、 in font cmbx10!
+! Missing $ inserted.
+<inserted text> 
+                $
+l.21     二、 \;
+                   指导教师对毕业论文（设计）的进度安排及...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.22 
+     
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+Missing character: There is no 指 in font cmr10!
+Missing character: There is no 导 in font cmr10!
+Missing character: There is no 教 in font cmr10!
+Missing character: There is no 师 in font cmr10!
+Missing character: There is no 对 in font cmr10!
+Missing character: There is no 毕 in font cmr10!
+Missing character: There is no 业 in font cmr10!
+Missing character: There is no 论 in font cmr10!
+Missing character: There is no 文 in font cmr10!
+Missing character: There is no （ in font cmr10!
+Missing character: There is no 设 in font cmr10!
+Missing character: There is no 计 in font cmr10!
+Missing character: There is no ） in font cmr10!
+Missing character: There is no 的 in font cmr10!
+Missing character: There is no 进 in font cmr10!
+Missing character: There is no 度 in font cmr10!
+Missing character: There is no 安 in font cmr10!
+Missing character: There is no 排 in font cmr10!
+Missing character: There is no 及 in font cmr10!
+Missing character: There is no 任 in font cmr10!
+Missing character: There is no 务 in font cmr10!
+Missing character: There is no 要 in font cmr10!
+Missing character: There is no 求 in font cmr10!
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.24     该
+            毕业论文要求在对协同过滤模型相关国内外研究�...
+
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no 该 in font cmbx10!
+Missing character: There is no 毕 in font cmbx10!
+Missing character: There is no 业 in font cmbx10!
+Missing character: There is no 论 in font cmbx10!
+Missing character: There is no 文 in font cmbx10!
+Missing character: There is no 要 in font cmbx10!
+Missing character: There is no 求 in font cmbx10!
+Missing character: There is no 在 in font cmbx10!
+Missing character: There is no 对 in font cmbx10!
+Missing character: There is no 协 in font cmbx10!
+Missing character: There is no 同 in font cmbx10!
+Missing character: There is no 过 in font cmbx10!
+Missing character: There is no 滤 in font cmbx10!
+Missing character: There is no 模 in font cmbx10!
+Missing character: There is no 型 in font cmbx10!
+Missing character: There is no 相 in font cmbx10!
+Missing character: There is no 关 in font cmbx10!
+Missing character: There is no 国 in font cmbx10!
+Missing character: There is no 内 in font cmbx10!
+Missing character: There is no 外 in font cmbx10!
+Missing character: There is no 研 in font cmbx10!
+Missing character: There is no 究 in font cmbx10!
+Missing character: There is no 现 in font cmbx10!
+Missing character: There is no 状 in font cmbx10!
+Missing character: There is no 进 in font cmbx10!
+Missing character: There is no 行 in font cmbx10!
+Missing character: There is no 深 in font cmbx10!
+Missing character: There is no 入 in font cmbx10!
+Missing character: There is no 分 in font cmbx10!
+Missing character: There is no 析 in font cmbx10!
+Missing character: There is no 的 in font cmbx10!
+Missing character: There is no 基 in font cmbx10!
+Missing character: There is no 础 in font cmbx10!
+Missing character: There is no 上 in font cmbx10!
+Missing character: There is no 重 in font cmbx10!
+Missing character: There is no 点 in font cmbx10!
+Missing character: There is no 围 in font cmbx10!
+Missing character: There is no 绕 in font cmbx10!
+Missing character: There is no 结 in font cmbx10!
+Missing character: There is no 合 in font cmbx10!
+Missing character: There is no 标 in font cmbx10!
+Missing character: There is no 签 in font cmbx10!
+Missing character: There is no 的 in font cmbx10!
+Missing character: There is no 跨 in font cmbx10!
+Missing character: There is no 域 in font cmbx10!
+Missing character: There is no 推 in font cmbx10!
+Missing character: There is no 荐 in font cmbx10!
+Missing character: There is no 模 in font cmbx10!
+Missing character: There is no 型 in font cmbx10!
+Missing character: There is no 展 in font cmbx10!
+Missing character: There is no 开 in font cmbx10!
+Missing character: There is no 研 in font cmbx10!
+Missing character: There is no 究 in font cmbx10!
+Missing character: There is no 。 in font cmbx10!
+Missing character: There is no 实 in font cmbx10!
+Missing character: There is no 验 in font cmbx10!
+Missing character: There is no 过 in font cmbx10!
+Missing character: There is no 程 in font cmbx10!
+Missing character: There is no 要 in font cmbx10!
+Missing character: There is no 严 in font cmbx10!
+Missing character: There is no 谨 in font cmbx10!
+Missing character: There is no 有 in font cmbx10!
+Missing character: There is no 效 in font cmbx10!
+Missing character: There is no ， in font cmbx10!
+Missing character: There is no 实 in font cmbx10!
+Missing character: There is no 验 in font cmbx10!
+Missing character: There is no 结 in font cmbx10!
+Missing character: There is no 果 in font cmbx10!
+Missing character: There is no 要 in font cmbx10!
+Missing character: There is no 清 in font cmbx10!
+Missing character: There is no 晰 in font cmbx10!
+Missing character: There is no 可 in font cmbx10!
+Missing character: There is no 信 in font cmbx10!
+Missing character: There is no 。 in font cmbx10!
+Missing character: There is no 进 in font cmbx10!
+Missing character: There is no 度 in font cmbx10!
+Missing character: There is no 安 in font cmbx10!
+Missing character: There is no 排 in font cmbx10!
+Missing character: There is no 如 in font cmbx10!
+Missing character: There is no 下 in font cmbx10!
+Missing character: There is no 研 in font cmbx10!
+Missing character: There is no 究 in font cmbx10!
+Missing character: There is no 方 in font cmbx10!
+Missing character: There is no 案 in font cmbx10!
+Missing character: There is no 确 in font cmbx10!
+Missing character: There is no 定 in font cmbx10!
+Missing character: There is no 模 in font cmbx10!
+Missing character: There is no 型 in font cmbx10!
+Missing character: There is no 的 in font cmbx10!
+Missing character: There is no 建 in font cmbx10!
+Missing character: There is no 立 in font cmbx10!
+Missing character: There is no 与 in font cmbx10!
+Missing character: There is no 算 in font cmbx10!
+Missing character: There is no 法 in font cmbx10!
+Missing character: There is no 实 in font cmbx10!
+Missing character: There is no 现 in font cmbx10!
+Missing character: There is no 实 in font cmbx10!
+Missing character: There is no 验 in font cmbx10!
+Missing character: There is no 与 in font cmbx10!
+Missing character: There is no 分 in font cmbx10!
+Missing character: There is no 析 in font cmbx10!
+Missing character: There is no 论 in font cmbx10!
+Missing character: There is no 文 in font cmbx10!
+Missing character: There is no 撰 in font cmbx10!
+Missing character: There is no 写 in font cmbx10!
+
+Overfull \hbox (3.19443pt too wide) in paragraph at lines 24--30
+[]\OT1/cmr/bx/n/10 ,
+ []
+
+
+Overfull \hbox (3.19443pt too wide) in paragraph at lines 24--30
+\OT1/cmr/bx/n/10 :
+ []
+
+
+Overfull \hbox (24.27765pt too wide) in paragraph at lines 24--30
+\OT1/cmr/bx/n/10 3.01-
+ []
+
+
+Overfull \hbox (20.44434pt too wide) in paragraph at lines 24--30
+\OT1/cmr/bx/n/10 3.15
+ []
+
+
+Overfull \hbox (24.27765pt too wide) in paragraph at lines 24--30
+\OT1/cmr/bx/n/10 3.16-
+ []
+
+
+Overfull \hbox (20.44434pt too wide) in paragraph at lines 24--30
+\OT1/cmr/bx/n/10 4.15
+ []
+
+
+Overfull \hbox (24.27765pt too wide) in paragraph at lines 24--30
+\OT1/cmr/bx/n/10 4.15-
+ []
+
+
+Overfull \hbox (20.44434pt too wide) in paragraph at lines 24--30
+\OT1/cmr/bx/n/10 5.15
+ []
+
+
+Overfull \hbox (24.27765pt too wide) in paragraph at lines 24--30
+\OT1/cmr/bx/n/10 5.16-
+ []
+
+
+Overfull \hbox (20.44434pt too wide) in paragraph at lines 24--30
+\OT1/cmr/bx/n/10 5.30
+ []
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.33     \hfill
+                起讫日期 \hspace{2em} 年 \hspace{1em} 月 \hspace{1em} ...
+
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no 起 in font cmbx10!
+Missing character: There is no 讫 in font cmbx10!
+Missing character: There is no 日 in font cmbx10!
+Missing character: There is no 期 in font cmbx10!
+Missing character: There is no 年 in font cmbx10!
+Missing character: There is no 月 in font cmbx10!
+Missing character: There is no 日 in font cmbx10!
+! Missing $ inserted.
+<inserted text> 
+                $
+l.33 ...} 年 \hspace{1em} 月 \hspace{1em} 日 \;
+                                                   至 \hspace{2em} 年 \hsp...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.34 
+     
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+Missing character: There is no 至 in font cmr10!
+Missing character: There is no 年 in font cmr10!
+Missing character: There is no 月 in font cmr10!
+Missing character: There is no 日 in font cmr10!
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.37     \hfill
+                指导教师（签名） \; \underline{\hspace{4em}} \; 职�...
+
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no 指 in font cmbx10!
+Missing character: There is no 导 in font cmbx10!
+Missing character: There is no 教 in font cmbx10!
+Missing character: There is no 师 in font cmbx10!
+Missing character: There is no （ in font cmbx10!
+Missing character: There is no 签 in font cmbx10!
+Missing character: There is no 名 in font cmbx10!
+Missing character: There is no ） in font cmbx10!
+! Missing $ inserted.
+<inserted text> 
+                $
+l.37     \hfill 指导教师（签名） \;
+                                            \underline{\hspace{4em}} \; 职�...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.38 
+     
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+Missing character: There is no 职 in font cmr10!
+Missing character: There is no 称 in font cmr10!
+
+Overfull \hbox (97.55493pt too wide) in paragraph at lines 37--38
+[]  []$ 
+ []
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.41     三
+            、 \; 学院审核意见
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no 三 in font cmbx10!
+Missing character: There is no 、 in font cmbx10!
+! Missing $ inserted.
+<inserted text> 
+                $
+l.41     三、 \;
+                   学院审核意见
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.42 
+     
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+Missing character: There is no 学 in font cmr10!
+Missing character: There is no 院 in font cmr10!
+Missing character: There is no 审 in font cmr10!
+Missing character: There is no 核 in font cmr10!
+Missing character: There is no 意 in font cmr10!
+Missing character: There is no 见 in font cmr10!
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.45     \hfill
+                负责人（签名） \; \underline{\hspace{4em}}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no 负 in font cmbx10!
+Missing character: There is no 责 in font cmbx10!
+Missing character: There is no 人 in font cmbx10!
+Missing character: There is no （ in font cmbx10!
+Missing character: There is no 签 in font cmbx10!
+Missing character: There is no 名 in font cmbx10!
+Missing character: There is no ） in font cmbx10!
+! Missing $ inserted.
+<inserted text> 
+                $
+l.45     \hfill 负责人（签名） \;
+                                         \underline{\hspace{4em}}
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.46 
+     
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+Overfull \hbox (45.99976pt too wide) in paragraph at lines 45--46
+[]$ 
+ []
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.49     \hfill
+                \hspace{2em} 年 \hspace{1em} 月 \hspace{1em} 日 \par
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no 年 in font cmbx10!
+Missing character: There is no 月 in font cmbx10!
+Missing character: There is no 日 in font cmbx10!
+)
+! Emergency stop.
+<*> assignment.tex
+                  
+*** (job aborted, no legal \end found)
+
+ 
+Here is how much of TeX's memory you used:
+ 10 strings out of 493591
+ 116 string characters out of 6143547
+ 54754 words of memory out of 5000000
+ 3518 multiletter control sequences out of 15000+600000
+ 3948 words of font info for 15 fonts, out of 8000000 for 9000
+ 1347 hyphenation exceptions out of 8191
+ 19i,3n,12p,127b,113s stack positions out of 5000i,500n,10000p,200000b,80000s
+No pages of output.
